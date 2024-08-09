@@ -1,0 +1,11 @@
+/* app.component.css */
+.app-wrapper {
+  display: flex;
+}
+
+.content-wrapper {
+  margin-left: 250px;
+  /* Width of the sidebar */
+  padding: 20px;
+  width: calc(100% - 250px);
+}
