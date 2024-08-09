@@ -11,6 +11,7 @@ import { Component } from '@angular/core';
 
 
 export const routes: Routes = [
+  {path: '', component: DashboardComponent},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'topbar', component: TopbarComponent},
   {path: 'students', component: StudentsComponent},

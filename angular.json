@@ -11,31 +11,26 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/school-portal",
             "index": "src/index.html",
-            "browser": "src/main.ts",
+            "main": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
-           "assets": [
-                 "src/favicon.ico",
-                  "src/assets"
-                ],
-
-            "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-              "src/styles.css"
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
             ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+           "styles": [
+        "node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+        "src/styles.css"
+        ],
+          "scripts": []
+
           },
           "configurations": {
             "production": {

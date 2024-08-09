@@ -1,17 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { FullCalendarModule } from '@fullcalendar/angular'; // Import the FullCalendar module
-import dayGridPlugin from '@fullcalendar/daygrid'; // Import dayGrid plugin
-import interactionPlugin from '@fullcalendar/interaction'; // Import interaction plugin
+import { FullCalendarModule } from '@fullcalendar/angular'; 
+import dayGridPlugin from '@fullcalendar/daygrid'; 
+import interactionPlugin from '@fullcalendar/interaction'; 
+import { CommonModule } from '@angular/common'; 
+import { FormsModule } from '@angular/forms'; 
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [FullCalendarModule],
+  imports: [FullCalendarModule, CommonModule, FormsModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
   calendarOptions: any;
+  isEventFormOpen: boolean = false;
+  eventTitle: string = '';
+  selectedDate: string = '';
 
   ngOnInit() {
     this.calendarOptions = {
@@ -24,7 +29,27 @@ export class DashboardComponent implements OnInit {
   }
 
   handleDateClick(arg: any) {
-    alert('Date clicked: ' + arg.dateStr);
-    // You can add logic here to add an event
+    this.selectedDate = arg.dateStr; // Save the selected date
+    this.isEventFormOpen = true; // Open the event form
+  }
+
+  openEventForm() {
+    this.isEventFormOpen = true; // Show the event form
+  }
+
+  closeEventForm() {
+    this.isEventFormOpen = false; // Hide the event form
+    this.eventTitle = ''; // Reset the event title
+  }
+
+  saveEvent() {
+    if (this.eventTitle) {
+      const newEvent = {
+        title: this.eventTitle,
+        date: this.selectedDate,
+      };
+      this.calendarOptions.events.push(newEvent); // Add the event to the calendar
+      this.closeEventForm(); // Close the form
+    }
   }
 }
