@@ -1,0 +1,103 @@
+.registration-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+  margin-left: -200px;
+}
+
+.registration-box {
+  display: flex;
+  width: 800px;
+  height: 500px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+.left-section {
+  flex: 1;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5em;
+  padding: 20px;
+  border-radius: 10px 0 0 10px;
+}
+
+.right-section {
+  flex: 1;
+  background-color: white;
+  padding: 40px;
+  border-radius: 0 10px 10px 0;
+}
+
+.right-section h2 {
+  margin-bottom: 20px;
+  font-size: 1.5em;
+}
+
+.right-section p {
+  margin-bottom: 30px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+.password-container {
+  position: relative;
+}
+
+.password-container input {
+  width: calc(100% - 40px);
+  padding-right: 40px;
+}
+
+.toggle-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 15px;
+  background-color: #6a11cb;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #2575fc;
+}
+
+p {
+  margin-top: 20px;
+  text-align: center;
+}
+
+a {
+  color: #6a11cb;
+  text-decoration: none;
+}

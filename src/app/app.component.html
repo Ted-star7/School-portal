@@ -1,5 +1,5 @@
 <div class="app-wrapper">
-  <app-sidebar></app-sidebar>
+  <app-sidebar *ngIf="!hideSidebar"></app-sidebar>
   <div class="content-wrapper">
     <router-outlet></router-outlet>
   </div>
