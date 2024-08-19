@@ -27,6 +27,15 @@ export class ServicesService {
       .pipe(catchError(this.handleError));
   }
 
+  public getRequest(endpoint: string, token: string | null = null): Observable<any> {
+  const headers = this.createHeaders(token);
+
+  return this.httpClient
+    .get(`${this.url}${endpoint}`, { headers })
+    .pipe(catchError(this.handleError));
+}
+
+
   private createHeaders(token: string | null, isFormData: boolean = false): HttpHeaders {
     let headers = new HttpHeaders({
       'ngrok-skip-browser-warning': '6024',
@@ -43,8 +52,9 @@ export class ServicesService {
     return headers;
   }
 
+  
+
   private handleError(error: HttpErrorResponse): Observable<never> {
-    // Customize your error handling here
     let errorMessage = 'An unknown error occurred!';
     if (error.error instanceof ErrorEvent) {
       // Client-side error

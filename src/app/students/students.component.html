@@ -1,55 +1,56 @@
-<form (ngSubmit)="onSubmit()">
-  <!-- Form Fields for Student Registration -->
-  <input type="text" placeholder="First Name" [(ngModel)]="student.firstName" name="firstName" required>
-  <input type="text" placeholder="Middle Name" [(ngModel)]="student.middleName" name="middleName">
-  <input type="text" placeholder="Last Name" [(ngModel)]="student.lastName" name="lastName" required>
-  <input type="date" placeholder="Date of Birth" [(ngModel)]="student.dateOfBirth" name="dateOfBirth" required>
-  <input type="text" placeholder="Gender" [(ngModel)]="student.gender" name="gender" required>
-  <input type="text" placeholder="Nationality" [(ngModel)]="student.nationality" name="nationality" required>
-  <input type="email" placeholder="Email" [(ngModel)]="student.email" name="email" required>
-  <input type="date" placeholder="Enrollment Date" [(ngModel)]="student.enrollmentDate" name="enrollmentDate" required>
-  <input type="text" placeholder="Class Name" [(ngModel)]="student.className" name="className" required>
-  <input type="text" placeholder="Grade" [(ngModel)]="student.grade" name="grade" required>
-  <input type="text" placeholder="Registration Number" [(ngModel)]="student.registrationNumber" name="registrationNumber" required>
-  <input type="text" placeholder="Home Address" [(ngModel)]="student.homeAddress" name="homeAddress" required>
-  <input type="text" placeholder="Father's Name" [(ngModel)]="student.fathersName" name="fathersName">
-  <input type="text" placeholder="Mother's Name" [(ngModel)]="student.mothersName" name="mothersName">
-  <input type="text" placeholder="Guardian Name" [(ngModel)]="student.guardianName" name="guardianName">
-  <input type="text" placeholder="City/Town" [(ngModel)]="student.city" name="city" required>
-  <input type="text" placeholder="County" [(ngModel)]="student.county" name="county" required>
-
-  <!-- File Upload for Profile Picture -->
-  <input type="file" (change)="onFileSelected($event)">
-  
-  <!-- Submit Button -->
-  <button type="submit">Register Student</button>
-</form>
-
-<div *ngIf="students.length > 0" class="student-list">
-  <h2>Students</h2>
-  <ul>
-    <li *ngFor="let student of students" (click)="selectStudent(student)">
-      <img [src]="student.profilePictureUrl" alt="Student Photo">
-      <div>
-        <h3>{{ student.firstName }} {{ student.lastName }}</h3>
-        <p>{{ student.className }} | {{ student.registrationNumber }}</p>
-      </div>
-    </li>
-  </ul>
+<div class="search-bar">
+  <input type="text" [(ngModel)]="searchTerm" placeholder="Search for students or ID" />
 </div>
 
-<div *ngIf="selectedStudent" class="student-details">
-  <h2>{{ selectedStudent.firstName }} {{ selectedStudent.lastName }}</h2>
-  <img [src]="selectedStudent.profilePictureUrl" alt="Student Photo">
-  <p>Gender: {{ selectedStudent.gender }}</p>
-  <p>Date of Birth: {{ selectedStudent.dateOfBirth | date }}</p>
-  <p>Nationality: {{ selectedStudent.nationality }}</p>
-  <p>Class: {{ selectedStudent.className }}</p>
-  <p>Grade: {{ selectedStudent.grade }}</p>
-  <p>Father's Name: {{ selectedStudent.fathersName }}</p>
-  <p>Mother's Name: {{ selectedStudent.mothersName }}</p>
-  <p>Guardian Name: {{ selectedStudent.guardianName }}</p>
-  <p>Home Address: {{ selectedStudent.homeAddress }}</p>
-  <p>City: {{ selectedStudent.city }}</p>
-  <p>County: {{ selectedStudent.county }}</p>
+<div class="students-list">
+  <div 
+    class="student-item" 
+    *ngFor="let student of searchStudents()" 
+    (click)="selectStudent(student)"
+  >
+    <img [src]="student.photo" alt="Student Photo" />
+    <div class="student-details">
+      <p>{{ student.name }}</p>
+      <p class="student-id">{{ student.admissionNumber }}</p>
+      <p>{{ student.class }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="student-details-container" *ngIf="selectedStudent">
+  <div class="student-header">
+    <img [src]="selectedStudent.photo" alt="Selected Student Photo" />
+    <div class="student-info">
+      <h2>{{ selectedStudent.name }}</h2>
+      <p>{{ selectedStudent.class }} | Student ID: {{ selectedStudent.admissionNumber }}</p>
+    </div>
+  </div>
+
+  <div class="student-basic-details">
+    <h3>Basic Details</h3>
+    <div class="details-grid">
+     <div *ngFor="let detail of [
+    { label: 'Gender', value: selectedStudent.gender },
+    { label: 'Date of Birth', value: selectedStudent.dateOfBirth },
+    { label: 'Religion', value: selectedStudent.religion },
+    { label: 'Admission Number', value: selectedStudent.admissionNumber },
+    { label: 'Address', value: selectedStudent.address },
+    { label: 'Emergency Contact', value: selectedStudent.emergencyContact }
+]">
+    {{ detail.label }}: {{ detail.value }}
+</div>
+
+    </div>
+  </div>
+
+  <div class="student-performance">
+    <ul>
+      <li>Progress</li>
+      <li>Attendance</li>
+    </ul>
+    <div class="progress-chart">
+      <p>{{ selectedStudent.progress }}%</p>
+      <!-- Add your chart implementation here -->
+    </div>
+  </div>
 </div>
