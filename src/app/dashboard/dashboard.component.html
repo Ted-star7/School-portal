@@ -15,23 +15,23 @@
   
   <div class="dashboard-content">
     <div class="stats-grid">
-      <div class="stat-box">
+      <div class="stat-box" (click)="goToStudentsPage()">
         <h2>Total Students</h2>
-        <p>450</p>
+        <p>{{ totalStudents }}</p>
       </div>
-      <div class="stat-box">
+      <div class="stat-box" (click)="goToTeachersListPage()">
         <h2>Total Teachers</h2>
-        <p>50</p>
+        <p>{{ totalTeachers }}</p>
       </div>
-      <!-- <div class="stat-box">
-        <h2>Attendance Rate</h2>
-        <p>95%</p>
-      </div> -->
+      <div class="stat-box" (click)="goToStudentsPage()">
+        <h2>Total Parents</h2>
+        <p>{{ totalStudents }}</p>
+      </div>
     </div>
 
     <div class="charts-grid">
       <div class="chart-box">
-        <h2>Student Performance</h2>
+        <h2>Student's Overview</h2>
       </div>
       <div class="chart-box">
         <h2>Attendance Overview</h2>
@@ -41,23 +41,24 @@
 
   <div class="calendar-section">
     <h2>Events Calendar</h2>
-    <!-- Use the FullCalendar component here -->
     <full-calendar [options]="calendarOptions"></full-calendar>
     <button class="action-btn" (click)="openEventForm()">Add Event</button>
-
   </div>
 
   <!-- Event Form Modal -->
- <div *ngIf="isEventFormOpen" class="event-form">
-  <h3>Add Event</h3>
-  <label for="eventTitle">Event Title:</label>
-  <input type="text" id="eventTitle" [(ngModel)]="eventTitle" />
-  
-  <label for="eventDate">Event Date:</label>
-  <input type="text" id="eventDate" [value]="selectedDate" readonly />
+  <div *ngIf="isEventFormOpen" class="event-form">
+    <h3>Add Event</h3>
+    <label for="eventTitle">Event Title:</label>
+    <input type="text" id="eventTitle" [(ngModel)]="eventTitle" />
 
-  <button class="action-btn" (click)="saveEvent()">Save Event</button>
-  <button class="action-btn" (click)="closeEventForm()">Cancel</button>
-</div>
+    <h3>Event Description</h3>
+    <label for="eventTitle">Event Description:</label>
+    <input type="text" id="eventDescription" [(ngModel)]="eventDescription" />
+    
+    <label for="eventDate">Event Date:</label>
+    <input type="text" id="eventDate" [value]="selectedDate" readonly />
 
+    <button class="action-btn" (click)="saveEvent()">Save Event</button>
+    <button class="action-btn" (click)="closeEventForm()">Cancel</button>
+  </div>
 </div>

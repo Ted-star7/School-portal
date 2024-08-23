@@ -26,16 +26,16 @@ export class AppComponent implements OnInit {
     });
   }
 
- checkRoute(url: string) {
+checkRoute(url: string) {
   const hideSidebarRoutes = [
+    '/',            
     '/login', 
     '/registration',
-    '/resetpassword'
-    
+    '/resetpassword',
   ];
 
-  // Hide sidebar if the current URL starts with any of the specified routes
-  this.hideSidebar = hideSidebarRoutes.some(route => url.startsWith(route));
+  
+  this.hideSidebar = hideSidebarRoutes.includes(url);
 }
 
   

@@ -21,28 +21,43 @@
   margin-top: 20px;
 }
 
+.student-list-headers {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+  text-align: left;
+}
+
+.header-item {
+  flex: 1;
+  padding-left: 10px;
+}
+
 .student-item {
   display: flex;
   align-items: center;
   padding: 10px 0;
   border-bottom: 1px solid #e0e0e0;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.student-item img {
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  margin-right: 10px;
+.student-item:hover {
+  background-color: #f1f1f1;
 }
 
 .student-details {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
 }
 
-.student-details .student-id {
-  color: #6c757d;
+.student-info {
+  flex: 1;
+  padding-left: 10px;
+  text-align: left;
 }
 
 .student-details-container {
@@ -89,6 +104,14 @@
   margin: 5px 0;
 }
 
+.student-parents-details {
+  margin-top: 20px;
+}
+
+.student-address-details {
+  margin-top: 20px;
+}
+
 .student-performance {
   margin-top: 20px;
 }
@@ -118,4 +141,48 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+/* General label styling */
+.detail-item label {
+  font-weight: bold;
+  color: #374b63;
+  /* Darker shade for better contrast */
+  font-size: 14px;
+  margin-bottom: 5px;
+  display: block;
+  /* Ensures labels are on a new line */
+  text-transform: uppercase;
+  /* Makes the labels uppercase */
+  letter-spacing: 1px;
+  /* Adds space between letters */
+  padding-left: 5px;
+  /* Adds slight padding for spacing */
+}
+
+/* Styling for the value text next to the labels */
+.detail-item p {
+  margin: 5px 0 15px 5px;
+  /* Adds space between the value and next label */
+  font-size: 15px;
+  color: #2c3e50;
+  /* Darker color for better readability */
+}
+
+/* Container styling for better spacing and alignment */
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* Two columns layout */
+  gap: 20px;
+  /* Space between each grid item */
+}
+
+/* Optional: Additional styling for better overall look */
+.details-grid div {
+  background-color: #f9f9f9;
+  
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  
 }

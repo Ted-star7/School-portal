@@ -1,56 +1,103 @@
-<div class="search-bar">
-  <input type="text" [(ngModel)]="searchTerm" placeholder="Search for students or ID" />
-</div>
-
-<div class="students-list">
-  <div 
-    class="student-item" 
-    *ngFor="let student of searchStudents()" 
-    (click)="selectStudent(student)"
-  >
-    <img [src]="student.photo" alt="Student Photo" />
-    <div class="student-details">
-      <p>{{ student.name }}</p>
-      <p class="student-id">{{ student.admissionNumber }}</p>
-      <p>{{ student.class }}</p>
+<div class="students-container">
+  <div class="students-sidebar">
+    <div class="search-bar">
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        placeholder="Search for students or ID"
+      />
     </div>
-  </div>
-</div>
 
-<div class="student-details-container" *ngIf="selectedStudent">
-  <div class="student-header">
-    <img [src]="selectedStudent.photo" alt="Selected Student Photo" />
-    <div class="student-info">
-      <h2>{{ selectedStudent.name }}</h2>
-      <p>{{ selectedStudent.class }} | Student ID: {{ selectedStudent.admissionNumber }}</p>
-    </div>
-  </div>
+    <div class="students-list">
+      <!-- Headers for the students list -->
+      <div class="student-list-headers">
+        <span class="header-item">List</span>
+        <span class="header-item">Name</span>
+        <span class="header-item">ID</span>
+        <span class="header-item">Class</span>
+      </div>
 
-  <div class="student-basic-details">
-    <h3>Basic Details</h3>
-    <div class="details-grid">
-     <div *ngFor="let detail of [
-    { label: 'Gender', value: selectedStudent.gender },
-    { label: 'Date of Birth', value: selectedStudent.dateOfBirth },
-    { label: 'Religion', value: selectedStudent.religion },
-    { label: 'Admission Number', value: selectedStudent.admissionNumber },
-    { label: 'Address', value: selectedStudent.address },
-    { label: 'Emergency Contact', value: selectedStudent.emergencyContact }
-]">
-    {{ detail.label }}: {{ detail.value }}
-</div>
-
+      <!-- Students list with proper alignment -->
+      <div
+        *ngFor="let student of searchStudents(); let i = index"
+        (click)="selectStudent(student)"
+        class="student-item"
+      >
+        <div class="student-details">
+          <span class="student-info">{{ i + 1 }}</span>
+          <span class="student-info">{{ student.fullName }}</span>
+          <span class="student-info">{{ student.admissionNumber }}</span>
+          <span class="student-info">{{ student.studentClass }}</span>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="student-performance">
-    <ul>
-      <li>Progress</li>
-      <li>Attendance</li>
-    </ul>
-    <div class="progress-chart">
-      <p>{{ selectedStudent.progress }}%</p>
-      <!-- Add your chart implementation here -->
+  <div class="student-details-container" *ngIf="selectedStudent">
+    <div class="student-header">
+      <img
+        [src]="selectedStudent.pfpId"
+        alt="Selected Student Photo"
+        *ngIf="selectedStudent.pfpId"
+      />
+      <div class="student-info">
+        <h2>{{ selectedStudent.fullName }}</h2>
+        <p>
+          {{ selectedStudent.studentClass }} | Student ID:
+          {{ selectedStudent.admissionNumber }}
+        </p>
+      </div>
+    </div>
+
+    <div class="student-basic-details">
+      <h3>Basic Details</h3>
+      <div class="details-grid">
+        <div *ngFor="let detail of getStudentDetails()">
+          <label>{{ detail.label }}</label>
+          <p>{{ detail.value }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="student-parents-details">
+      <h3>Parents/Guardian Details</h3>
+      <div class="details-grid">
+        <div>
+          <label>Father's Name:</label>
+          <p>{{ selectedStudent.fatherName }}</p>
+        </div>
+        <div>
+          <label>Father's Phone:</label>
+          <p>{{ selectedStudent.fatherPhone }}</p>
+        </div>
+        <div>
+          <label>Mother's Name:</label>
+          <p>{{ selectedStudent.motherName }}</p>
+        </div>
+        <div>
+          <label>Mother's Phone:</label>
+          <p>{{ selectedStudent.motherPhone }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="student-address-details">
+      <h3>Address Details</h3>
+      <p>{{ selectedStudent.address }}</p>
+    </div>
+
+    <div
+      class="student-performance"
+      *ngIf="selectedStudent.progress !== undefined"
+    >
+      <ul>
+        <li>Progress</li>
+        <li>Attendance</li>
+      </ul>
+      <div class="progress-chart">
+        <p>{{ selectedStudent.progress }}%</p>
+        <!-- Add your chart implementation here -->
+      </div>
     </div>
   </div>
 </div>

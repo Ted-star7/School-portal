@@ -1,79 +1,88 @@
 <div class="container mt-5">
   <div class="card shadow-lg">
-    <h2>Teacher's Registration</h2>
-    <form [formGroup]="teacherForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <div>
-          <label for="fullName">Full Name</label>
-          <input id="fullName" formControlName="fullName" type="text" />
-        </div>
-        <div>
-          <label for="idNumber">ID Number</label>
-          <input id="idNumber" formControlName="idNumber" type="text" />
-        </div>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="register-tab" data-toggle="tab" href="/teachers" role="tab" aria-controls="register" aria-selected="true">Register Teacher</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="teachers-tab" data-toggle="tab" href="/teacherslisting" role="tab" aria-controls="teachers" aria-selected="false">Teachers List</a>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="register" role="tabpanel" aria-labelledby="register-tab">
+        <h2>Teacher's Registration</h2>
+        <form [formGroup]="teacherForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input id="fullName" formControlName="fullName" type="text" />
+          </div>
+          <div class="form-group">
+            <label for="idNumber">ID Number</label>
+            <input id="idNumber" formControlName="idNumber" type="text" />
+          </div>
+          <div class="form-group">
+            <label for="phoneNumber">Phone Number</label>
+            <input id="phoneNumber" formControlName="phoneNumber" type="text" />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input id="email" formControlName="email" type="email" />
+          </div>
+          <div class="form-group">
+            <label for="nssfNumber">NSSF Number</label>
+            <input id="nssfNumber" formControlName="nssfNumber" type="text" />
+          </div>
+          <div class="form-group">
+            <label for="nhifNumber">NHIF Number</label>
+            <input id="nhifNumber" formControlName="nhifNumber" type="text" />
+          </div>
+          <div class="form-group">
+            <label for="tscNumber">TSC Number</label>
+            <input id="tscNumber" formControlName="tscNumber" type="text" />
+          </div>
+          <div class="form-group">
+            <label for="cvFile">Upload CV</label>
+            <input type="file" formControlName="cvFile" id="cvFile" (change)="onCvFileSelected($event)">
+          </div>
+          <div class="form-group">
+            <label for="mainSubject">Main Subject</label>
+            <select id="mainSubject" formControlName="mainSubject">
+              <option *ngFor="let subject of subjects" [value]="subject">{{ subject }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="secSubject">Secondary Subject</label>
+            <select id="secSubject" formControlName="secSubject">
+              <option *ngFor="let subject of subjects" [value]="subject">{{ subject }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <select id="gender" formControlName="gender">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="impairement">Impairment</label>
+            <select id="impairement" formControlName="impairement" (change)="onImpairmentChange($event)">
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
+          </div>
+          <div class="form-group" *ngIf="showImpairmentDetails">
+            <label for="impairementDetails">Impairment Details</label>
+            <input id="impairementDetails" formControlName="impairementDetails" type="text" />
+          </div>
+          <div class="form-group">
+            <label for="yob">Date of Birth</label>
+            <input id="yob" formControlName="yob" type="date" />
+          </div>
+          <button type="submit" class="btn btn-primary">Register</button>
+        </form>
       </div>
-      <div class="form-group">
-        <div>
-          <label for="phoneNumber">Phone Number</label>
-          <input id="phoneNumber" formControlName="phoneNumber" type="text" />
-        </div>
-        <div>
-          <label for="email">Email</label>
-          <input id="email" formControlName="email" type="email" />
-        </div>
+      <div class="tab-pane fade" id="teachers" role="tabpanel" aria-labelledby="teachers-tab">
       </div>
-      <div class="form-group">
-        <div>
-          <label for="mainSubject">Main Subject</label>
-          <select id="mainSubject" formControlName="mainSubject">
-            <option *ngFor="let subject of subjects" [value]="subject">{{subject}}</option>
-          </select>
-        </div>
-        <div>
-          <label for="secSubject">Secondary Subject</label>
-          <select id="secSubject" formControlName="secSubject">
-            <option *ngFor="let subject of subjects" [value]="subject">{{subject}}</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group">
-        <div>
-          <label for="gender">Gender</label>
-          <select id="gender" formControlName="gender">
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-          </select>
-        </div>
-        <div>
-          <label for="impairement">Impairment</label>
-          <select id="impairement" formControlName="impairement" (change)="onImpairmentChange($event)">
-            <option value="No">No</option>
-            <option value="Yes">Yes</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group full-width" *ngIf="showImpairmentDetails">
-        <div>
-          <label for="impairementDetails">Impairment Details</label>
-          <input id="impairementDetails" formControlName="impairementDetails" type="text" />
-        </div>
-      </div>
-      <div class="form-group">
-        <div>
-          <label for="yob">Year of Birth</label>
-          <input id="yob" formControlName="yob" type="text" />
-        </div>
-        <div>
-          <label for="password">Password</label>
-          <input id="password" formControlName="password" type="password" />
-        </div>
-      </div>
-      <div class="form-group full-width file-upload">
-        <label for="profilePicture">Profile Picture</label>
-        <input id="profilePicture" type="file" (change)="onFileSelected($event)" />
-        <button type="button">Upload</button>
-      </div>
-      <button type="submit" class="btn">Register</button>
-    </form>
+    </div>
   </div>
 </div>

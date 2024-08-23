@@ -10,22 +10,25 @@ import { TopbarComponent } from './topbar/topbar.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { TeachersListingComponent } from './teachers-listing/teachers-listing.component';
 import { Component } from '@angular/core';
 
 
 export const routes: Routes = [
-  
+  { path: '', component: LoginComponent },  // Default route to login
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
+  { path: 'resetpassword', component: ResetPasswordComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'topbar', component: TopbarComponent },
   { path: 'students', component: StudentsComponent },
   { path: 'teachers', component: TeachersComponent },
   { path: 'attendance', component: AttendanceComponent },
   { path: 'exams', component: ExamComponent },
   { path: 'subjects', component: SubjectsComponent },
   { path: 'attendancechart', component: AttendanceChartComponent },
-  { path: 'resetpassword', component: ResetPasswordComponent},
-  { path: '', component: LoginComponent }, // This should be the last route
+  { path: 'topbar', component: TopbarComponent },
+  { path: 'teacherslisting', component: TeachersListingComponent},
 ];
+
+
 

@@ -1,0 +1,56 @@
+<div class="teachers-listing">
+  <h2>All Teachers Data</h2>
+  <div class="search-bar">
+    <input
+      type="text"
+      [(ngModel)]="searchID"
+      placeholder="Search by ID ..."
+    />
+    <input
+      type="text"
+      [(ngModel)]="searchName"
+      placeholder="Search by Name ..."
+    />
+    <input
+      type="text"
+      [(ngModel)]="searchPhone"
+      placeholder="Search by Phone ..."
+    />
+    <button (click)="fetchTeachers()">Search</button>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Photo</th>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Main Subject</th>
+        <th>Secondary Subject</th>
+        <th>Class</th>
+        <th>Address</th>
+        <th>Phone</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let teacher of filteredTeachers()">
+        <td>{{ teacher.idNumber }}</td>
+        <td>
+          <img
+            [src]="profilePictures[teacher.pfpId] || 'default-image-url' "
+            alt="Profile Picture"
+            width="50"
+            height="50"
+          />
+        </td>
+        <td>{{ teacher.fullName }}</td>
+        <td>{{ teacher.gender }}</td>
+        <td>{{ teacher.mainSubject }}</td>
+        <td>{{ teacher.secSubject }}</td>
+        <td>{{ teacher.class }}</td>
+        <td>{{ teacher.address }}</td>
+        <td>{{ teacher.phoneNumber }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
