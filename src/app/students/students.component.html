@@ -36,9 +36,10 @@
   <div class="student-details-container" *ngIf="selectedStudent">
     <div class="student-header">
       <img
-        [src]="selectedStudent.pfpId"
+        [src]="selectedStudent.photo"
         alt="Selected Student Photo"
-        *ngIf="selectedStudent.pfpId"
+        *ngIf="selectedStudent?.photo"
+        class="student-photo"
       />
       <div class="student-info">
         <h2>{{ selectedStudent.fullName }}</h2>

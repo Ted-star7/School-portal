@@ -1,56 +1,67 @@
 <div class="teachers-listing">
   <h2>All Teachers Data</h2>
   <div class="search-bar">
-    <input
-      type="text"
-      [(ngModel)]="searchID"
-      placeholder="Search by ID ..."
-    />
-    <input
-      type="text"
-      [(ngModel)]="searchName"
-      placeholder="Search by Name ..."
-    />
-    <input
-      type="text"
-      [(ngModel)]="searchPhone"
-      placeholder="Search by Phone ..."
-    />
+    <input type="text" [(ngModel)]="searchID" placeholder="Search by ID ..." />
+    <input type="text" [(ngModel)]="searchName" placeholder="Search by Name ..." />
+    <input type="text" [(ngModel)]="searchPhone" placeholder="Search by Phone ..." />
     <button (click)="fetchTeachers()">Search</button>
   </div>
   <table>
     <thead>
       <tr>
         <th>ID</th>
-        <th>Photo</th>
         <th>Name</th>
         <th>Gender</th>
         <th>Main Subject</th>
         <th>Secondary Subject</th>
-        <th>Class</th>
-        <th>Address</th>
+        <!-- <th>Class</th> -->
+        <th>Email Address</th>
         <th>Phone</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let teacher of filteredTeachers()">
-        <td>{{ teacher.idNumber }}</td>
-        <td>
-          <img
-            [src]="profilePictures[teacher.pfpId] || 'default-image-url' "
-            alt="Profile Picture"
-            width="50"
-            height="50"
-          />
-        </td>
-        <td>{{ teacher.fullName }}</td>
-        <td>{{ teacher.gender }}</td>
-        <td>{{ teacher.mainSubject }}</td>
-        <td>{{ teacher.secSubject }}</td>
-        <td>{{ teacher.class }}</td>
-        <td>{{ teacher.address }}</td>
-        <td>{{ teacher.phoneNumber }}</td>
+      <tr *ngFor="let teacher of paginatedTeachers()">
+        <ng-container *ngIf="teacher.isEditing; else viewMode">
+          <!-- Edit Mode -->
+          <td><input type="text" [(ngModel)]="teacher.idNumber" /></td>
+          <td><input type="text" [(ngModel)]="teacher.fullName" /></td>
+          <td>
+            <select [(ngModel)]="teacher.gender">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </td>
+          <td><input type="text" [(ngModel)]="teacher.mainSubject" /></td>
+          <td><input type="text" [(ngModel)]="teacher.secSubject" /></td>
+          <!-- <td><input type="text" [(ngModel)]="teacher.class" /></td> -->
+          <td><input type="text" [(ngModel)]="teacher.address" /></td>
+          <td><input type="text" [(ngModel)]="teacher.phoneNumber" /></td>
+          <td>
+            <button (click)="saveTeacher(teacher)">Save</button>
+            <button (click)="cancelEdit(teacher)">Cancel</button>
+          </td>
+        </ng-container>
+        <ng-template #viewMode>
+          <!-- View Mode -->
+          <td>{{ teacher.idNumber }}</td>
+          <td>{{ teacher.fullName }}</td>
+          <td>{{ teacher.gender }}</td>
+          <td>{{ teacher.mainSubject }}</td>
+          <td>{{ teacher.secSubject }}</td>
+          <!-- <td>{{ teacher.class }}</td> -->
+          <td>{{ teacher.email }}</td>
+          <td>{{ teacher.phoneNumber }}</td>
+          <td>
+            <button (click)="editTeacher(teacher)">Edit</button>
+          </td>
+        </ng-template>
       </tr>
     </tbody>
   </table>
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+  </div>
 </div>

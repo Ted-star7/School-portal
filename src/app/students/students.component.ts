@@ -5,7 +5,7 @@ import { ServicesService } from '../Services/consume.service';
 import { SessionService } from '../Services/session.service';
 
 interface Student {
-progress: any;
+  progress: any;
   id: number;
   fullName: string;
   dateOfBirth: string;
@@ -56,36 +56,31 @@ export class StudentsComponent {
       console.error('No token found');
     }
   }
-fetchStudentPhotos(): void {
+
+  fetchStudentPhotos(): void {
   const token = this.sessionService.getToken();
   if (token) {
     this.students.forEach(student => {
       if (student.pfpId !== null && student.pfpId !== undefined) {
-        console.log(`Fetching photo for student ID: ${student.pfpId}`); // Debug log
         this.servicesService.getProfilePicture(student.pfpId, token).subscribe(
           photoData => {
-            if (photoData && photoData.img) {
-              const base64Image = photoData.img;
-              student.photo = `data:image/jpeg;base64,${base64Image}`;
+            if (photoData && photoData.imgUrl) { // Assuming imgUrl is the usable image URL
+              student.photo = photoData.imgUrl; // Directly use the image URL
             } else {
-              console.error('No image data returned for student:', student.pfpId);
-              student.photo = 'path-to-default-photo.jpg'; // Default photo
+              student.photo = 'assets/logo.jpg'; // Path to default photo in assets
             }
           },
           error => {
             console.error(`Error fetching photo for student ${student.fullName}:`, error);
-            student.photo = 'path-to-default-photo.jpg'; // Default photo on error
+            student.photo = 'assets/logo.jpg'; // Path to default photo in assets on error
           }
         );
       } else {
-        student.photo = 'path-to-default-photo.jpg'; // Default photo if no pfpId
+        student.photo = 'assets/logo.jpg'; // Path to default photo in assets if no pfpId
       }
     });
   }
 }
-
-
-
 
 
   searchStudents(): Student[] {

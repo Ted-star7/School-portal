@@ -12,6 +12,8 @@ import { RegistrationComponent } from './registration/registration.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { TeachersListingComponent } from './teachers-listing/teachers-listing.component';
 import { Component } from '@angular/core';
+import { ClassesComponent } from './classes/classes.component';
+import { ParentsComponent } from './parents/parents.component';
 
 
 export const routes: Routes = [
@@ -28,6 +30,8 @@ export const routes: Routes = [
   { path: 'attendancechart', component: AttendanceChartComponent },
   { path: 'topbar', component: TopbarComponent },
   { path: 'teacherslisting', component: TeachersListingComponent},
+  { path: 'classes', component: ClassesComponent},
+  { path: 'parents', component: ParentsComponent},
 ];
 
 

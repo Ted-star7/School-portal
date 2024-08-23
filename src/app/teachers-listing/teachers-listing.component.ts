@@ -17,7 +17,9 @@ export class TeachersListingComponent implements OnInit {
   searchID: string = '';
   searchName: string = '';
   searchPhone: string = '';
-  profilePictures: { [key: number]: string } = {}; // Store profile pictures
+  currentPage: number = 1;
+  pageSize: number = 10;
+  totalPages: number = 1;
 
   constructor(private service: ServicesService, private sessionService: SessionService) {}
 
@@ -30,8 +32,9 @@ export class TeachersListingComponent implements OnInit {
     this.service.getRequest('/api/admins/teachers', token).subscribe(
       (data) => {
         this.teachers = data;
+        this.totalPages = Math.ceil(this.teachers.length / this.pageSize);
         this.teachers.forEach((teacher) => {
-          this.fetchProfilePicture(teacher.pfpId); // Fetch profile picture for each teacher
+          teacher.isEditing = false; // Initialize editing state
         });
       },
       (error) => {
@@ -40,22 +43,54 @@ export class TeachersListingComponent implements OnInit {
     );
   }
 
-  fetchProfilePicture(teacherId: number) {
-    this.service.getProfilePicture(teacherId).subscribe(
+  paginatedTeachers() {
+    const start = (this.currentPage - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    return this.filteredTeachers().slice(start, end);
+  }
+
+  filteredTeachers() {
+    return this.teachers.filter(
+      (teacher) =>
+        (this.searchID === '' || teacher.idNumber.includes(this.searchID)) &&
+        (this.searchName === '' || teacher.fullName.toLowerCase().includes(this.searchName.toLowerCase())) &&
+        (this.searchPhone === '' || teacher.phoneNumber.includes(this.searchPhone))
+    );
+  }
+
+  editTeacher(teacher: any) {
+    teacher.isEditing = true; // Enable editing mode for the teacher
+  }
+
+  cancelEdit(teacher: any) {
+    teacher.isEditing = false; // Disable editing mode
+    this.fetchTeachers(); // Refresh data to cancel changes
+  }
+
+  saveTeacher(teacher: any) {
+    const updatedTeacher = { ...teacher };
+    const token = this.sessionService.getToken();
+    this.service.putRequest(`/api/save/teachers/${teacher.id}`, updatedTeacher, token).subscribe(
       (data) => {
-        this.profilePictures[teacherId] = URL.createObjectURL(data); // Create a URL for the profile picture
+        alert('Teacher details updated successfully');
+        teacher.isEditing = false; // Disable editing mode after save
+        this.fetchTeachers(); // Refresh list after update
       },
       (error) => {
-        console.error('Error fetching profile picture', error);
+        console.error('Error updating teacher details', error);
       }
     );
   }
 
-  filteredTeachers() {
-    return this.teachers.filter(teacher =>
-      (this.searchID === '' || teacher.idNumber.includes(this.searchID)) &&
-      (this.searchName === '' || teacher.fullName.toLowerCase().includes(this.searchName.toLowerCase())) &&
-      (this.searchPhone === '' || teacher.phoneNumber.includes(this.searchPhone))
-    );
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
   }
 }

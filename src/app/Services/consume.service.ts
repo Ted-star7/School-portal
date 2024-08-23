@@ -8,7 +8,7 @@ import { Student } from '../students/student.model';
   providedIn: 'root',
 })
 export class ServicesService {
-  private url: string = 'https://d7e8-41-80-116-234.ngrok-free.app';
+  private url: string = 'https://f482-41-80-116-149.ngrok-free.app';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -53,6 +53,12 @@ export class ServicesService {
       .get(`${this.url}/api/students/pfp/${studentId}`, { headers })
       .pipe(catchError(this.handleError));
   }
+
+  public putRequest(endpoint: string, data: any, token: string | null): Observable<any> {
+  const headers = this.createHeaders(token);
+  return this.httpClient.put(`${this.url}${endpoint}`, data, { headers }).pipe(catchError(this.handleError));
+}
+
 
   private createHeaders(token: string | null, isFormData: boolean = false): HttpHeaders {
     let headers = new HttpHeaders({
