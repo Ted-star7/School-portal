@@ -2,16 +2,18 @@
   width: 100%;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: #F2F2F2;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .teachers-listing h2 {
   text-align: center;
   margin-bottom: 20px;
-  color: #333;
-  font-size: 24px;
+  color: #8C2C16;
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
 .search-bar {
@@ -24,20 +26,28 @@
   width: 30%;
   padding: 8px;
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid #A1BF60;
+  background-color: #FFFFFF;
+  transition: border-color 0.3s;
+}
+
+.search-bar input:focus {
+  border-color: #90BF2A;
+  outline: none;
 }
 
 .search-bar button {
   padding: 8px 16px;
   border: none;
-  background-color: #007bff;
+  background-color: #F26716;
   color: white;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .search-bar button:hover {
-  background-color: #0056b3;
+  background-color: #8C2C16;
 }
 
 table {
@@ -49,17 +59,19 @@ th,
 td {
   padding: 12px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #dee2e6;
 }
 
 th {
-  background-color: #f2f2f2;
+  background-color: #A1BF60;
+  color: #FFFFFF;
+  font-weight: bold;
 }
 
-img {
-  border-radius: 50%;
+td {
+  background-color: #FFFFFF;
+ 
 }
-
 .actions-menu {
   position: relative;
 }
@@ -72,7 +84,7 @@ img {
 
 .actions-dropdown {
   position: absolute;
-  background-color: white;
+  background-color: #FFFFFF;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -92,7 +104,7 @@ img {
 }
 
 .actions-dropdown button:hover {
-  background-color: #f2f2f2;
+  background-color: #F2F2F2;
 }
 
 .pagination {
@@ -106,10 +118,11 @@ img {
   padding: 8px 16px;
   margin: 0 5px;
   border: none;
-  background-color: #007bff;
+  background-color: #90BF2A;
   color: white;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .pagination button[disabled] {
@@ -120,6 +133,7 @@ img {
 .pagination span {
   font-size: 16px;
   margin: 0 10px;
+  color: #333;
 }
 
 input[type="text"],
@@ -128,6 +142,13 @@ select {
   margin: 0;
   border-radius: 4px;
   border: 1px solid #ccc;
+  transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+select:focus {
+  border-color: #90BF2A;
+  outline: none;
 }
 
 button {
@@ -135,12 +156,15 @@ button {
   border-radius: 4px;
   border: none;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 button:hover {
-  background-color: #f0f0f0;
+  background-color: #F2F2F2;
+
 }
 
 .teachers-listing .edit-mode {
-  background-color: #f9f9f9;
+  background-color: #F2F2F2;
+  
 }

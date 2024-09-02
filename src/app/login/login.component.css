@@ -3,7 +3,7 @@
   height: 100vh;
   align-items: center;
   justify-content: center;
-  background-color: #f4f5f7;
+  background-color: #F2F2F2;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
   margin-left: -200px;
@@ -11,7 +11,7 @@
 
 .welcome-section {
   flex: 1;
-  background: linear-gradient(135deg, #6a82fb, #fc5c7d);
+  background: linear-gradient(135deg, #90BF2A, #F26716);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,7 +37,7 @@
 .login-form h2 {
   margin-bottom: 1.5rem;
   font-size: 2rem;
-  color: #333;
+  color: #8C2C16;
   font-weight: 600;
   text-align: center;
 }
@@ -70,9 +70,11 @@
 }
 
 .input-group input:focus {
-  border-color: #6a82fb;
+  border-color: #90BF2A;
+  
   outline: none;
-  box-shadow: 0 0 5px rgba(106, 130, 251, 0.5);
+  box-shadow: 0 0 5px rgba(144, 191, 42, 0.5);
+ 
 }
 
 .options {
@@ -94,7 +96,8 @@
 .login-btn {
   width: 100%;
   padding: 1rem;
-  background-color: #6a82fb;
+  background-color: #F26716;
+  
   color: white;
   border: none;
   border-radius: 6px;
@@ -105,17 +108,19 @@
 }
 
 .login-btn:hover {
-  background-color: #5a6fda;
+  background-color: #8C2C16;
+ 
 }
 
 .login-form a {
-  color: #6a82fb;
+  color: #F26716;
+
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
 }
 
 .login-form a:hover {
-  color: #5a6fda;
+  color: #8C2C16;
   text-decoration: underline;
 }

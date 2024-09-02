@@ -8,7 +8,7 @@ import { Student } from '../students/student.model';
   providedIn: 'root',
 })
 export class ServicesService {
-  private url: string = 'https://f482-41-80-116-149.ngrok-free.app';
+  private url: string = 'https://schoolapp-pkeb.onrender.com';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -33,10 +33,10 @@ export class ServicesService {
       .pipe(catchError(this.handleError));
   }
 
-  public getStudents(token: string | null = null): Observable<Student[]> {
+  public getStudents(token: string | null = null): Observable<{ data: Student[] }> {
     const headers = this.createHeaders(token);
     return this.httpClient
-      .get<Student[]>(`${this.url}/api/admins/students`, { headers })
+      .get<{ data: Student[] }>(`${this.url}/api/admins/students`, { headers })
       .pipe(catchError(this.handleError));
   }
 
@@ -47,18 +47,17 @@ export class ServicesService {
       .pipe(catchError(this.handleError));
   }
 
-  public getProfilePicture(studentId: number, token: string | null = null): Observable<any> {
+  public getProfilePicture(studentId: number, token: string | null = null): Observable<{ imgUrl: string }> {
     const headers = this.createHeaders(token);
     return this.httpClient
-      .get(`${this.url}/api/students/pfp/${studentId}`, { headers })
+      .get<{ imgUrl: string }>(`${this.url}/api/admins/students/profile/${studentId}`, { headers }) // Adjusted endpoint
       .pipe(catchError(this.handleError));
   }
 
   public putRequest(endpoint: string, data: any, token: string | null): Observable<any> {
-  const headers = this.createHeaders(token);
-  return this.httpClient.put(`${this.url}${endpoint}`, data, { headers }).pipe(catchError(this.handleError));
-}
-
+    const headers = this.createHeaders(token);
+    return this.httpClient.put(`${this.url}${endpoint}`, data, { headers }).pipe(catchError(this.handleError));
+  }
 
   private createHeaders(token: string | null, isFormData: boolean = false): HttpHeaders {
     let headers = new HttpHeaders({

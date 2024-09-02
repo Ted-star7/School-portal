@@ -2,7 +2,7 @@
 export interface Student {
   id: number;
   fullName: string;
-  dateOfBirth: string;
+  dateOfBirth: string | null;
   gender: string;
   religion: string;
   admissionNumber: string;
@@ -14,7 +14,8 @@ export interface Student {
   motherPhone: string;
   address: string;
   studentClass: string;
-  pfpId: number;
-  photo?: string;
-  progress: any;
+  pfpUrl: string;
+  photo: string;
+  progress?: any;
 }
+

@@ -1,16 +1,27 @@
 .container {
   padding: 20px;
-  max-width: 800px;
+  max-width: 1000px;
   margin: auto;
+  background-color: #F2F2F2;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
   text-align: center;
   margin-bottom: 20px;
+  color: #8C2C16;
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
 .classes-form {
   margin-bottom: 20px;
+  padding: 15px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .form-group {
@@ -20,28 +31,40 @@ h2 {
 .form-group label {
   display: block;
   margin-bottom: 5px;
+  color: #333;
+  font-weight: bold;
 }
 
 .form-control {
   width: 100%;
-  padding: 8px;
+  padding: 10px;
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid #A1BF60;
+  background-color: #FFFFFF;
+  transition: border-color 0.3s;
+}
+
+.form-control:focus {
+  border-color: #90BF2A;
+  outline: none;
 }
 
 .btn-primary {
   display: block;
   width: 100%;
-  padding: 10px;
-  background-color: #007bff;
+  padding: 12px;
+  background-color: #F26716;
   border: none;
   color: white;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s;
 }
 
 .btn-primary:hover {
-  background-color: #0056b3;
+  background-color: #8C2C16;
 }
 
 .class-list {
@@ -50,33 +73,40 @@ h2 {
 
 .grid-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.grid-header,
-.grid-body {
-  display: contents;
+  border: 1px solid #A1BF60;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #F2F2F2;
 }
 
 .grid-header {
   font-weight: bold;
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #ddd;
+  background-color: #A1BF60;
+  color: #FFFFFF;
+  padding: 10px;
+  border-bottom: 2px solid #90BF2A;
+  text-align: center;
 }
 
 .grid-body {
-  background-color: #ffffff;
-  border-bottom: 1px solid #ddd;
+  background-color: #FFFFFF;
+  
 }
 
 .grid-body div {
   padding: 10px;
+  text-align: center;
   border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
 }
 
 .grid-body div:last-child {
   border-right: none;
+}
+
+.grid-body div:hover {
+  background-color: #F2F2F2;
+  transition: background-color 0.3s;
 }

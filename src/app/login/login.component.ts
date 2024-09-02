@@ -4,14 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { ServicesService } from '../Services/consume.service';
 import { Router } from '@angular/router';
 import { SessionService } from '../Services/session.service';
-import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
+import { HttpClientModule } from '@angular/common/http'; 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, NgIf, HttpClientModule], // Add HttpClientModule here
+  imports: [FormsModule, NgIf, HttpClientModule], 
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'], // Fixed typo from styleUrl to styleUrls
+  styleUrls: ['./login.component.css'], 
 })
 export class LoginComponent {
   email = '';
@@ -35,16 +35,14 @@ export class LoginComponent {
     this.serviceServices.postRequest('/api/open/admins/login', formData, null).subscribe(
       (response) => {
         this.isLoading = false;
-
-        // Assuming the response is already an object, no need to parse
         const token = response.token;
-        const userId = response['admin id']; // Use response['admin id'] to correctly access the userId
+        const userId = response['admin id'];
 
         if (token && userId) {
           this.session.saveToken(token);
-          this.session.saveUserId(String(userId)); // Ensure userId is saved as a string
+          this.session.saveUserId(String(userId));
           this.successMessage = 'Login successful!';
-          setTimeout(() => this.router.navigate(['/dashboard']), 1000); // Redirect after 1 second
+          setTimeout(() => this.router.navigate(['/dashboard']), 1000);
         } else {
           this.successMessage = 'Login failed. Please try again.';
         }

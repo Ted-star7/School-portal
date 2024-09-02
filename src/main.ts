@@ -1,4 +1,4 @@
-import { bootstrapApplication } from '@angular/platform-browser';
+import { bootstrapApplication, provideClientHydration } from '@angular/platform-browser';
 import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
 import { provideHttpClient } from '@angular/common/http';
@@ -6,7 +6,8 @@ import { provideHttpClient } from '@angular/common/http';
 bootstrapApplication(AppComponent, {
   ...appConfig,
   providers: [
-    provideHttpClient(), // Provides HttpClientModule globally
+    provideHttpClient(), 
+    provideClientHydration(),
     ...appConfig.providers,
   ],
 })

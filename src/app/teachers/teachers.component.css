@@ -1,8 +1,8 @@
-/* General Styles */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 30px;
+  background-color: #f2f2f2;
 }
 
 .card {
@@ -18,33 +18,34 @@
   box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
 }
 
-/* Tab Navigation */
+
 .nav-tabs {
   border-bottom: 1px solid #dee2e6;
 }
 
 .nav-tabs .nav-link {
-  background-color: #f8f9fa;
+  background-color: #F2F2F2;
+  color: #8C2C16;
   border: 1px solid #dee2e6;
   border-radius: .25rem .25rem 0 0;
   transition: background-color 0.3s, color 0.3s;
 }
 
 .nav-tabs .nav-link:hover {
-  background-color: #e9ecef;
+  background-color: #A1BF60;
+  color: #ffffff;
 }
 
 .nav-tabs .nav-link.active {
-  background-color: #0056b3;
+  background-color: #90BF2A;
   color: #ffffff;
-  border-color: #0056b3 #0056b3 #f8f9fa;
+  border-color: #90BF2A #90BF2A #f2f2f2;
 }
 
-/* Typography */
 h2 {
   font-size: 2.5rem;
   margin-bottom: 30px;
-  color: #212529;
+  color: #8C2C16;
   text-align: center;
   font-weight: bold;
   letter-spacing: 1px;
@@ -62,7 +63,7 @@ h2 {
   font-weight: 600;
   margin-bottom: 8px;
   display: block;
-  color: #495057;
+  color: #8C2C16;
   font-size: 1.1rem;
 }
 
@@ -80,9 +81,9 @@ h2 {
 .form-group input:focus,
 .form-group select:focus {
   background-color: #ffffff;
-  border-color: #007bff;
+  border-color: #F26716;
   outline: none;
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(242, 103, 22, 0.25);
 }
 
 .form-group.full-width {
@@ -104,21 +105,22 @@ h2 {
   font-size: 1rem;
   padding: 10px 20px;
   border-radius: 8px;
-  background-color: #28a745;
+  background-color: #90BF2A;
   color: #ffffff;
   border: none;
   transition: background-color 0.3s ease;
 }
 
 .file-upload button:hover {
-  background-color: #218838;
+  background-color: #A1BF60;
+ 
 }
 
 .btn {
   font-size: 1.2rem;
   padding: 12px 25px;
   border-radius: 8px;
-  background-color: #007bff;
+  background-color: #F26716;
   border: none;
   color: #ffffff;
   width: 100%;
@@ -127,10 +129,11 @@ h2 {
 }
 
 .btn:hover {
-  background-color: #0056b3;
+  background-color: #8C2C16;
+  
 }
 
-/* Table Styles */
+
 .table {
   width: 100%;
   margin-bottom: 1.5rem;
@@ -146,6 +149,8 @@ h2 {
   padding: 10px;
   font-size: 1.1rem;
   font-weight: bold;
+  color: #8C2C16;
+  
 }
 
 .table tbody tr {
@@ -157,7 +162,8 @@ h2 {
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
-  background-color: #f8f9fa;
+  background-color: #F2F2F2;
+
 }
 
 .pagination {
@@ -173,7 +179,7 @@ h2 {
 }
 
 .pagination .page-item .page-link {
-  color: #007bff;
+  color: #F26716;
   text-decoration: none;
   transition: background-color 0.3s, color 0.3s;
 }
@@ -183,8 +189,8 @@ h2 {
 }
 
 .pagination .page-item.active .page-link {
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: #F26716;
+  border-color: #F26716;
   color: #ffffff;
 }
 

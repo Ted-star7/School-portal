@@ -2,86 +2,198 @@
   <div class="card shadow-lg">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item">
-        <a class="nav-link active" id="register-tab" data-toggle="tab" href="/teachers" role="tab" aria-controls="register" aria-selected="true">Register Teacher</a>
+        <a
+          class="nav-link active"
+          id="register-tab"
+          data-toggle="tab"
+          href="register"
+          role="tab"
+          aria-controls="register"
+          aria-selected="true"
+          >Register Teacher</a
+        >
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="teachers-tab" data-toggle="tab" href="/teacherslisting" role="tab" aria-controls="teachers" aria-selected="false">Teachers List</a>
+        <a
+          class="nav-link"
+          id="teachers-tab"
+          data-toggle="tab"
+          href="teacherslisting"
+          role="tab"
+          aria-controls="teachers"
+          aria-selected="false"
+          >Teachers List</a
+        >
       </li>
     </ul>
     <div class="tab-content" id="myTabContent">
-      <div class="tab-pane fade show active" id="register" role="tabpanel" aria-labelledby="register-tab">
+      <div
+        class="tab-pane fade show active"
+        id="register"
+        role="tabpanel"
+        aria-labelledby="register-tab"
+      >
         <h2>Teacher's Registration</h2>
         <form [formGroup]="teacherForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
             <label for="fullName">Full Name</label>
-            <input id="fullName" formControlName="fullName" type="text" />
+            <input
+              id="fullName"
+              formControlName="fullName"
+              type="text"
+              class="form-control"
+            />
           </div>
           <div class="form-group">
             <label for="idNumber">ID Number</label>
-            <input id="idNumber" formControlName="idNumber" type="text" />
+            <input
+              id="idNumber"
+              formControlName="idNumber"
+              type="text"
+              class="form-control"
+            />
           </div>
           <div class="form-group">
             <label for="phoneNumber">Phone Number</label>
-            <input id="phoneNumber" formControlName="phoneNumber" type="text" />
+            <input
+              id="phoneNumber"
+              formControlName="phoneNumber"
+              type="text"
+              class="form-control"
+            />
           </div>
           <div class="form-group">
             <label for="email">Email</label>
-            <input id="email" formControlName="email" type="email" />
+            <input
+              id="email"
+              formControlName="email"
+              type="email"
+              class="form-control"
+            />
           </div>
           <div class="form-group">
             <label for="nssfNumber">NSSF Number</label>
-            <input id="nssfNumber" formControlName="nssfNumber" type="text" />
+            <input
+              id="nssfNumber"
+              formControlName="nssfNumber"
+              type="text"
+              class="form-control"
+            />
           </div>
           <div class="form-group">
             <label for="nhifNumber">NHIF Number</label>
-            <input id="nhifNumber" formControlName="nhifNumber" type="text" />
+            <input
+              id="nhifNumber"
+              formControlName="nhifNumber"
+              type="text"
+              class="form-control"
+            />
           </div>
           <div class="form-group">
             <label for="tscNumber">TSC Number</label>
-            <input id="tscNumber" formControlName="tscNumber" type="text" />
+            <input
+              id="tscNumber"
+              formControlName="tscNumber"
+              type="text"
+              class="form-control"
+            />
           </div>
           <div class="form-group">
             <label for="cvFile">Upload CV</label>
-            <input type="file" formControlName="cvFile" id="cvFile" (change)="onCvFileSelected($event)">
+            <input
+              type="file"
+              formControlName="cvFile"
+              id="cvFile"
+              class="form-control"
+              (change)="onCvFileSelected($event)"
+            />
+          </div>
+          <div class="form-group">
+            <label for="passportPhoto">Upload Passport Photo</label>
+            <input
+              type="file"
+              formControlName="passportPhoto"
+              id="passportPhoto"
+              class="form-control"
+              (change)="onPassportPhotoSelected($event)"
+            />
           </div>
           <div class="form-group">
             <label for="mainSubject">Main Subject</label>
-            <select id="mainSubject" formControlName="mainSubject">
-              <option *ngFor="let subject of subjects" [value]="subject">{{ subject }}</option>
+            <select
+              id="mainSubject"
+              formControlName="mainSubject"
+              class="form-control"
+            >
+              <option *ngFor="let subject of subjects" [value]="subject">
+                {{ subject }}
+              </option>
             </select>
           </div>
           <div class="form-group">
             <label for="secSubject">Secondary Subject</label>
-            <select id="secSubject" formControlName="secSubject">
-              <option *ngFor="let subject of subjects" [value]="subject">{{ subject }}</option>
+            <select
+              id="secSubject"
+              formControlName="secSubject"
+              class="form-control"
+            >
+              <option *ngFor="let subject of subjects" [value]="subject">
+                {{ subject }}
+              </option>
             </select>
           </div>
           <div class="form-group">
             <label for="gender">Gender</label>
-            <select id="gender" formControlName="gender">
+            <select id="gender" formControlName="gender" class="form-control">
               <option value="Male">Male</option>
               <option value="Female">Female</option>
             </select>
           </div>
           <div class="form-group">
             <label for="impairement">Impairment</label>
-            <select id="impairement" formControlName="impairement" (change)="onImpairmentChange($event)">
+            <select
+              id="impairement"
+              formControlName="impairement"
+              class="form-control"
+              (change)="onImpairmentChange($event)"
+            >
               <option value="No">No</option>
               <option value="Yes">Yes</option>
             </select>
           </div>
           <div class="form-group" *ngIf="showImpairmentDetails">
             <label for="impairementDetails">Impairment Details</label>
-            <input id="impairementDetails" formControlName="impairementDetails" type="text" />
+            <input
+              id="impairementDetails"
+              formControlName="impairementDetails"
+              type="text"
+              class="form-control"
+            />
           </div>
           <div class="form-group">
             <label for="yob">Date of Birth</label>
-            <input id="yob" formControlName="yob" type="date" />
+            <input
+              id="yob"
+              formControlName="yob"
+              type="date"
+              class="form-control"
+            />
           </div>
-          <button type="submit" class="btn btn-primary">Register</button>
+          <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+            Register
+          </button>
+          <div *ngIf="successMessage" class="alert alert-info mt-3">
+            {{ successMessage }}
+          </div>
         </form>
       </div>
-      <div class="tab-pane fade" id="teachers" role="tabpanel" aria-labelledby="teachers-tab">
+      <div
+        class="tab-pane fade"
+        id="teachers"
+        role="tabpanel"
+        aria-labelledby="teachers-tab"
+      >
+        <!-- Teachers list content goes here -->
       </div>
     </div>
   </div>

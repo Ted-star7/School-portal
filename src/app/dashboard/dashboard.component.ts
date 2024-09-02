@@ -7,8 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ServicesService } from '../Services/consume.service';
 import { SessionService } from '../Services/session.service';
-import { error } from 'node:console';
-import { TeachersListingComponent } from '../teachers-listing/teachers-listing.component';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -40,6 +39,7 @@ export class DashboardComponent implements OnInit {
 
     this.fetchTotalStudents();
     this.fetchTotalTeachers();
+    this.fetchTotalParents();
   }
 
 fetchTotalStudents() {
@@ -73,18 +73,18 @@ fetchTotalTeachers() {
     console.error('No token found');
   }
 }
-fetchTotalParents(){
-  const token =this.sessionService.getToken();
-  if(token){
-    this.service.getRequest('/api/admins/parents/total', token).subscribe(
+fetchTotalParents() {
+  const token = this.sessionService.getToken();
+  if (token) {
+    this.service.getRequest('/api/parents/count', token).subscribe(
       (response: any) => {
-        this.totalParents = response.totalParents;
+        this.totalParents = response.totalParents; 
       },
       (error) => {
-        console.error('Failed to fetch Teachers', error);
+        console.error('Failed to fetch teachers:', error);
       }
     );
-  } else{
+  } else {
     console.error('No token found');
   }
 }
@@ -129,6 +129,10 @@ fetchTotalParents(){
 goToStudentsPage() {
   console.log('Navigating to students page');
   this.router.navigate(['/students']);
+}
+goToParentsPage(){
+  console.log('Navigating to parents page')
+  this.router.navigate(['/parents'])
 }
 
 goToTeachersPage() {

@@ -9,7 +9,6 @@
     </div>
 
     <div class="students-list">
-      <!-- Headers for the students list -->
       <div class="student-list-headers">
         <span class="header-item">List</span>
         <span class="header-item">Name</span>
@@ -17,7 +16,6 @@
         <span class="header-item">Class</span>
       </div>
 
-      <!-- Students list with proper alignment -->
       <div
         *ngFor="let student of searchStudents(); let i = index"
         (click)="selectStudent(student)"
@@ -38,7 +36,7 @@
       <img
         [src]="selectedStudent.photo"
         alt="Selected Student Photo"
-        *ngIf="selectedStudent?.photo"
+        *ngIf="selectedStudent.photo"
         class="student-photo"
       />
       <div class="student-info">
@@ -97,7 +95,6 @@
       </ul>
       <div class="progress-chart">
         <p>{{ selectedStudent.progress }}%</p>
-        <!-- Add your chart implementation here -->
       </div>
     </div>
   </div>
