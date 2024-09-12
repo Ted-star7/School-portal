@@ -4,7 +4,6 @@
   align-items: center;
   height: 100vh;
   background-color: #F2F2F2;
-  /* Light background color */
   margin-left: -200px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -21,7 +20,6 @@
 .left-section {
   flex: 1;
   background: linear-gradient(135deg, #90BF2A 0%, #A1BF60 100%);
-  /* Theme gradient colors */
   color: white;
   display: flex;
   justify-content: center;
@@ -44,7 +42,6 @@
   margin-bottom: 20px;
   font-size: 1.5em;
   color: #8C2C16;
-  /* Theme color for headings */
   text-align: center;
 }
 
@@ -77,10 +74,9 @@
 
 .input-group input:focus {
   border-color: #90BF2A;
-  /* Theme color for input focus */
   outline: none;
   box-shadow: 0 0 5px rgba(144, 191, 42, 0.5);
-  /* Matching color shadow */
+ 
 }
 
 .password-container {
@@ -104,7 +100,6 @@ button[type="submit"] {
   width: 100%;
   padding: 15px;
   background-color: #F26716;
-  /* Theme color for button */
   color: white;
   border: none;
   border-radius: 5px;
@@ -115,7 +110,7 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
   background-color: #8C2C16;
-  /* Darker theme color on hover */
+  
 }
 
 p {
@@ -127,12 +122,12 @@ p {
 
 a {
   color: #F26716;
-  /* Theme color for links */
+  
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 a:hover {
   color: #8C2C16;
-  /* Darker theme color on hover */
+ 
 }

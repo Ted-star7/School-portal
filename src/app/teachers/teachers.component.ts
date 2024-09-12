@@ -10,7 +10,7 @@ import { NgFor, NgIf } from '@angular/common';
   templateUrl: './teachers.component.html',
   styleUrls: ['./teachers.component.css'],
   standalone: true,
-  imports: [NgFor, NgIf, ReactiveFormsModule, HttpClientModule]  // Ensure ReactiveFormsModule is imported
+  imports: [NgFor, NgIf, ReactiveFormsModule, HttpClientModule]  
 })
 export class TeachersComponent implements OnInit {
   teacherForm: FormGroup;
@@ -33,6 +33,7 @@ export class TeachersComponent implements OnInit {
       impairement: ['No', Validators.required],
       impairementDetails: [''],
       yob: ['', Validators.required],
+      dateOfJoin: ['', Validators.required],
       cvFile: [null, Validators.required],
       passportPhoto: [null]  
     });
@@ -88,6 +89,7 @@ onSubmit() {
       impairement: this.teacherForm.get('impairement')?.value,
       impairementDetails: this.teacherForm.get('impairementDetails')?.value,
       yob: this.teacherForm.get('yob')?.value,
+      dateOfJoin: this.teacherForm.get('dateOfJoin')?.value,
       nssfNumber: this.teacherForm.get('nssfNumber')?.value,
       nhifNumber: this.teacherForm.get('nhifNumber')?.value,
       tscNumber: this.teacherForm.get('tscNumber')?.value

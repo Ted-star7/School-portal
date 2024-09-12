@@ -14,6 +14,7 @@ import { SessionService } from '../Services/session.service';
 })
 export class TeachersListingComponent implements OnInit {
   teachers: any[] = [];
+  selectedTeacher: any = null;
   searchID: string = '';
   searchName: string = '';
   searchPhone: string = '';
@@ -58,29 +59,64 @@ export class TeachersListingComponent implements OnInit {
     );
   }
 
-  editTeacher(teacher: any) {
-    teacher.isEditing = true; // Enable editing mode for the teacher
+  selectTeacher(teacher: any) {
+    this.selectedTeacher = { ...teacher }; // Create a copy to allow editing
   }
 
-  cancelEdit(teacher: any) {
-    teacher.isEditing = false; // Disable editing mode
-    this.fetchTeachers(); // Refresh data to cancel changes
+  closeDetails() {
+    this.selectedTeacher = null;
   }
 
-  saveTeacher(teacher: any) {
-    const updatedTeacher = { ...teacher };
-    const token = this.sessionService.getToken();
-    this.service.putRequest(`/api/save/teachers/${teacher.id}`, updatedTeacher, token).subscribe(
-      (data) => {
-        alert('Teacher details updated successfully');
-        teacher.isEditing = false; // Disable editing mode after save
-        this.fetchTeachers(); // Refresh list after update
-      },
-      (error) => {
-        console.error('Error updating teacher details', error);
-      }
-    );
+  editTeacher() {
+    if (this.selectedTeacher) {
+      this.selectedTeacher.isEditing = true;
+    }
   }
+
+  cancelEdit() {
+    if (this.selectedTeacher) {
+      this.selectedTeacher.isEditing = false;
+      this.selectedTeacher = null; // Reset selected teacher
+      this.fetchTeachers(); // Refresh data to cancel changes
+    }
+  }
+
+  saveTeacher() {
+    if (this.selectedTeacher) {
+      const updatedTeacher = { ...this.selectedTeacher };
+      const token = this.sessionService.getToken();
+      this.service.putRequest(`/api/admins/teachers/profile/${this.selectedTeacher.id}`, updatedTeacher, token).subscribe(
+        (data) => {
+          alert('Teacher details updated successfully');
+          this.selectedTeacher.isEditing = false;
+          this.selectedTeacher = null; // Reset selected teacher
+          this.fetchTeachers(); // Refresh list after update
+        },
+        (error) => {
+          console.error('Error updating teacher details', error);
+        }
+      );
+    }
+  }
+
+deleteTeacher() {
+  if (this.selectedTeacher) {
+    if (confirm('Are you sure you want to delete this teacher?')) {
+      const token = this.sessionService.getToken();
+      this.service.deleteRequest(`/api/admins/teachers/profile/${this.selectedTeacher.id}`, token).subscribe(
+        (data) => {
+          alert('Teacher deleted successfully');
+          this.selectedTeacher = null;
+          this.fetchTeachers(); // Refresh list after deletion
+        },
+        (error) => {
+          console.error('Error deleting teacher', error);
+        }
+      );
+    }
+  }
+}
+
 
   prevPage() {
     if (this.currentPage > 1) {

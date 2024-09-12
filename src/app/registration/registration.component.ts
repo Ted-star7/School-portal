@@ -47,7 +47,7 @@ export class RegistrationComponent {
       response => {
         this.isLoading = false;
         this.successMessage = 'Registration successful! Redirecting to login...';
-        setTimeout(() => this.router.navigate(['/login']), 2000); // Redirect to login after 2 seconds
+        setTimeout(() => this.router.navigate(['/login']), 2000); 
       },
       error => {
         this.isLoading = false;

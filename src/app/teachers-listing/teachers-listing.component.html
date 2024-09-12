@@ -14,51 +14,94 @@
         <th>Gender</th>
         <th>Main Subject</th>
         <th>Secondary Subject</th>
-        <!-- <th>Class</th> -->
         <th>Email Address</th>
         <th>Phone</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let teacher of paginatedTeachers()">
-        <ng-container *ngIf="teacher.isEditing; else viewMode">
-          <!-- Edit Mode -->
-          <td><input type="text" [(ngModel)]="teacher.idNumber" /></td>
-          <td><input type="text" [(ngModel)]="teacher.fullName" /></td>
-          <td>
-            <select [(ngModel)]="teacher.gender">
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
-          </td>
-          <td><input type="text" [(ngModel)]="teacher.mainSubject" /></td>
-          <td><input type="text" [(ngModel)]="teacher.secSubject" /></td>
-          <!-- <td><input type="text" [(ngModel)]="teacher.class" /></td> -->
-          <td><input type="text" [(ngModel)]="teacher.address" /></td>
-          <td><input type="text" [(ngModel)]="teacher.phoneNumber" /></td>
-          <td>
-            <button (click)="saveTeacher(teacher)">Save</button>
-            <button (click)="cancelEdit(teacher)">Cancel</button>
-          </td>
-        </ng-container>
-        <ng-template #viewMode>
-          <!-- View Mode -->
-          <td>{{ teacher.idNumber }}</td>
-          <td>{{ teacher.fullName }}</td>
-          <td>{{ teacher.gender }}</td>
-          <td>{{ teacher.mainSubject }}</td>
-          <td>{{ teacher.secSubject }}</td>
-          <!-- <td>{{ teacher.class }}</td> -->
-          <td>{{ teacher.email }}</td>
-          <td>{{ teacher.phoneNumber }}</td>
-          <td>
-            <button (click)="editTeacher(teacher)">Edit</button>
-          </td>
-        </ng-template>
+      <tr *ngFor="let teacher of paginatedTeachers()" (click)="selectTeacher(teacher)">
+        <td>{{ teacher.idNumber }}</td>
+        <td>{{ teacher.fullName }}</td>
+        <td>{{ teacher.gender }}</td>
+        <td>{{ teacher.mainSubject }}</td>
+        <td>{{ teacher.secSubject }}</td>
+        <td>{{ teacher.email }}</td>
+        <td>{{ teacher.phoneNumber }}</td>
+        <td>
+          <button (click)="selectTeacher(teacher)">View</button>
+        </td>
       </tr>
     </tbody>
   </table>
+  <div *ngIf="selectedTeacher" class="teacher-details">
+    <div class="close-button" (click)="closeDetails()">&#10006;</div>
+    <div class="teacher-info">
+      <img [src]="selectedTeacher.pfpUrl" alt="{{ selectedTeacher.fullName }}" class="teacher-photo" />
+ <div class="teacher-details-content">
+  <h3 *ngIf="!selectedTeacher.isEditing">{{ selectedTeacher.fullName }}</h3>
+  <input *ngIf="selectedTeacher.isEditing" type="text" [(ngModel)]="selectedTeacher.fullName" />
+
+  <p *ngIf="!selectedTeacher.isEditing"><strong>ID:</strong> {{ selectedTeacher.idNumber }}</p>
+  <input *ngIf="selectedTeacher.isEditing" type="text" [(ngModel)]="selectedTeacher.idNumber" />
+
+  <p *ngIf="!selectedTeacher.isEditing"><strong>Phone:</strong> {{ selectedTeacher.phoneNumber }}</p>
+  <input *ngIf="selectedTeacher.isEditing" type="text" [(ngModel)]="selectedTeacher.phoneNumber" />
+
+  <p *ngIf="!selectedTeacher.isEditing"><strong>Email:</strong> {{ selectedTeacher.email }}</p>
+  <input *ngIf="selectedTeacher.isEditing" type="email" [(ngModel)]="selectedTeacher.email" />
+
+  <p *ngIf="!selectedTeacher.isEditing"><strong>Gender:</strong> {{ selectedTeacher.gender }}</p>
+  <select *ngIf="selectedTeacher.isEditing" [(ngModel)]="selectedTeacher.gender">
+    <option value="Male">Male</option>
+    <option value="Female">Female</option>
+    <option value="Other">Other</option>
+  </select>
+
+  <p *ngIf="!selectedTeacher.isEditing"><strong>Main Subject:</strong> {{ selectedTeacher.mainSubject }}</p>
+  <input *ngIf="selectedTeacher.isEditing" type="text" [(ngModel)]="selectedTeacher.mainSubject" />
+
+  <p *ngIf="!selectedTeacher.isEditing"><strong>Secondary Subject:</strong> {{ selectedTeacher.secSubject }}</p>
+  <input *ngIf="selectedTeacher.isEditing" type="text" [(ngModel)]="selectedTeacher.secSubject" />
+
+  <p *ngIf="!selectedTeacher.isEditing"><strong>Year of Birth:</strong> {{ selectedTeacher.yob }}</p>
+  <input *ngIf="selectedTeacher.isEditing" type="number" [(ngModel)]="selectedTeacher.yob" />
+
+  <p *ngIf="!selectedTeacher.isEditing && selectedTeacher.impairement !== 'None'">
+    <strong>Impairment:</strong> {{ selectedTeacher.impairement }}
+  </p>
+  <select *ngIf="selectedTeacher.isEditing" [(ngModel)]="selectedTeacher.impairement">
+    <option value="None">None</option>
+    <option value="Visual">Visual</option>
+    <option value="Hearing">Hearing</option>
+    <option value="Hearing">Specify your impairement</option>
+    <!-- Add more options as needed -->
+  </select>
+
+  <p *ngIf="!selectedTeacher.isEditing && selectedTeacher.impairementDetails">
+    <strong>Impairment Details:</strong> {{ selectedTeacher.impairementDetails }}
+  </p>
+  <textarea *ngIf="selectedTeacher.isEditing" [(ngModel)]="selectedTeacher.impairementDetails"></textarea>
+
+  <p *ngIf="!selectedTeacher.isEditing"><strong>Date of Join:</strong> {{ selectedTeacher.dateOfJoin }}</p>
+  <input *ngIf="selectedTeacher.isEditing" type="date" [(ngModel)]="selectedTeacher.dateOfJoin" />
+
+  <p><strong>CV:</strong> <a [href]="selectedTeacher.cvUrl" target="_blank">View CV</a></p>
+
+  <div *ngIf="!selectedTeacher.isEditing">
+    <button (click)="editTeacher()">Edit</button>
+    <button (click)="deleteTeacher()">Delete</button>
+  </div>
+
+  <div *ngIf="selectedTeacher.isEditing">
+    <button (click)="saveTeacher()">Save</button>
+    <button (click)="cancelEdit()">Cancel</button>
+  </div>
+</div>
+
+    </div>
+  </div>
+
   <div class="pagination">
     <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
     <span>Page {{ currentPage }} of {{ totalPages }}</span>
