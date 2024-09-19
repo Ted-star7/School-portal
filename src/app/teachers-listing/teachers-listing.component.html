@@ -1,9 +1,17 @@
-<div class="teachers-listing"> 
+<div class="teachers-listing">
   <h2>All Teachers Data</h2>
   <div class="search-bar">
     <input type="text" [(ngModel)]="searchID" placeholder="Search by ID ..." />
-    <input type="text" [(ngModel)]="searchName" placeholder="Search by Name ..." />
-    <input type="text" [(ngModel)]="searchPhone" placeholder="Search by Phone ..." />
+    <input
+      type="text"
+      [(ngModel)]="searchName"
+      placeholder="Search by Name ..."
+    />
+    <input
+      type="text"
+      [(ngModel)]="searchPhone"
+      placeholder="Search by Phone ..."
+    />
     <button (click)="fetchTeachers()">Search</button>
   </div>
   <table>
@@ -20,7 +28,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let teacher of paginatedTeachers()" (click)="selectTeacher(teacher)">
+      <tr
+        *ngFor="let teacher of paginatedTeachers()"
+        (click)="selectTeacher(teacher)"
+      >
         <td>{{ teacher.idNumber }}</td>
         <td>{{ teacher.fullName }}</td>
         <td>{{ teacher.gender }}</td>
@@ -36,55 +47,135 @@
   </table>
 
   <div *ngIf="selectedTeacher" class="teacher-details">
-    <img [src]="selectedTeacher.pfpUrl" alt="{{ selectedTeacher.fullName }}" class="teacher-photo" />
+    <img
+      [src]="selectedTeacher.pfpUrl"
+      alt="{{ selectedTeacher.fullName }}"
+      class="teacher-photo"
+    />
     <div class="teacher-details-content">
       <h3 *ngIf="!selectedTeacher.isEditing">{{ selectedTeacher.fullName }}</h3>
-      <input *ngIf="selectedTeacher.isEditing" type="text" [(ngModel)]="selectedTeacher.fullName" placeholder="Full Name" />
+      <input
+        *ngIf="selectedTeacher.isEditing"
+        type="text"
+        [(ngModel)]="selectedTeacher.fullName"
+        placeholder="Full Name"
+      />
 
-      <p *ngIf="!selectedTeacher.isEditing"><strong>ID:</strong> {{ selectedTeacher.idNumber }}</p>
-      <input *ngIf="selectedTeacher.isEditing" type="text" [(ngModel)]="selectedTeacher.idNumber" placeholder="ID Number" />
+      <p *ngIf="!selectedTeacher.isEditing">
+        <strong>ID:</strong> {{ selectedTeacher.idNumber }}
+      </p>
+      <input
+        *ngIf="selectedTeacher.isEditing"
+        type="text"
+        [(ngModel)]="selectedTeacher.idNumber"
+        placeholder="ID Number"
+      />
 
-      <p *ngIf="!selectedTeacher.isEditing"><strong>Phone:</strong> {{ selectedTeacher.phoneNumber }}</p>
-      <input *ngIf="selectedTeacher.isEditing" type="text" [(ngModel)]="selectedTeacher.phoneNumber" placeholder="Phone Number" />
+      <p *ngIf="!selectedTeacher.isEditing">
+        <strong>Phone:</strong> {{ selectedTeacher.phoneNumber }}
+      </p>
+      <input
+        *ngIf="selectedTeacher.isEditing"
+        type="text"
+        [(ngModel)]="selectedTeacher.phoneNumber"
+        placeholder="Phone Number"
+      />
 
-      <p *ngIf="!selectedTeacher.isEditing"><strong>Email:</strong> {{ selectedTeacher.email }}</p>
-      <input *ngIf="selectedTeacher.isEditing" type="email" [(ngModel)]="selectedTeacher.email" placeholder="Email Address" />
+      <p *ngIf="!selectedTeacher.isEditing">
+        <strong>Email:</strong> {{ selectedTeacher.email }}
+      </p>
+      <input
+        *ngIf="selectedTeacher.isEditing"
+        type="email"
+        [(ngModel)]="selectedTeacher.email"
+        placeholder="Email Address"
+      />
 
-      <p *ngIf="!selectedTeacher.isEditing"><strong>Gender:</strong> {{ selectedTeacher.gender }}</p>
-      <select *ngIf="selectedTeacher.isEditing" [(ngModel)]="selectedTeacher.gender">
+      <p *ngIf="!selectedTeacher.isEditing">
+        <strong>Gender:</strong> {{ selectedTeacher.gender }}
+      </p>
+      <select
+        *ngIf="selectedTeacher.isEditing"
+        [(ngModel)]="selectedTeacher.gender"
+      >
         <option value="Male">Male</option>
         <option value="Female">Female</option>
         <option value="Other">Other</option>
       </select>
 
-      <p *ngIf="!selectedTeacher.isEditing"><strong>Main Subject:</strong> {{ selectedTeacher.mainSubject }}</p>
-      <input *ngIf="selectedTeacher.isEditing" type="text" [(ngModel)]="selectedTeacher.mainSubject" placeholder="Main Subject" />
+      <p *ngIf="!selectedTeacher.isEditing">
+        <strong>Main Subject:</strong> {{ selectedTeacher.mainSubject }}
+      </p>
+      <input
+        *ngIf="selectedTeacher.isEditing"
+        type="text"
+        [(ngModel)]="selectedTeacher.mainSubject"
+        placeholder="Main Subject"
+      />
 
-      <p *ngIf="!selectedTeacher.isEditing"><strong>Secondary Subject:</strong> {{ selectedTeacher.secSubject }}</p>
-      <input *ngIf="selectedTeacher.isEditing" type="text" [(ngModel)]="selectedTeacher.secSubject" placeholder="Secondary Subject" />
+      <p *ngIf="!selectedTeacher.isEditing">
+        <strong>Secondary Subject:</strong> {{ selectedTeacher.secSubject }}
+      </p>
+      <input
+        *ngIf="selectedTeacher.isEditing"
+        type="text"
+        [(ngModel)]="selectedTeacher.secSubject"
+        placeholder="Secondary Subject"
+      />
 
-      <p *ngIf="!selectedTeacher.isEditing"><strong>Year of Birth:</strong> {{ selectedTeacher.yob }}</p>
-      <input *ngIf="selectedTeacher.isEditing" type="number" [(ngModel)]="selectedTeacher.yob" placeholder="Year of Birth" />
+      <p *ngIf="!selectedTeacher.isEditing">
+        <strong>Year of Birth:</strong> {{ selectedTeacher.yob }}
+      </p>
+      <input
+        *ngIf="selectedTeacher.isEditing"
+        type="number"
+        [(ngModel)]="selectedTeacher.yob"
+        placeholder="Year of Birth"
+      />
 
-      <p *ngIf="!selectedTeacher.isEditing && selectedTeacher.impairement !== 'None'">
+      <p
+        *ngIf="
+          !selectedTeacher.isEditing && selectedTeacher.impairement !== 'None'
+        "
+      >
         <strong>Impairment:</strong> {{ selectedTeacher.impairement }}
       </p>
-      <select *ngIf="selectedTeacher.isEditing" [(ngModel)]="selectedTeacher.impairement">
+      <select
+        *ngIf="selectedTeacher.isEditing"
+        [(ngModel)]="selectedTeacher.impairement"
+      >
         <option value="None">None</option>
         <option value="Visual">Visual</option>
         <option value="Hearing">Hearing</option>
         <option value="Other">Specify your impairment</option>
       </select>
 
-      <p *ngIf="!selectedTeacher.isEditing && selectedTeacher.impairementDetails">
-        <strong>Impairment Details:</strong> {{ selectedTeacher.impairementDetails }}
+      <p
+        *ngIf="!selectedTeacher.isEditing && selectedTeacher.impairementDetails"
+      >
+        <strong>Impairment Details:</strong>
+        {{ selectedTeacher.impairementDetails }}
       </p>
-      <textarea *ngIf="selectedTeacher.isEditing" [(ngModel)]="selectedTeacher.impairementDetails" placeholder="Impairment Details"></textarea>
+      <textarea
+        *ngIf="selectedTeacher.isEditing"
+        [(ngModel)]="selectedTeacher.impairementDetails"
+        placeholder="Impairment Details"
+      ></textarea>
 
-      <p *ngIf="!selectedTeacher.isEditing"><strong>Date of Join:</strong> {{ selectedTeacher.dateOfJoin }}</p>
-      <input *ngIf="selectedTeacher.isEditing" type="date" [(ngModel)]="selectedTeacher.dateOfJoin" placeholder="Date of Join" />
+      <p *ngIf="!selectedTeacher.isEditing">
+        <strong>Date of Join:</strong> {{ selectedTeacher.dateOfJoin }}
+      </p>
+      <input
+        *ngIf="selectedTeacher.isEditing"
+        type="date"
+        [(ngModel)]="selectedTeacher.dateOfJoin"
+        placeholder="Date of Join"
+      />
 
-      <p><strong>CV:</strong> <a [href]="selectedTeacher.cvUrl" target="_blank">View CV</a></p>
+      <p>
+        <strong>CV:</strong>
+        <a [href]="selectedTeacher.cvUrl" target="_blank">View CV</a>
+      </p>
 
       <div *ngIf="!selectedTeacher.isEditing">
         <button (click)="editTeacher()" class="edit-btn">Edit</button>
@@ -95,19 +186,39 @@
         <h3>Edit Teacher</h3>
         <div class="form-group">
           <label for="editFullName">Full Name:</label>
-          <input id="editFullName" type="text" [(ngModel)]="selectedTeacher.fullName" placeholder="Full Name" />
+          <input
+            id="editFullName"
+            type="text"
+            [(ngModel)]="selectedTeacher.fullName"
+            placeholder="Full Name"
+          />
         </div>
         <div class="form-group">
           <label for="editIdNumber">ID Number:</label>
-          <input id="editIdNumber" type="text" [(ngModel)]="selectedTeacher.idNumber" placeholder="ID Number" />
+          <input
+            id="editIdNumber"
+            type="text"
+            [(ngModel)]="selectedTeacher.idNumber"
+            placeholder="ID Number"
+          />
         </div>
         <div class="form-group">
           <label for="editPhoneNumber">Phone Number:</label>
-          <input id="editPhoneNumber" type="text" [(ngModel)]="selectedTeacher.phoneNumber" placeholder="Phone Number" />
+          <input
+            id="editPhoneNumber"
+            type="text"
+            [(ngModel)]="selectedTeacher.phoneNumber"
+            placeholder="Phone Number"
+          />
         </div>
         <div class="form-group">
           <label for="editEmail">Email Address:</label>
-          <input id="editEmail" type="email" [(ngModel)]="selectedTeacher.email" placeholder="Email Address" />
+          <input
+            id="editEmail"
+            type="email"
+            [(ngModel)]="selectedTeacher.email"
+            placeholder="Email Address"
+          />
         </div>
         <div class="form-group">
           <label for="editGender">Gender:</label>
@@ -119,15 +230,30 @@
         </div>
         <div class="form-group">
           <label for="editMainSubject">Main Subject:</label>
-          <input id="editMainSubject" type="text" [(ngModel)]="selectedTeacher.mainSubject" placeholder="Main Subject" />
+          <input
+            id="editMainSubject"
+            type="text"
+            [(ngModel)]="selectedTeacher.mainSubject"
+            placeholder="Main Subject"
+          />
         </div>
         <div class="form-group">
           <label for="editSecSubject">Secondary Subject:</label>
-          <input id="editSecSubject" type="text" [(ngModel)]="selectedTeacher.secSubject" placeholder="Secondary Subject" />
+          <input
+            id="editSecSubject"
+            type="text"
+            [(ngModel)]="selectedTeacher.secSubject"
+            placeholder="Secondary Subject"
+          />
         </div>
         <div class="form-group">
           <label for="editYob">Year of Birth:</label>
-          <input id="editYob" type="number" [(ngModel)]="selectedTeacher.yob" placeholder="Year of Birth" />
+          <input
+            id="editYob"
+            type="number"
+            [(ngModel)]="selectedTeacher.yob"
+            placeholder="Year of Birth"
+          />
         </div>
         <div class="form-group">
           <label for="editImpairment">Impairment:</label>
@@ -140,11 +266,19 @@
         </div>
         <div class="form-group">
           <label for="editImpairmentDetails">Impairment Details:</label>
-          <textarea id="editImpairmentDetails" [(ngModel)]="selectedTeacher.impairementDetails" placeholder="Impairment Details"></textarea>
+          <textarea
+            id="editImpairmentDetails"
+            [(ngModel)]="selectedTeacher.impairementDetails"
+            placeholder="Impairment Details"
+          ></textarea>
         </div>
         <div class="form-group">
           <label for="editDateOfJoin">Date of Join:</label>
-          <input id="editDateOfJoin" type="date" [(ngModel)]="selectedTeacher.dateOfJoin" />
+          <input
+            id="editDateOfJoin"
+            type="date"
+            [(ngModel)]="selectedTeacher.dateOfJoin"
+          />
         </div>
         <button (click)="saveTeacher()" class="save-btn">Save</button>
         <button (click)="cancelEdit()" class="cancel-btn">Cancel</button>
@@ -153,8 +287,12 @@
   </div>
 
   <div class="pagination">
-    <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+    <button (click)="prevPage()" [disabled]="currentPage === 1">
+      Previous
+    </button>
     <span>Page {{ currentPage }} of {{ totalPages }}</span>
-    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+      Next
+    </button>
   </div>
 </div>
