@@ -172,3 +172,34 @@ h3 {
   border-color: #90BF2A;
   outline: none;
 }
+.event-list-section {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.event-list-section h2 {
+  font-size: 1.5rem;
+  color: #8C2C16;
+  margin-bottom: 15px;
+}
+
+.event-item {
+  background-color: #F2F2F2;
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.event-item h4 {
+  font-size: 1.2rem;
+  color: #F26716;
+}
+
+.event-item p {
+  color: #333;
+  margin: 5px 0;
+}

@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
 import { ServicesService } from '../Services/consume.service';
 import { SessionService } from '../Services/session.service';
 
-
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -18,13 +17,14 @@ import { SessionService } from '../Services/session.service';
 })
 export class DashboardComponent implements OnInit {
   calendarOptions: any;
+  events: any[] = [];
   isEventFormOpen: boolean = false;
   eventTitle: string = '';
-  eventDescription: string ='';
+  eventDescription: string = '';
   selectedDate: string = '';
   totalStudents: number = 0;
   totalTeachers: number = 0;
-  totalParents: number =0;
+  totalParents: number = 0;
 
   constructor(private service: ServicesService, private router: Router, private sessionService: SessionService) {}
 
@@ -40,82 +40,112 @@ export class DashboardComponent implements OnInit {
     this.fetchTotalStudents();
     this.fetchTotalTeachers();
     this.fetchTotalParents();
+    this.fetchEvents();
   }
 
-fetchTotalStudents() {
-  const token = this.sessionService.getToken();
-  if (token) {
-    this.service.getRequest('/api/admins/students/total', token).subscribe(
-      (response: any) => {
-        this.totalStudents = response.totalStudents; // Extract the totalStudents value
-      },
-      (error) => {
-        console.error('Failed to fetch students:', error);
-      }
-    );
-  } else {
-    console.error('No token found');
+  // Fetch total students from the backend
+  fetchTotalStudents() {
+    const token = this.sessionService.getToken();
+    if (token) {
+      this.service.getRequest('/api/admins/students/total', token).subscribe(
+        (response: any) => {
+          this.totalStudents = response.totalStudents;
+        },
+        (error) => {
+          console.error('Failed to fetch students:', error);
+        }
+      );
+    } else {
+      console.error('No token found');
+    }
   }
-}
 
-fetchTotalTeachers() {
-  const token = this.sessionService.getToken();
-  if (token) {
-    this.service.getRequest('/api/admins/teachers/total', token).subscribe(
+  // Fetch events from the backend
+  fetchEvents() {
+    this.service.getRequest('/api/open/events', null).subscribe(
       (response: any) => {
-        this.totalTeachers = response.totalTeachers; // Extract the totalTeachers value
+        this.events = response; // Assuming response is an array of events
+        this.calendarOptions.events = this.events.map(event => ({
+          title: event.eventTitle,
+          start: event.selectedDate,
+        }));
       },
       (error) => {
-        console.error('Failed to fetch teachers:', error);
+        console.error('Failed to fetch events:', error);
       }
     );
-  } else {
-    console.error('No token found');
   }
-}
-fetchTotalParents() {
-  const token = this.sessionService.getToken();
-  if (token) {
-    this.service.getRequest('/api/parents/count', token).subscribe(
-      (response: any) => {
-        this.totalParents = response.totalParents; 
-      },
-      (error) => {
-        console.error('Failed to fetch teachers:', error);
-      }
-    );
-  } else {
-    console.error('No token found');
-  }
-}
 
+  // Fetch total teachers
+  fetchTotalTeachers() {
+    const token = this.sessionService.getToken();
+    if (token) {
+      this.service.getRequest('/api/admins/teachers/total', token).subscribe(
+        (response: any) => {
+          this.totalTeachers = response.totalTeachers;
+        },
+        (error) => {
+          console.error('Failed to fetch teachers:', error);
+        }
+      );
+    } else {
+      console.error('No token found');
+    }
+  }
+
+  // Fetch total parents
+  fetchTotalParents() {
+    const token = this.sessionService.getToken();
+    if (token) {
+      this.service.getRequest('/api/parents/count', token).subscribe(
+        (response: any) => {
+          this.totalParents = response.totalParents;
+        },
+        (error) => {
+          console.error('Failed to fetch parents:', error);
+        }
+      );
+    } else {
+      console.error('No token found');
+    }
+  }
+
+  // Handle date click from the calendar
   handleDateClick(arg: any) {
-    this.selectedDate = arg.dateStr; // Save the selected date
-    this.isEventFormOpen = true; // Open the event form
+    this.selectedDate = arg.dateStr;
+    this.isEventFormOpen = true; 
   }
 
+  // Open the event form
   openEventForm() {
-    this.isEventFormOpen = true; // Show the event form
+    this.isEventFormOpen = true; 
   }
 
+  // Close the event form
   closeEventForm() {
-    this.isEventFormOpen = false; // Hide the event form
-    this.eventTitle = ''; // Reset the event title
+    this.isEventFormOpen = false;
+    this.eventTitle = '';
+    this.eventDescription = '';
+    this.selectedDate = '';
   }
 
+  // Save the event to the backend
   saveEvent() {
     if (this.eventTitle) {
       const newEvent = {
         eventTitle: this.eventTitle,
-        selectedDate: this.selectedDate,
         eventDescription: this.eventDescription,
+        selectedDate: this.selectedDate,
       };
 
       // Post the event to the server
       this.service.postRequest('/api/open/events/record', newEvent, null).subscribe(
         (response) => {
           console.log('Event saved successfully:', response);
-          this.calendarOptions.events.push(newEvent); // Add the event to the calendar
+          
+          // Re-fetch events from the server
+          this.fetchEvents();
+          
           this.closeEventForm(); // Close the form
         },
         (error) => {
@@ -125,22 +155,16 @@ fetchTotalParents() {
     }
   }
 
-  // Handle click events for navigation
-goToStudentsPage() {
-  console.log('Navigating to students page');
-  this.router.navigate(['/students']);
-}
-goToParentsPage(){
-  console.log('Navigating to parents page')
-  this.router.navigate(['/parents'])
-}
+  // Navigation functions
+  goToStudentsPage() {
+    this.router.navigate(['/students']);
+  }
 
-goToTeachersPage() {
-  console.log('Navigating to teachers page');
-  this.router.navigate(['/teachers']);
-}
-goToTeachersListPage(){
-  console.log('Navigating to teachers list page');
-  this.router.navigate(['/teacherslisting'])
-}
+  goToParentsPage() {
+    this.router.navigate(['/parents']);
+  }
+
+  goToTeachersListPage() {
+    this.router.navigate(['/teacherslisting']);
+  }
 }

@@ -28,7 +28,7 @@
       </div>
       <div class="stat-box" (click)="goToParentsPage()">
         <h2>Total Parents</h2>
-        <p>{{ totalParents}}</p>
+        <p>{{ totalParents }}</p>
       </div>
     </div>
 
@@ -54,14 +54,27 @@
     <label for="eventTitle">Event Title:</label>
     <input type="text" id="eventTitle" [(ngModel)]="eventTitle" />
 
-    <h3>Event Description</h3>
-    <label for="eventTitle">Event Description:</label>
+    <label for="eventDescription">Event Description:</label>
     <input type="text" id="eventDescription" [(ngModel)]="eventDescription" />
-    
+
     <label for="eventDate">Event Date:</label>
     <input type="text" id="eventDate" [value]="selectedDate" readonly />
 
     <button class="action-btn" (click)="saveEvent()">Save Event</button>
     <button class="action-btn" (click)="closeEventForm()">Cancel</button>
+  </div>
+
+  <div class="event-list-section">
+    <h2>Upcoming Events</h2>
+    <div *ngIf="events.length > 0; else noEvents">
+      <div *ngFor="let event of events" class="event-item">
+        <h4>{{ event.eventTitle }}</h4>
+        <p><strong>Description:</strong>{{ event.eventDescription }}</p>
+        <p><strong>Date:</strong> {{ event.selectedDate | date: 'fullDate' }}</p>
+      </div>
+    </div>
+    <ng-template #noEvents>
+      <p>No upcoming events</p>
+    </ng-template>
   </div>
 </div>
