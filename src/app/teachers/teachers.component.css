@@ -1,3 +1,4 @@
+/* Container Style */
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -5,22 +6,24 @@
   background-color: #f2f2f2;
 }
 
+/* Card Style */
 .card {
   border-radius: 16px;
   padding: 40px;
   background-color: #ffffff;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
+  border: 1px solid #e0e0e0;
 }
 
 .card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-10px);
   box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
 }
 
-
+/* Navigation Tabs */
 .nav-tabs {
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 2px solid #90BF2A;
 }
 
 .nav-tabs .nav-link {
@@ -28,7 +31,7 @@
   color: #8C2C16;
   border: 1px solid #dee2e6;
   border-radius: .25rem .25rem 0 0;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
 .nav-tabs .nav-link:hover {
@@ -42,6 +45,7 @@
   border-color: #90BF2A #90BF2A #f2f2f2;
 }
 
+/* Heading Style */
 h2 {
   font-size: 2.5rem;
   margin-bottom: 30px;
@@ -49,6 +53,7 @@ h2 {
   text-align: center;
   font-weight: bold;
   letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 /* Form Styles */
@@ -86,10 +91,7 @@ h2 {
   box-shadow: 0 0 0 0.2rem rgba(242, 103, 22, 0.25);
 }
 
-.form-group.full-width {
-  flex: 1 1 100%;
-}
-
+/* File Upload */
 .file-upload {
   display: flex;
   align-items: center;
@@ -113,9 +115,9 @@ h2 {
 
 .file-upload button:hover {
   background-color: #A1BF60;
- 
 }
 
+/* Button Styles */
 .btn {
   font-size: 1.2rem;
   padding: 12px 25px;
@@ -130,10 +132,9 @@ h2 {
 
 .btn:hover {
   background-color: #8C2C16;
-  
 }
 
-
+/* Table Styles */
 .table {
   width: 100%;
   margin-bottom: 1.5rem;
@@ -150,7 +151,6 @@ h2 {
   font-size: 1.1rem;
   font-weight: bold;
   color: #8C2C16;
-  
 }
 
 .table tbody tr {
@@ -163,9 +163,9 @@ h2 {
 
 .table-striped tbody tr:nth-of-type(odd) {
   background-color: #F2F2F2;
-
 }
 
+/* Pagination Styles */
 .pagination {
   display: flex;
   justify-content: center;

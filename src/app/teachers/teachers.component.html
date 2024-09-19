@@ -6,12 +6,11 @@
           class="nav-link active"
           id="register-tab"
           data-toggle="tab"
-          href="register"
+          href="teachers"
           role="tab"
           aria-controls="register"
           aria-selected="true"
-          >Register Teacher</a
-        >
+        >Register Teacher</a>
       </li>
       <li class="nav-item">
         <a
@@ -22,8 +21,7 @@
           role="tab"
           aria-controls="teachers"
           aria-selected="false"
-          >Teachers List</a
-        >
+        >Teachers List</a>
       </li>
     </ul>
     <div class="tab-content" id="myTabContent">
@@ -99,7 +97,7 @@
             />
           </div>
           <div class="form-group">
-            <label for="cvFile">Upload CV</label>
+            <label for="cvFile">Upload CV (PDF only)</label>
             <input
               type="file"
               formControlName="cvFile"
@@ -107,9 +105,10 @@
               class="form-control"
               (change)="onCvFileSelected($event)"
             />
+            <small *ngIf="cvFileError" class="text-danger">{{ cvFileError }}</small>
           </div>
           <div class="form-group">
-            <label for="passportPhoto">Upload Passport Photo</label>
+            <label for="passportPhoto">Upload Passport Photo (JPG or PNG only)</label>
             <input
               type="file"
               formControlName="passportPhoto"
@@ -117,6 +116,7 @@
               class="form-control"
               (change)="onPassportPhotoSelected($event)"
             />
+            <small *ngIf="passportPhotoError" class="text-danger">{{ passportPhotoError }}</small>
           </div>
           <div class="form-group">
             <label for="mainSubject">Main Subject</label>
@@ -170,7 +170,7 @@
               class="form-control"
             />
           </div>
-           <div class="form-group">
+          <div class="form-group">
             <label for="dateOfJoin">Date of Join</label>
             <input
               id="dateOfJoin"
