@@ -1,21 +1,29 @@
 <div class="dashboard">
   <div class="dashboard-header">
     <h3>Welcome To Heritage Leadership Academy</h3>
-    <br>
+    <br />
     <h4>Dashboard</h4>
-   
+
     <div class="header-actions">
       <div class="admin-profile">
-        <img src="assets/logo.jpg" alt="Admin Profile Photo" class="profile-photo" />
-        <div class="profile-menu">
-          <p>Admin Name</p>
-          <button class="action-btn">View Profile</button>
-          <button class="action-btn">Logout</button>
-        </div>
+        <img
+          src="assets/Logo.jpg"
+          alt="Admin Profile Photo"
+          class="profile-photo"
+          (click)="onProfilePicClick()"
+        />
+        <input
+          type="file"
+          id="fileInput"
+          style="display: none"
+          (change)="onProfilePicSelected($event)"
+          accept="image/*"
+        />
+        
       </div>
     </div>
   </div>
-  
+
   <div class="dashboard-content">
     <div class="stats-grid">
       <div class="stat-box" (click)="goToStudentsPage()">
@@ -70,7 +78,9 @@
       <div *ngFor="let event of events" class="event-item">
         <h4>{{ event.eventTitle }}</h4>
         <p><strong>Description:</strong>{{ event.eventDescription }}</p>
-        <p><strong>Date:</strong> {{ event.selectedDate | date: 'fullDate' }}</p>
+        <p>
+          <strong>Date:</strong> {{ event.selectedDate | date : "fullDate" }}
+        </p>
       </div>
     </div>
     <ng-template #noEvents>

@@ -53,7 +53,7 @@ export class StudentsComponent implements OnInit {
         (response: { data: Student[] }) => {
           this.students = response.data.map(student => ({
             ...student,
-            photo: student.pfpUrl || 'assets/logo.jpg' // Use pfpUrl if available
+            photo: student.pfpUrl || 'assets/Logo.jpg' // Use pfpUrl if available
           }));
         },
         error => {

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FullCalendarModule } from '@fullcalendar/angular'; 
-import dayGridPlugin from '@fullcalendar/daygrid'; 
-import interactionPlugin from '@fullcalendar/interaction'; 
-import { CommonModule } from '@angular/common'; 
-import { FormsModule } from '@angular/forms'; 
+import { Component, OnInit } from '@angular/core'; 
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ServicesService } from '../Services/consume.service';
 import { SessionService } from '../Services/session.service';
@@ -25,8 +25,13 @@ export class DashboardComponent implements OnInit {
   totalStudents: number = 0;
   totalTeachers: number = 0;
   totalParents: number = 0;
+  adminPfp: string = ''; // Admin profile picture URL
 
-  constructor(private service: ServicesService, private router: Router, private sessionService: SessionService) {}
+  constructor(
+    private service: ServicesService, 
+    private router: Router, 
+    private sessionService: SessionService
+  ) {}
 
   ngOnInit() {
     this.calendarOptions = {
@@ -154,6 +159,42 @@ export class DashboardComponent implements OnInit {
       );
     }
   }
+
+  // Upload admin profile picture
+  onProfilePicClick() {
+    const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+    fileInput.click();
+  }
+
+  // Handle profile picture selection and upload
+onProfilePicSelected(event: any) {
+  const file = event.target.files[0]; // Grab the selected file
+  if (file) {
+    const formData = new FormData(); // Create a new FormData object
+
+    // Append file and admin ID to FormData
+    formData.append('adminPfp', file, file.name); // Ensure the file is appended with its name
+    formData.append('adminId', 'adminId'); // Replace 'adminId' with actual ID
+
+    const token = this.sessionService.getToken();
+    if (token) {
+      // Perform the file upload request
+      this.service.postFormData(`/api/open/admins/pfp/${'adminId'}`, formData, token).subscribe(
+        (response: any) => {
+          console.log('Profile picture updated successfully:', response);
+          this.adminPfp = response.adminPfp; // Update UI with new profile picture URL
+        },
+        (error: any) => {
+          console.error('Failed to upload profile picture:', error);
+        }
+      );
+    } else {
+      console.error('No token found');
+    }
+  }
+}
+
+
 
   // Navigation functions
   goToStudentsPage() {
