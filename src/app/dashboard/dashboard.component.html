@@ -2,12 +2,13 @@
   <div class="dashboard-header">
     <h3>Welcome To Heritage Leadership Academy</h3>
     <br />
-    <h4>Dashboard</h4>
+    <h4>Your profile</h4>
 
     <div class="header-actions">
       <div class="admin-profile">
+        <!-- The dynamic src binding is corrected here -->
         <img
-          src="assets/Logo.jpg"
+          [src]="adminPfp ? adminPfp : 'assets/Logo.jpg'"
           alt="Admin Profile Photo"
           class="profile-photo"
           (click)="onProfilePicClick()"
@@ -19,7 +20,6 @@
           (change)="onProfilePicSelected($event)"
           accept="image/*"
         />
-        
       </div>
     </div>
   </div>

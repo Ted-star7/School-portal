@@ -161,28 +161,28 @@ export class DashboardComponent implements OnInit {
   }
 
   // Upload admin profile picture
-  onProfilePicClick() {
-    const fileInput = document.getElementById('fileInput') as HTMLInputElement;
-    fileInput.click();
-  }
+onProfilePicClick() {
+  const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+  fileInput.click(); // Trigger the file input click event
+}
 
-  // Handle profile picture selection and upload
 onProfilePicSelected(event: any) {
-  const file = event.target.files[0]; // Grab the selected file
+  const file = event.target.files[0]; // Get the selected file
   if (file) {
     const formData = new FormData(); // Create a new FormData object
 
-    // Append file and admin ID to FormData
-    formData.append('adminPfp', file, file.name); // Ensure the file is appended with its name
-    formData.append('adminId', 'adminId'); // Replace 'adminId' with actual ID
+    // Append the file and the admin ID to FormData
+    formData.append('adminPfp', file, file.name); 
+    const adminId = 'yourAdminId'; // Replace this with actual admin ID, either dynamically fetched or hardcoded
+    formData.append('adminId', adminId); 
 
-    const token = this.sessionService.getToken();
+    const token = this.sessionService.getToken(); // Get the token from your session service
     if (token) {
-      // Perform the file upload request
-      this.service.postFormData(`/api/open/admins/pfp/${'adminId'}`, formData, token).subscribe(
+      // Make the POST request to upload the profile picture
+      this.service.postFormData(`/api/open/admins/pfp/${adminId}`, formData, token).subscribe(
         (response: any) => {
           console.log('Profile picture updated successfully:', response);
-          this.adminPfp = response.adminPfp; // Update UI with new profile picture URL
+          this.adminPfp = response.adminPfp; // Update the UI with the new profile picture URL
         },
         (error: any) => {
           console.error('Failed to upload profile picture:', error);
@@ -193,6 +193,7 @@ onProfilePicSelected(event: any) {
     }
   }
 }
+
 
 
 
