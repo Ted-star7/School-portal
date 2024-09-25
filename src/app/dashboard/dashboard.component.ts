@@ -167,22 +167,20 @@ onProfilePicClick() {
 }
 
 onProfilePicSelected(event: any) {
-  const file = event.target.files[0]; // Get the selected file
+  const file = event.target.files[0]; // Grab the selected file
   if (file) {
     const formData = new FormData(); // Create a new FormData object
 
-    // Append the file and the admin ID to FormData
-    formData.append('adminPfp', file, file.name); 
-    const adminId = 'yourAdminId'; // Replace this with actual admin ID, either dynamically fetched or hardcoded
-    formData.append('adminId', adminId); 
+    // Append file and admin ID to FormData
+    formData.append('adminPfp', file); // Append the file
+    formData.append('adminId', 'yourAdminId'); // Replace 'yourAdminId' with actual ID
 
-    const token = this.sessionService.getToken(); // Get the token from your session service
+    const token = this.sessionService.getToken();
     if (token) {
-      // Make the POST request to upload the profile picture
-      this.service.postFormData(`/api/open/admins/pfp/${adminId}`, formData, token).subscribe(
+      this.service.postFormData(`/api/open/admins/pfp/${'yourAdminId'}`, formData, token).subscribe(
         (response: any) => {
           console.log('Profile picture updated successfully:', response);
-          this.adminPfp = response.adminPfp; // Update the UI with the new profile picture URL
+          this.adminPfp = response.adminPfp; // Update UI with new profile picture URL
         },
         (error: any) => {
           console.error('Failed to upload profile picture:', error);
@@ -193,6 +191,7 @@ onProfilePicSelected(event: any) {
     }
   }
 }
+
 
 
 
