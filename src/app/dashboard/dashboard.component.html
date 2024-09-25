@@ -46,7 +46,7 @@
             baseChart
             [datasets]="[{
               data: doughnutChartData,
-              backgroundColor: ['#FF6384', '#36A2EB']
+              backgroundColor: ['#F26716', '#90BF2A']
             }]"
             [labels]="doughnutChartLabels"
             [options]="doughnutChartOptions"
@@ -76,7 +76,7 @@
     <input type="text" id="eventDescription" [(ngModel)]="eventDescription" />
 
     <label for="eventDate">Event Date:</label>
-    <input type="text" id="eventDate" [value]="selectedDate"  />
+    <input type="text" id="eventDate" [value]="selectedDate" />
 
     <button class="action-btn" (click)="saveEvent()">Save Event</button>
     <button class="action-btn" (click)="closeEventForm()">Cancel</button>

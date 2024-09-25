@@ -18,7 +18,7 @@ import { BaseChartDirective } from 'ng2-charts';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  // Chart data and options
+  
   public doughnutChartLabels: string[] = ['Boys', 'Girls'];
   public doughnutChartData: number[] = [0, 0]; 
   public doughnutChartOptions: any = {
@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit {
     this.loadDashboardData(); 
   }
 
-  // Load all data on initialization
+  
   loadDashboardData() {
     this.fetchTotalStudents();
     this.fetchTotalTeachers();
@@ -66,7 +66,7 @@ export class DashboardComponent implements OnInit {
     this.fetchStudentRatio(); 
   }
 
-  // Fetch student ratio
+  
   fetchStudentRatio() {
     const token = this.sessionService.getToken();
     if (token) {
@@ -82,13 +82,13 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  // Fetch total students from the backend
+  
   fetchTotalStudents() {
     const token = this.sessionService.getToken();
     if (token) {
       this.service.getRequest('/api/admins/students/total', token).subscribe(
         (response: any) => {
-          this.totalStudents = response.totalStudents; // Make sure your response has totalStudents
+          this.totalStudents = response.totalStudents; 
         },
         (error) => {
           console.error('Failed to fetch total students:', error);
@@ -97,7 +97,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  // Fetch total teachers from the backend
+  
   fetchTotalTeachers() {
     const token = this.sessionService.getToken();
     if (token) {
@@ -112,7 +112,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  // Fetch total parents from the backend
+  
   fetchTotalParents() {
     const token = this.sessionService.getToken();
     if (token) {
@@ -127,7 +127,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  // Fetch events from the backend
+ 
   fetchEvents() {
     const token = this.sessionService.getToken();
     if (token) {
@@ -158,7 +158,7 @@ export class DashboardComponent implements OnInit {
     this.isEventFormOpen = true;
   }
 
-  // Close the event form
+ 
   closeEventForm() {
     this.isEventFormOpen = false;
     this.eventTitle = '';
@@ -187,22 +187,22 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  // Navigate to students page
+  // Navigation
   goToStudentsPage() {
     this.router.navigate(['/students']);
   }
 
-  // Navigate to teachers page
+  
   goToTeachersListPage() {
     this.router.navigate(['/teachers-list']);
   }
 
-  // Navigate to parents page
+  
   goToParentsPage() {
     this.router.navigate(['/parents']);
   }
 
-  // Profile picture click handler
+ 
   onProfilePicClick() {
     const fileInput = document.getElementById('fileInput') as HTMLInputElement;
     fileInput.click();
