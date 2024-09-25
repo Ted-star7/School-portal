@@ -3,10 +3,8 @@
     <h3>Welcome To Heritage Leadership Academy</h3>
     <br />
     <h4>Your profile</h4>
-
     <div class="header-actions">
       <div class="admin-profile">
-        <!-- The dynamic src binding is corrected here -->
         <img
           [src]="adminPfp ? adminPfp : 'assets/logo.jpg'"
           alt="Admin Profile Photo"
@@ -43,6 +41,18 @@
     <div class="charts-grid">
       <div class="chart-box">
         <h2>Student's Overview</h2>
+        <div style="display: block">
+          <canvas
+            baseChart
+            [datasets]="[{
+              data: doughnutChartData,
+              backgroundColor: ['#FF6384', '#36A2EB']
+            }]"
+            [labels]="doughnutChartLabels"
+            [options]="doughnutChartOptions"
+            [type]="'doughnut'"
+          ></canvas>
+        </div>
       </div>
       <div class="chart-box">
         <h2>Attendance Overview</h2>
@@ -66,7 +76,7 @@
     <input type="text" id="eventDescription" [(ngModel)]="eventDescription" />
 
     <label for="eventDate">Event Date:</label>
-    <input type="text" id="eventDate" [value]="selectedDate" readonly />
+    <input type="text" id="eventDate" [value]="selectedDate"  />
 
     <button class="action-btn" (click)="saveEvent()">Save Event</button>
     <button class="action-btn" (click)="closeEventForm()">Cancel</button>
@@ -77,7 +87,7 @@
     <div *ngIf="events.length > 0; else noEvents">
       <div *ngFor="let event of events" class="event-item">
         <h4>{{ event.eventTitle }}</h4>
-        <p><strong>Description:</strong>{{ event.eventDescription }}</p>
+        <p><strong>Description:</strong> {{ event.eventDescription }}</p>
         <p>
           <strong>Date:</strong> {{ event.selectedDate | date : "fullDate" }}
         </p>

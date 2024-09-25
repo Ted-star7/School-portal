@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'; 
+import { Component, OnInit } from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -7,15 +7,25 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ServicesService } from '../Services/consume.service';
 import { SessionService } from '../Services/session.service';
+import { Chart, registerables } from 'chart.js'; 
+import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [FullCalendarModule, CommonModule, FormsModule],
+  imports: [FullCalendarModule, CommonModule, FormsModule, BaseChartDirective],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  // Chart data and options
+  public doughnutChartLabels: string[] = ['Boys', 'Girls'];
+  public doughnutChartData: number[] = [0, 0]; 
+  public doughnutChartOptions: any = {
+    responsive: true,
+    maintainAspectRatio: false,
+  };
+
   calendarOptions: any;
   events: any[] = [];
   isEventFormOpen: boolean = false;
@@ -25,13 +35,15 @@ export class DashboardComponent implements OnInit {
   totalStudents: number = 0;
   totalTeachers: number = 0;
   totalParents: number = 0;
-  adminPfp: string = ''; // Admin profile picture URL
+  adminPfp: string = ''; 
 
   constructor(
-    private service: ServicesService, 
-    private router: Router, 
+    private service: ServicesService,
+    private router: Router,
     private sessionService: SessionService
-  ) {}
+  ) {
+    Chart.register(...registerables);
+  }
 
   ngOnInit() {
     this.calendarOptions = {
@@ -39,13 +51,35 @@ export class DashboardComponent implements OnInit {
       initialView: 'dayGridMonth',
       selectable: true,
       dateClick: this.handleDateClick.bind(this),
-      events: []
+      events: [] 
     };
 
+    this.loadDashboardData(); 
+  }
+
+  // Load all data on initialization
+  loadDashboardData() {
     this.fetchTotalStudents();
     this.fetchTotalTeachers();
     this.fetchTotalParents();
     this.fetchEvents();
+    this.fetchStudentRatio(); 
+  }
+
+  // Fetch student ratio
+  fetchStudentRatio() {
+    const token = this.sessionService.getToken();
+    if (token) {
+      this.service.getRequest('/api/admins/students/ratio', token).subscribe(
+        (response: any) => {
+         this.doughnutChartData = [response.malePercentage, response.femalePercentage];
+ 
+        },
+        (error) => {
+          console.error('Failed to fetch student ratio:', error);
+        }
+      );
+    }
   }
 
   // Fetch total students from the backend
@@ -54,76 +88,74 @@ export class DashboardComponent implements OnInit {
     if (token) {
       this.service.getRequest('/api/admins/students/total', token).subscribe(
         (response: any) => {
-          this.totalStudents = response.totalStudents;
+          this.totalStudents = response.totalStudents; // Make sure your response has totalStudents
         },
         (error) => {
-          console.error('Failed to fetch students:', error);
+          console.error('Failed to fetch total students:', error);
         }
       );
-    } else {
-      console.error('No token found');
     }
   }
 
-  // Fetch events from the backend
-  fetchEvents() {
-    this.service.getRequest('/api/open/events', null).subscribe(
-      (response: any) => {
-        this.events = response; // Assuming response is an array of events
-        this.calendarOptions.events = this.events.map(event => ({
-          title: event.eventTitle,
-          start: event.selectedDate,
-        }));
-      },
-      (error) => {
-        console.error('Failed to fetch events:', error);
-      }
-    );
-  }
-
-  // Fetch total teachers
+  // Fetch total teachers from the backend
   fetchTotalTeachers() {
     const token = this.sessionService.getToken();
     if (token) {
       this.service.getRequest('/api/admins/teachers/total', token).subscribe(
         (response: any) => {
-          this.totalTeachers = response.totalTeachers;
+          this.totalTeachers = response.totalTeachers; // Make sure your response has totalTeachers
         },
         (error) => {
-          console.error('Failed to fetch teachers:', error);
+          console.error('Failed to fetch total teachers:', error);
         }
       );
-    } else {
-      console.error('No token found');
     }
   }
 
-  // Fetch total parents
+  // Fetch total parents from the backend
   fetchTotalParents() {
     const token = this.sessionService.getToken();
     if (token) {
       this.service.getRequest('/api/parents/count', token).subscribe(
         (response: any) => {
-          this.totalParents = response.totalParents;
+          this.totalParents = response.totalParents; // Ensure that the response has the correct total property
         },
         (error) => {
-          console.error('Failed to fetch parents:', error);
+          console.error('Failed to fetch total parents:', error);
         }
       );
-    } else {
-      console.error('No token found');
+    }
+  }
+
+  // Fetch events from the backend
+  fetchEvents() {
+    const token = this.sessionService.getToken();
+    if (token) {
+      this.service.getRequest('/api/open/events', token).subscribe(
+        (response: any) => {
+          this.events = response; // Make sure your API returns an array of events
+          this.calendarOptions.events = this.events.map(event => ({
+            title: event.eventTitle,
+            start: event.selectedDate,
+            description: event.eventDescription,
+          }));
+        },
+        (error) => {
+          console.error('Failed to fetch events:', error);
+        }
+      );
     }
   }
 
   // Handle date click from the calendar
   handleDateClick(arg: any) {
     this.selectedDate = arg.dateStr;
-    this.isEventFormOpen = true; 
+    this.openEventForm();
   }
 
   // Open the event form
   openEventForm() {
-    this.isEventFormOpen = true; 
+    this.isEventFormOpen = true;
   }
 
   // Close the event form
@@ -131,27 +163,22 @@ export class DashboardComponent implements OnInit {
     this.isEventFormOpen = false;
     this.eventTitle = '';
     this.eventDescription = '';
-    this.selectedDate = '';
   }
 
   // Save the event to the backend
   saveEvent() {
-    if (this.eventTitle) {
-      const newEvent = {
-        eventTitle: this.eventTitle,
-        eventDescription: this.eventDescription,
-        selectedDate: this.selectedDate,
-      };
+    const token = this.sessionService.getToken();
+    const eventData = {
+      eventTitle: this.eventTitle,
+      eventDescription: this.eventDescription,
+      selectedDate: this.selectedDate
+    };
 
-      // Post the event to the server
-      this.service.postRequest('/api/open/events/record', newEvent, null).subscribe(
-        (response) => {
-          console.log('Event saved successfully:', response);
-          
-          // Re-fetch events from the server
-          this.fetchEvents();
-          
-          this.closeEventForm(); // Close the form
+    if (token) {
+      this.service.postRequest('/api/open/events/record', eventData, token).subscribe(
+        (response: any) => {
+          this.fetchEvents(); // Refresh events after saving
+          this.closeEventForm();
         },
         (error) => {
           console.error('Failed to save event:', error);
@@ -160,52 +187,32 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  // Upload admin profile picture
-onProfilePicClick() {
-  const fileInput = document.getElementById('fileInput') as HTMLInputElement;
-  fileInput.click(); // Trigger the file input click event
-}
-
-onProfilePicSelected(event: any) {
-  const file = event.target.files[0]; // Grab the selected file
-  if (file) {
-    const formData = new FormData(); // Create a new FormData object
-
-    // Append file and admin ID to FormData
-    formData.append('adminPfp', file); // Append the file
-    formData.append('adminId', 'yourAdminId'); // Replace 'yourAdminId' with actual ID
-
-    const token = this.sessionService.getToken();
-    if (token) {
-      this.service.postFormData(`/api/open/admins/pfp/${'yourAdminId'}`, formData, token).subscribe(
-        (response: any) => {
-          console.log('Profile picture updated successfully:', response);
-          this.adminPfp = response.adminPfp; // Update UI with new profile picture URL
-        },
-        (error: any) => {
-          console.error('Failed to upload profile picture:', error);
-        }
-      );
-    } else {
-      console.error('No token found');
-    }
-  }
-}
-
-
-
-
-
-  // Navigation functions
+  // Navigate to students page
   goToStudentsPage() {
     this.router.navigate(['/students']);
   }
 
+  // Navigate to teachers page
+  goToTeachersListPage() {
+    this.router.navigate(['/teachers-list']);
+  }
+
+  // Navigate to parents page
   goToParentsPage() {
     this.router.navigate(['/parents']);
   }
 
-  goToTeachersListPage() {
-    this.router.navigate(['/teacherslisting']);
+  // Profile picture click handler
+  onProfilePicClick() {
+    const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+    fileInput.click();
+  }
+
+  // Profile picture selection handler
+  onProfilePicSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      // Implement file upload logic
+    }
   }
 }
