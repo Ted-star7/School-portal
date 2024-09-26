@@ -118,7 +118,7 @@ export class DashboardComponent implements OnInit {
     if (token) {
       this.service.getRequest('/api/parents/count', token).subscribe(
         (response: any) => {
-          this.totalParents = response.totalParents; // Ensure that the response has the correct total property
+          this.totalParents = response.totalParents; 
         },
         (error) => {
           console.error('Failed to fetch total parents:', error);
@@ -165,7 +165,7 @@ export class DashboardComponent implements OnInit {
     this.eventDescription = '';
   }
 
-  // Save the event to the backend
+  
   saveEvent() {
     const token = this.sessionService.getToken();
     const eventData = {
@@ -213,15 +213,16 @@ export class DashboardComponent implements OnInit {
   const file = event.target.files[0];
 
   if (file) {
-    const adminId = this.sessionService.getUserId(); // Get adminId from session
+    const adminId = this.sessionService.getUserId(); 
 
     if (adminId) {
-      this.uploadProfilePicture(adminId, file); // Call the method to upload the image file
+      this.uploadProfilePicture(adminId, file); 
     } else {
       console.error('User ID not found in session.');
     }
   }
 }
+
 
 uploadProfilePicture(adminId: string, file: File) {
   const token = this.sessionService.getToken();
@@ -231,10 +232,10 @@ uploadProfilePicture(adminId: string, file: File) {
     formData.append('adminPfp', file); // Add the image file
     formData.append('adminId', adminId); // Add the adminId field
 
-    this.service.postRequest(`/api/open/admins/pfp/${adminId}`, formData, token).subscribe(
+    this.service.postFormData(`/api/open/admins/pfp/${adminId}`, formData, token).subscribe(
       (response: any) => {
         console.log('Profile picture uploaded successfully:', response);
-        this.adminPfp = URL.createObjectURL(file); // Optional: Display the selected image
+        this.adminPfp = URL.createObjectURL(file); // Display the selected image
       },
       (error) => {
         console.error('Failed to upload profile picture:', error);
@@ -244,6 +245,7 @@ uploadProfilePicture(adminId: string, file: File) {
     console.error('No token found in session.');
   }
 }
+
 
 
 

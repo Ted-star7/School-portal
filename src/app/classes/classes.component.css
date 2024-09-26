@@ -107,38 +107,35 @@ h2 {
 
 .btn-warning {
   background-color: #FFC107;
-  /* Bootstrap Warning color */
   color: white;
 }
 
 .btn-warning:hover {
   background-color: #FFA000;
-  /* Darker shade on hover */
 }
 
 .btn-danger {
   background-color: #DC3545;
-  /* Bootstrap Danger color */
   color: white;
 }
 
 .btn-danger:hover {
   background-color: #C82333;
-  /* Darker shade on hover */
+ 
 }
 
-/* Add space between Edit and Delete buttons */
+
 .btn {
   margin-right: 10px;
-  /* Add space to the right of each button */
+  
 }
 
 .btn:last-child {
   margin-right: 0;
-  /* Remove margin from the last button */
+ 
 }
 
-/* Icon styles for buttons */
+
 .btn i {
   margin-right: 5px;
   /* Space between icon and text */

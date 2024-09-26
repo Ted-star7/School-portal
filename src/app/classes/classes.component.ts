@@ -14,9 +14,9 @@ import { Observable } from 'rxjs';
 })
 export class ClassesComponent implements OnInit {
   classesForm: FormGroup;
-  teachers: string[] = []; // Will be populated from API
+  teachers: string[] = []; 
   classList: any[] = [];
-  editingClass: any = null; // Holds the class being edited
+  editingClass: any = null; 
 
   // Dropdown options
   classNames: string[] = ['Zoe', 'Agape', 'Shalome', 'Alpha', 'Eden', 'Ruach', 'Amuna', 'Haddar', 'Shammar'];
@@ -25,7 +25,7 @@ export class ClassesComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private service: ServicesService,
-    private sessionService: SessionService // Inject SessionService
+    private sessionService: SessionService 
   ) {
     this.classesForm = this.fb.group({
       className: ['', Validators.required],
@@ -111,7 +111,7 @@ export class ClassesComponent implements OnInit {
 
   // Delete class
   deleteClass(id: number): void {
-    const token = this.sessionService.getToken(); // Retrieve token from session
+    const token = this.sessionService.getToken(); 
     this.service.deleteRequest(`/api/class/${id}`, token).subscribe({
       next: () => {
         this.getClasses();

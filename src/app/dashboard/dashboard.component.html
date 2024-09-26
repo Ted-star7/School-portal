@@ -44,10 +44,12 @@
         <div style="display: block">
           <canvas
             baseChart
-            [datasets]="[{
-              data: doughnutChartData,
-              backgroundColor: ['#F26716', '#90BF2A']
-            }]"
+            [datasets]="[
+              {
+                data: doughnutChartData,
+                backgroundColor: ['#F26716', '#90BF2A']
+              }
+            ]"
             [labels]="doughnutChartLabels"
             [options]="doughnutChartOptions"
             [type]="'doughnut'"
