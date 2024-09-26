@@ -72,7 +72,7 @@ export class DashboardComponent implements OnInit {
     if (token) {
       this.service.getRequest('/api/admins/students/ratio', token).subscribe(
         (response: any) => {
-         this.doughnutChartData = [response.malePercentage, response.femalePercentage];
+         this.doughnutChartData = [response.maleCount, response.femaleCount];
  
         },
         (error) => {
@@ -228,26 +228,23 @@ uploadProfilePicture(adminId: string, file: File) {
 
   if (token) {
     const formData = new FormData();
-    formData.append('adminPfp', file); // Append the file to the form data
-
-    // You may need to append other fields if required by the backend
-    formData.append('adminId', adminId);
+    formData.append('adminPfp', file); // Add the image file
+    formData.append('adminId', adminId); // Add the adminId field
 
     this.service.postRequest(`/api/open/admins/pfp/${adminId}`, formData, token).subscribe(
       (response: any) => {
         console.log('Profile picture uploaded successfully:', response);
-        // Optionally, you can update the displayed profile picture by setting it to the new URL
-        this.adminPfp = URL.createObjectURL(file); // Preview the uploaded image immediately
+        this.adminPfp = URL.createObjectURL(file); // Optional: Display the selected image
       },
       (error) => {
         console.error('Failed to upload profile picture:', error);
-        // Optionally show error feedback
       }
     );
   } else {
     console.error('No token found in session.');
   }
 }
+
 
 
 }
