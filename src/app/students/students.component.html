@@ -31,71 +31,77 @@
     </div>
   </div>
 
-  <div class="student-details-container" *ngIf="selectedStudent">
-    <div class="student-header">
-      <img
-        [src]="selectedStudent.photo"
-        alt="Selected Student Photo"
-        *ngIf="selectedStudent.photo"
-        class="student-photo"
-      />
-      <div class="student-info">
-        <h2>{{ selectedStudent.fullName }}</h2>
-        <p>
-          {{ selectedStudent.studentClass }} | Student ID:
-          {{ selectedStudent.admissionNumber }}
-        </p>
-      </div>
-    </div>
-
-    <div class="student-basic-details">
-      <h3>Basic Details</h3>
-      <div class="details-grid">
-        <div *ngFor="let detail of getStudentDetails()">
-          <label>{{ detail.label }}</label>
-          <p>{{ detail.value }}</p>
+  <div class="student-details-container">
+    <ng-container *ngIf="selectedStudent; else noStudentSelected">
+      <div class="student-header">
+        <img
+          [src]="selectedStudent.photo"
+          alt="Selected Student Photo"
+          *ngIf="selectedStudent.photo"
+          class="student-photo"
+        />
+        <div class="student-info">
+          <h2>{{ selectedStudent.fullName }}</h2>
+          <p>
+            {{ selectedStudent.studentClass }} | Student ID:
+            {{ selectedStudent.admissionNumber }}
+          </p>
         </div>
       </div>
-    </div>
 
-    <div class="student-parents-details">
-      <h3>Parents/Guardian Details</h3>
-      <div class="details-grid">
-        <div>
-          <label>Father's Name:</label>
-          <p>{{ selectedStudent.fatherName }}</p>
-        </div>
-        <div>
-          <label>Father's Phone:</label>
-          <p>{{ selectedStudent.fatherPhone }}</p>
-        </div>
-        <div>
-          <label>Mother's Name:</label>
-          <p>{{ selectedStudent.motherName }}</p>
-        </div>
-        <div>
-          <label>Mother's Phone:</label>
-          <p>{{ selectedStudent.motherPhone }}</p>
+      <div class="student-basic-details">
+        <h3>Basic Details</h3>
+        <div class="details-grid">
+          <div *ngFor="let detail of getStudentDetails()">
+            <label>{{ detail.label }}</label>
+            <p>{{ detail.value }}</p>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="student-address-details">
-      <h3>Address Details</h3>
-      <p>{{ selectedStudent.address }}</p>
-    </div>
-
-    <div
-      class="student-performance"
-      *ngIf="selectedStudent.progress !== undefined"
-    >
-      <ul>
-        <li>Progress</li>
-        <li>Attendance</li>
-      </ul>
-      <div class="progress-chart">
-        <p>{{ selectedStudent.progress }}%</p>
+      <div class="student-parents-details">
+        <h3>Parents/Guardian Details</h3>
+        <div class="details-grid">
+          <div>
+            <label>Father's Name:</label>
+            <p>{{ selectedStudent.fatherName }}</p>
+          </div>
+          <div>
+            <label>Father's Phone:</label>
+            <p>{{ selectedStudent.fatherPhone }}</p>
+          </div>
+          <div>
+            <label>Mother's Name:</label>
+            <p>{{ selectedStudent.motherName }}</p>
+          </div>
+          <div>
+            <label>Mother's Phone:</label>
+            <p>{{ selectedStudent.motherPhone }}</p>
+          </div>
+        </div>
       </div>
-    </div>
+
+      <div class="student-address-details">
+        <h3>Address Details</h3>
+        <p>{{ selectedStudent.address }}</p>
+      </div>
+
+      <div
+        class="student-performance"
+        *ngIf="selectedStudent.progress !== undefined"
+      >
+        <ul>
+          <li>Progress</li>
+          <li>Attendance</li>
+        </ul>
+        <div class="progress-chart">
+          <p>{{ selectedStudent.progress }}%</p>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #noStudentSelected>
+      <div class="click-prompt">Click on a student to view their details.</div>
+    </ng-template>
   </div>
 </div>

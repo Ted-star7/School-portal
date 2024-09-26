@@ -8,7 +8,7 @@
   background-color: #ffffff;
   padding: 20px;
   border-right: 1px solid #e0e0e0;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .search-bar input {
@@ -37,7 +37,6 @@
   color: #8C2C16;
   text-transform: uppercase;
   font-size: 14px;
- 
 }
 
 .header-item {
@@ -52,13 +51,11 @@
   border-bottom: 1px solid #e0e0e0;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
- 
 }
 
 .student-item:hover {
-  background-color: #f1f1f1;
+  background-color: #e9f5e0;
   transform: scale(1.02);
- 
 }
 
 .student-details {
@@ -70,7 +67,6 @@
 .student-info {
   flex: 1;
   padding-left: 10px;
-  text-align: left;
 }
 
 .student-details-container {
@@ -81,12 +77,11 @@
 .student-header {
   display: flex;
   align-items: center;
-  background-color: #A1BF60;
+  background: linear-gradient(135deg, #A1BF60, #8C2C16);
   color: #ffffff;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  
 }
 
 .student-header img {
@@ -95,15 +90,35 @@
   height: 70px;
   margin-right: 20px;
   border: 2px solid #ffffff;
-
 }
 
 .student-info h2 {
   margin: 0;
+  font-size: 24px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .student-basic-details {
   margin-top: 20px;
+}
+
+h3 {
+  color: #8C2C16;
+  font-size: 20px;
+  position: relative;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+}
+
+h3::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 3px;
+  background-color: #90BF2A;
+  position: absolute;
+  left: 0;
+  bottom: 0;
 }
 
 .details-grid {
@@ -127,7 +142,6 @@
   margin: 5px 0 15px 5px;
   font-size: 15px;
   color: #2c3e50;
-
 }
 
 .student-parents-details {
@@ -157,12 +171,10 @@
 .student-performance ul li {
   cursor: pointer;
   color: #F26716;
- 
 }
 
 .student-performance ul li:hover {
   color: #8C2C16;
- 
 }
 
 .progress-chart {
@@ -176,10 +188,30 @@
   justify-content: center;
 }
 
-
 .details-grid div {
   background-color: #f9f9f9;
   padding: 10px;
   border-radius: 5px;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.click-prompt {
+  font-size: 18px;
+  color: #555;
+  text-align: center;
+  margin: 20px 0;
+  animation: slide-in 3s ease-in-out forwards;
+  opacity: 0;
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
