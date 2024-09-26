@@ -1,7 +1,11 @@
+<div class="background-slideshow">
+  <img src="assets/1.jpg" alt="School Image 1" />
+  <img src="assets/2.jpg" alt="School Image 2" />
+  <img src="assets/3.jpg" alt="School Image 3" />
+  <img src="assets/4.jpg" alt="School Image 4" />
+</div>
+
 <div class="login-container">
-  <div class="welcome-section">
-    <h1>Welcome Back!</h1>
-  </div>
   <div class="login-form">
     <h2>Login</h2>
     <p>Welcome back! Please login to your account.</p>
@@ -37,8 +41,10 @@
         <span *ngIf="isLoading">Loading...</span>
         <span *ngIf="!isLoading">Login</span>
       </button>
+      <div class="signup-link">
+        <p>New User? <a href="/registration">Signup</a></p>
+      </div>
       <p *ngIf="successMessage">{{ successMessage }}</p>
-      <p>New User? <a href="/registration">Signup</a></p>
     </form>
   </div>
 </div>

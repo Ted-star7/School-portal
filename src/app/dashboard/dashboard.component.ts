@@ -194,7 +194,7 @@ export class DashboardComponent implements OnInit {
 
   
   goToTeachersListPage() {
-    this.router.navigate(['/teachers-list']);
+    this.router.navigate(['/teacherslisting']);
   }
 
   
@@ -210,9 +210,44 @@ export class DashboardComponent implements OnInit {
 
   // Profile picture selection handler
   onProfilePicSelected(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      // Implement file upload logic
+  const file = event.target.files[0];
+
+  if (file) {
+    const adminId = this.sessionService.getUserId(); // Get adminId from session
+
+    if (adminId) {
+      this.uploadProfilePicture(adminId, file); // Call the method to upload the image file
+    } else {
+      console.error('User ID not found in session.');
     }
   }
+}
+
+uploadProfilePicture(adminId: string, file: File) {
+  const token = this.sessionService.getToken();
+
+  if (token) {
+    const formData = new FormData();
+    formData.append('adminPfp', file); // Append the file to the form data
+
+    // You may need to append other fields if required by the backend
+    formData.append('adminId', adminId);
+
+    this.service.postRequest(`/api/open/admins/pfp/${adminId}`, formData, token).subscribe(
+      (response: any) => {
+        console.log('Profile picture uploaded successfully:', response);
+        // Optionally, you can update the displayed profile picture by setting it to the new URL
+        this.adminPfp = URL.createObjectURL(file); // Preview the uploaded image immediately
+      },
+      (error) => {
+        console.error('Failed to upload profile picture:', error);
+        // Optionally show error feedback
+      }
+    );
+  } else {
+    console.error('No token found in session.');
+  }
+}
+
+
 }
