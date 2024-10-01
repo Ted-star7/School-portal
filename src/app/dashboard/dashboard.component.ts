@@ -19,7 +19,7 @@ import { BaseChartDirective } from 'ng2-charts';
 })
 export class DashboardComponent implements OnInit {
   public doughnutChartLabels: string[] = ['Boys', 'Girls'];
-  public doughnutChartData: number[] = [0, 0]; 
+  public doughnutChartData: number[] = [0, 0];
   public doughnutChartOptions: any = {
     responsive: true,
     maintainAspectRatio: false,
@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit {
 
   calendarOptions: any;
   events: any[] = [];
+  pastEvents: any[] = [];
   isEventFormOpen: boolean = false;
   eventTitle: string = '';
   eventDescription: string = '';
@@ -36,6 +37,9 @@ export class DashboardComponent implements OnInit {
   totalParents: number = 0;
   adminPfp: string = ''; // Profile photo URL or path
   showSuccessMessage: boolean = false; // Success message flag
+  showEventSuccessMessage: boolean = false; // Event success message flag
+  eventSuccessMessage: string = ''; // Message content
+  userName: string = ''; // User's name from session storage
 
   constructor(
     private service: ServicesService,
@@ -51,10 +55,12 @@ export class DashboardComponent implements OnInit {
       initialView: 'dayGridMonth',
       selectable: true,
       dateClick: this.handleDateClick.bind(this),
-      events: [] 
+      events: []
     };
 
-    this.loadDashboardData(); 
+    this.loadDashboardData();
+    this.userName = this.sessionService.getuserName() ?? 'Guest';
+    this.fetchAdminProfilePicture(); // Fetch profile picture on load
   }
 
   loadDashboardData() {
@@ -62,7 +68,7 @@ export class DashboardComponent implements OnInit {
     this.fetchTotalTeachers();
     this.fetchTotalParents();
     this.fetchEvents();
-    this.fetchStudentRatio(); 
+    this.fetchStudentRatio();
   }
 
   fetchStudentRatio() {
@@ -126,7 +132,10 @@ export class DashboardComponent implements OnInit {
     if (token) {
       this.service.getRequest('/api/open/events', token).subscribe(
         (response: any) => {
-          this.events = response;
+          const today = new Date().toISOString().split('T')[0]; // Get today's date
+          this.events = response.filter((event: any) => event.selectedDate >= today);
+          this.pastEvents = response.filter((event: any) => event.selectedDate < today);
+
           this.calendarOptions.events = this.events.map(event => ({
             title: event.eventTitle,
             start: event.selectedDate,
@@ -166,11 +175,35 @@ export class DashboardComponent implements OnInit {
     if (token) {
       this.service.postRequest('/api/open/events/record', eventData, token).subscribe(
         (response: any) => {
-          this.fetchEvents();
+          this.fetchEvents(); // Refresh events after saving
           this.closeEventForm();
+          this.showEventSuccessMessage = true;
+          this.eventSuccessMessage = 'Event posted successfully!';
+          setTimeout(() => {
+            this.showEventSuccessMessage = false; // Hide after 3 seconds
+          }, 3000);
         },
         (error) => {
           console.error('Failed to save event:', error);
+        }
+      );
+    }
+  }
+
+  deleteEvent(eventId: string) {
+    const token = this.sessionService.getToken();
+    if (token) {
+      this.service.deleteRequest(`/api/event/${eventId}`, token).subscribe(
+        (response: any) => {
+          this.fetchEvents(); // Refresh the event list after deletion
+          this.showEventSuccessMessage = true;
+          this.eventSuccessMessage = 'Event deleted successfully!';
+          setTimeout(() => {
+            this.showEventSuccessMessage = false; // Hide after 3 seconds
+          }, 3000);
+        },
+        (error) => {
+          console.error('Failed to delete event:', error);
         }
       );
     }
@@ -188,6 +221,16 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/parents']);
   }
 
+  fetchAdminProfilePicture() {
+    const adminPfp = sessionStorage.getItem('adminPfp');
+    if (adminPfp) {
+      this.adminPfp = adminPfp;
+    } else {
+      console.error('No profile picture found in session storage.');
+      this.adminPfp = '';
+    }
+  }
+
   onProfilePicClick() {
     const fileInput = document.getElementById('fileInput') as HTMLInputElement;
     fileInput.click();
@@ -195,10 +238,8 @@ export class DashboardComponent implements OnInit {
 
   onProfilePicSelected(event: any) {
     const file = event.target.files[0];
-
     if (file) {
-      const adminId = this.sessionService.getUserId(); 
-
+      const adminId = this.sessionService.getUserId();
       if (adminId) {
         this.uploadProfilePicture(adminId, file);
       } else {
@@ -209,7 +250,6 @@ export class DashboardComponent implements OnInit {
 
   uploadProfilePicture(adminId: string, file: File) {
     const token = this.sessionService.getToken();
-
     if (token) {
       const formData = new FormData();
       formData.append('adminPfp', file);
@@ -217,11 +257,8 @@ export class DashboardComponent implements OnInit {
 
       this.service.postFormData(`/api/open/admins/pfp/${adminId}`, formData, token).subscribe(
         (response: any) => {
-          console.log('Profile picture uploaded successfully:', response);
-          this.adminPfp = URL.createObjectURL(file); // Display the new image
-          this.showSuccessMessage = true; // Show success message
-
-          // Hide the success message after 3 seconds
+          this.adminPfp = URL.createObjectURL(file);
+          this.showSuccessMessage = true;
           setTimeout(() => {
             this.showSuccessMessage = false;
           }, 3000);

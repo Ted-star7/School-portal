@@ -22,6 +22,22 @@ export class SessionService {
     }
   }
 
+  public saveuserName(userName: string): void{
+    try {
+      sessionStorage.setItem('userName', userName);
+    } catch (error){
+      console.error('Error saving userNmae')
+    }
+  }
+
+  public savepfpUrl(pfpUrl: string): void{
+    try{
+      sessionStorage.setItem('pfpUrl', pfpUrl)
+    }catch (error){
+      console.error('Error saving pfpUrl')
+    }
+  }
+
   public getToken(): string | null {
     return sessionStorage.getItem('token');
   }
@@ -29,11 +45,19 @@ export class SessionService {
   public getUserId(): string | null {
     return sessionStorage.getItem('userId');
   }
+  public getuserName(): string | null{
+    return sessionStorage.getItem('userName')
+  }
+  public getpfpUrl(): string | null{
+    return sessionStorage.getItem('pfpUrl')
+  }
 
   public clearSession(): void {
     try {
       sessionStorage.removeItem('token');
       sessionStorage.removeItem('userId');
+      sessionStorage.removeItem('userName');
+      sessionStorage.removeItem('pfpUrl')
     } catch (error) {
       console.error('Error clearing session storage:', error);
     }

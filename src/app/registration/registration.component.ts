@@ -17,6 +17,7 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 })
 export class RegistrationComponent {
   fullName = '';
+  userName ='';
   email = '';
   password = '';
   showPassword = false;
@@ -40,7 +41,8 @@ export class RegistrationComponent {
     const formData = {
       fullName: this.fullName,
       email: this.email,
-      password: this.password
+      password: this.password,
+      userName: this.userName,
     };
 
     this.servicesService.postRequest('/api/open/admins/register', formData, null).subscribe(

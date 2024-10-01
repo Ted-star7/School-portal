@@ -1,108 +1,140 @@
-<div class="dashboard"> 
-  <div class="dashboard-header">
-    <h3>Welcome To Heritage Leadership Academy</h3>
-    <br />
-    <h4>Your profile</h4>
-    <div class="header-actions">
-      <div class="admin-profile">
-        <img
-          [src]="adminPfp ? adminPfp : 'assets/logo.jpg'"
-          alt="Admin Profile Photo"
-          class="profile-photo"
+<div class="dashboard-header">
+  <h3>Welcome To Heritage Leadership Academy</h3>
+  <br />
+  <!-- Displaying the logged-in username stored in session storage -->
+  <h4>Hello, {{ userName }}</h4>
+
+  <div class="header-actions">
+    <div class="admin-profile">
+      <!-- If the adminPfp is available, display the profile picture, otherwise show the FA icon -->
+      <img
+        *ngIf="adminPfp; else defaultIcon"
+        [src]="adminPfp"
+        alt="Admin Profile Photo"
+        class="profile-photo"
+        (click)="onProfilePicClick()"
+      />
+      <ng-template #defaultIcon>
+        <!-- Font Awesome user icon as fallback -->
+        <i
+          class="fas fa-user fa-3x profile-photo"
           (click)="onProfilePicClick()"
-        />
+        ></i>
+      </ng-template>
 
-        <input
-          type="file"
-          id="fileInput"
-          style="display: none"
-          (change)="onProfilePicSelected($event)"
-          accept="image/*"
-        />
-      </div>
-    </div>
-
-    <!-- Success message for profile picture update -->
-    <div *ngIf="showSuccessMessage" class="success-message">
-      Profile photo updated successfully!
+      <input
+        type="file"
+        id="fileInput"
+        style="display: none"
+        (change)="onProfilePicSelected($event)"
+        accept="image/*"
+      />
     </div>
   </div>
 
-  <div class="dashboard-content">
-    <div class="stats-grid">
-      <div class="stat-box" (click)="goToStudentsPage()">
-        <h2>Total Students</h2>
-        <p>{{ totalStudents }}</p>
-      </div>
-      <div class="stat-box" (click)="goToTeachersListPage()">
-        <h2>Total Teachers</h2>
-        <p>{{ totalTeachers }}</p>
-      </div>
-      <div class="stat-box" (click)="goToParentsPage()">
-        <h2>Total Parents</h2>
-        <p>{{ totalParents }}</p>
-      </div>
-    </div>
-
-    <div class="charts-grid">
-      <div class="chart-box">
-        <h2>Student's Overview</h2>
-        <div style="display: block">
-          <canvas
-            baseChart
-            [datasets]="[
-              {
-                data: doughnutChartData,
-                backgroundColor: ['#F26716', '#90BF2A']
-              }
-            ]"
-            [labels]="doughnutChartLabels"
-            [options]="doughnutChartOptions"
-            [type]="'doughnut'"
-          ></canvas>
-        </div>
-      </div>
-      <div class="chart-box">
-        <h2>Attendance Overview</h2>
-      </div>
-    </div>
-  </div>
-
-  <div class="calendar-section">
-    <h2>Events Calendar</h2>
-    <full-calendar [options]="calendarOptions"></full-calendar>
-    <button class="action-btn" (click)="openEventForm()">Add Event</button>
-  </div>
-
-  <!-- Event Form Modal -->
-  <div *ngIf="isEventFormOpen" class="event-form">
-    <h3>Add Event</h3>
-    <label for="eventTitle">Event Title:</label>
-    <input type="text" id="eventTitle" [(ngModel)]="eventTitle" />
-
-    <label for="eventDescription">Event Description:</label>
-    <input type="text" id="eventDescription" [(ngModel)]="eventDescription" />
-
-    <label for="eventDate">Event Date:</label>
-    <input type="text" id="eventDate" [value]="selectedDate" />
-
-    <button class="action-btn" (click)="saveEvent()">Save Event</button>
-    <button class="action-btn" (click)="closeEventForm()">Cancel</button>
-  </div>
-
-  <div class="event-list-section">
-    <h2>Upcoming Events</h2>
-    <div *ngIf="events.length > 0; else noEvents">
-      <div *ngFor="let event of events" class="event-item">
-        <h4>{{ event.eventTitle }}</h4>
-        <p><strong>Description:</strong> {{ event.eventDescription }}</p>
-        <p>
-          <strong>Date:</strong> {{ event.selectedDate | date : "fullDate" }}
-        </p>
-      </div>
-    </div>
-    <ng-template #noEvents>
-      <p>No upcoming events</p>
-    </ng-template>
+  <!-- Success message for profile picture update -->
+  <div *ngIf="showSuccessMessage" class="success-message">
+    Profile photo updated successfully!
   </div>
 </div>
+
+<div class="dashboard-content">
+  <div class="stats-grid">
+    <div class="stat-box" (click)="goToStudentsPage()">
+      <h2>Total Students</h2>
+      <p>{{ totalStudents }}</p>
+    </div>
+    <div class="stat-box" (click)="goToTeachersListPage()">
+      <h2>Total Teachers</h2>
+      <p>{{ totalTeachers }}</p>
+    </div>
+    <div class="stat-box" (click)="goToParentsPage()">
+      <h2>Total Parents</h2>
+      <p>{{ totalParents }}</p>
+    </div>
+  </div>
+
+  <div class="charts-grid">
+    <div class="chart-box">
+      <h2>Student's Overview</h2>
+      <div style="display: block">
+        <canvas
+          baseChart
+          [datasets]="[{
+            data: doughnutChartData,
+            backgroundColor: ['#F26716', '#90BF2A']
+          }]"
+          [labels]="doughnutChartLabels"
+          [options]="doughnutChartOptions"
+          [type]="'doughnut'"
+        ></canvas>
+      </div>
+    </div>
+    <div class="chart-box">
+      <h2>Attendance Overview</h2>
+      <!-- Attendance chart placeholder -->
+    </div>
+  </div>
+</div>
+
+<div class="calendar-section">
+  <h2>Events Calendar</h2>
+  <full-calendar [options]="calendarOptions"></full-calendar>
+  <button class="action-btn" (click)="openEventForm()">Add Event</button>
+</div>
+
+<!-- Event Form Modal -->
+<div *ngIf="isEventFormOpen" class="event-form">
+  <h3>Add Event</h3>
+  <label for="eventTitle">Event Title:</label>
+  <input type="text" id="eventTitle" [(ngModel)]="eventTitle" />
+
+  <label for="eventDescription">Event Description:</label>
+  <input type="text" id="eventDescription" [(ngModel)]="eventDescription" />
+
+  <label for="eventDate">Event Date:</label>
+  <input type="text" id="eventDate" [value]="selectedDate" />
+
+  <button class="action-btn" (click)="saveEvent()">Save Event</button>
+  <button class="action-btn" (click)="closeEventForm()">Cancel</button>
+</div>
+
+<!-- Success Message for Event Actions -->
+<div *ngIf="showEventSuccessMessage" class="success-message">
+  {{ eventSuccessMessage }}
+</div>
+
+<div class="event-list-section">
+  <h2>Upcoming Events</h2>
+  <div *ngIf="events.length > 0; else noUpcomingEvents">
+    <div *ngFor="let event of events" class="event-item">
+      <div class="event-details">
+        <h4>{{ event.eventTitle }}</h4>
+        <p><strong>Description:</strong> {{ event.eventDescription }}</p>
+        <p><strong>Date:</strong> {{ event.selectedDate | date : 'fullDate' }}</p>
+      </div>
+      <button class="delete-btn" (click)="deleteEvent(event.id)">Delete</button> <!-- Delete button -->
+    </div>
+  </div>
+  <ng-template #noUpcomingEvents>
+    <p>No upcoming events</p>
+  </ng-template>
+</div>
+
+<div class="event-list-section">
+  <h2>Past Events</h2>
+  <div *ngIf="pastEvents.length > 0; else noPastEvents">
+    <div *ngFor="let pastEvent of pastEvents" class="event-item">
+      <div class="event-details">
+        <h4>{{ pastEvent.eventTitle }}</h4>
+        <p><strong>Description:</strong> {{ pastEvent.eventDescription }}</p>
+        <p><strong>Date:</strong> {{ pastEvent.selectedDate | date : 'fullDate' }}</p>
+      </div>
+      <button class="delete-btn" (click)="deleteEvent(pastEvent.id)">Delete</button> <!-- Delete button for past events -->
+    </div>
+  </div>
+  <ng-template #noPastEvents>
+    <p>No past events</p>
+  </ng-template>
+</div>
+

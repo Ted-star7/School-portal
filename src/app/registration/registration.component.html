@@ -21,6 +21,18 @@
         </div>
 
         <div class="input-group">
+          <label for="fullName">Prefered Username</label>
+          <input
+            type="text"
+            id="fullName"
+            name="fullName"
+            [(ngModel)]="fullName"
+            placeholder="Enter your Prefered username"
+            required
+          />
+        </div>
+
+        <div class="input-group">
           <label for="email">Email</label>
           <input
             type="email"
