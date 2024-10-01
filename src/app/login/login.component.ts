@@ -37,10 +37,15 @@ export class LoginComponent {
         this.isLoading = false;
         const token = response.token;
         const userId = response['admin id'];
+        const userName = response.userName; // Assuming this is how you get the username
+        const pfpUrl = response.pfpUrl; // Assuming this is how you get the profile picture URL
 
         if (token && userId) {
           this.session.saveToken(token);
           this.session.saveUserId(String(userId));
+          this.session.saveuserName(userName); // Save the username
+          this.session.savepfpUrl(pfpUrl); // Save the profile picture URL
+          
           this.successMessage = 'Login successful!';
           setTimeout(() => this.router.navigate(['/dashboard']), 1000);
         } else {
@@ -53,5 +58,6 @@ export class LoginComponent {
         this.successMessage = 'Login failed. Please try again.';
       }
     );
-  }
+}
+
 }
