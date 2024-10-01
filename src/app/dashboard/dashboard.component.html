@@ -1,4 +1,4 @@
-<div class="dashboard">
+<div class="dashboard"> 
   <div class="dashboard-header">
     <h3>Welcome To Heritage Leadership Academy</h3>
     <br />
@@ -20,6 +20,11 @@
           accept="image/*"
         />
       </div>
+    </div>
+
+    <!-- Success message for profile picture update -->
+    <div *ngIf="showSuccessMessage" class="success-message">
+      Profile photo updated successfully!
     </div>
   </div>
 

@@ -18,7 +18,6 @@ import { BaseChartDirective } from 'ng2-charts';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  
   public doughnutChartLabels: string[] = ['Boys', 'Girls'];
   public doughnutChartData: number[] = [0, 0]; 
   public doughnutChartOptions: any = {
@@ -35,7 +34,8 @@ export class DashboardComponent implements OnInit {
   totalStudents: number = 0;
   totalTeachers: number = 0;
   totalParents: number = 0;
-  adminPfp: string = ''; 
+  adminPfp: string = ''; // Profile photo URL or path
+  showSuccessMessage: boolean = false; // Success message flag
 
   constructor(
     private service: ServicesService,
@@ -57,7 +57,6 @@ export class DashboardComponent implements OnInit {
     this.loadDashboardData(); 
   }
 
-  
   loadDashboardData() {
     this.fetchTotalStudents();
     this.fetchTotalTeachers();
@@ -66,14 +65,12 @@ export class DashboardComponent implements OnInit {
     this.fetchStudentRatio(); 
   }
 
-  
   fetchStudentRatio() {
     const token = this.sessionService.getToken();
     if (token) {
       this.service.getRequest('/api/admins/students/ratio', token).subscribe(
         (response: any) => {
-         this.doughnutChartData = [response.maleCount, response.femaleCount];
- 
+          this.doughnutChartData = [response.maleCount, response.femaleCount];
         },
         (error) => {
           console.error('Failed to fetch student ratio:', error);
@@ -82,13 +79,12 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  
   fetchTotalStudents() {
     const token = this.sessionService.getToken();
     if (token) {
       this.service.getRequest('/api/admins/students/total', token).subscribe(
         (response: any) => {
-          this.totalStudents = response.totalStudents; 
+          this.totalStudents = response.totalStudents;
         },
         (error) => {
           console.error('Failed to fetch total students:', error);
@@ -97,13 +93,12 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  
   fetchTotalTeachers() {
     const token = this.sessionService.getToken();
     if (token) {
       this.service.getRequest('/api/admins/teachers/total', token).subscribe(
         (response: any) => {
-          this.totalTeachers = response.totalTeachers; // Make sure your response has totalTeachers
+          this.totalTeachers = response.totalTeachers;
         },
         (error) => {
           console.error('Failed to fetch total teachers:', error);
@@ -112,13 +107,12 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  
   fetchTotalParents() {
     const token = this.sessionService.getToken();
     if (token) {
       this.service.getRequest('/api/parents/count', token).subscribe(
         (response: any) => {
-          this.totalParents = response.totalParents; 
+          this.totalParents = response.totalParents;
         },
         (error) => {
           console.error('Failed to fetch total parents:', error);
@@ -127,13 +121,12 @@ export class DashboardComponent implements OnInit {
     }
   }
 
- 
   fetchEvents() {
     const token = this.sessionService.getToken();
     if (token) {
       this.service.getRequest('/api/open/events', token).subscribe(
         (response: any) => {
-          this.events = response; // Make sure your API returns an array of events
+          this.events = response;
           this.calendarOptions.events = this.events.map(event => ({
             title: event.eventTitle,
             start: event.selectedDate,
@@ -147,25 +140,21 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  // Handle date click from the calendar
   handleDateClick(arg: any) {
     this.selectedDate = arg.dateStr;
     this.openEventForm();
   }
 
-  // Open the event form
   openEventForm() {
     this.isEventFormOpen = true;
   }
 
- 
   closeEventForm() {
     this.isEventFormOpen = false;
     this.eventTitle = '';
     this.eventDescription = '';
   }
 
-  
   saveEvent() {
     const token = this.sessionService.getToken();
     const eventData = {
@@ -177,7 +166,7 @@ export class DashboardComponent implements OnInit {
     if (token) {
       this.service.postRequest('/api/open/events/record', eventData, token).subscribe(
         (response: any) => {
-          this.fetchEvents(); // Refresh events after saving
+          this.fetchEvents();
           this.closeEventForm();
         },
         (error) => {
@@ -187,66 +176,62 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  // Navigation
   goToStudentsPage() {
     this.router.navigate(['/students']);
   }
 
-  
   goToTeachersListPage() {
-    this.router.navigate(['/teacherslisting']);
+    this.router.navigate(['/teachers']);
   }
 
-  
   goToParentsPage() {
     this.router.navigate(['/parents']);
   }
 
- 
   onProfilePicClick() {
     const fileInput = document.getElementById('fileInput') as HTMLInputElement;
     fileInput.click();
   }
 
-  // Profile picture selection handler
   onProfilePicSelected(event: any) {
-  const file = event.target.files[0];
+    const file = event.target.files[0];
 
-  if (file) {
-    const adminId = this.sessionService.getUserId(); 
+    if (file) {
+      const adminId = this.sessionService.getUserId(); 
 
-    if (adminId) {
-      this.uploadProfilePicture(adminId, file); 
-    } else {
-      console.error('User ID not found in session.');
+      if (adminId) {
+        this.uploadProfilePicture(adminId, file);
+      } else {
+        console.error('User ID not found in session.');
+      }
     }
   }
-}
 
+  uploadProfilePicture(adminId: string, file: File) {
+    const token = this.sessionService.getToken();
 
-uploadProfilePicture(adminId: string, file: File) {
-  const token = this.sessionService.getToken();
+    if (token) {
+      const formData = new FormData();
+      formData.append('adminPfp', file);
+      formData.append('adminId', adminId);
 
-  if (token) {
-    const formData = new FormData();
-    formData.append('adminPfp', file); // Add the image file
-    formData.append('adminId', adminId); // Add the adminId field
+      this.service.postFormData(`/api/open/admins/pfp/${adminId}`, formData, token).subscribe(
+        (response: any) => {
+          console.log('Profile picture uploaded successfully:', response);
+          this.adminPfp = URL.createObjectURL(file); // Display the new image
+          this.showSuccessMessage = true; // Show success message
 
-    this.service.postFormData(`/api/open/admins/pfp/${adminId}`, formData, token).subscribe(
-      (response: any) => {
-        console.log('Profile picture uploaded successfully:', response);
-        this.adminPfp = URL.createObjectURL(file); // Display the selected image
-      },
-      (error) => {
-        console.error('Failed to upload profile picture:', error);
-      }
-    );
-  } else {
-    console.error('No token found in session.');
+          // Hide the success message after 3 seconds
+          setTimeout(() => {
+            this.showSuccessMessage = false;
+          }, 3000);
+        },
+        (error) => {
+          console.error('Failed to upload profile picture:', error);
+        }
+      );
+    } else {
+      console.error('No token found in session.');
+    }
   }
-}
-
-
-
-
 }
