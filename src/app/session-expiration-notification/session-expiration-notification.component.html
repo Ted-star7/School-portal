@@ -1,1 +1,5 @@
-<p>session-expiration-notification works!</p>
+<div *ngIf="isExpired" class="notification">
+  <p>Your session has expired.</p>
+  <button (click)="redirectToLogin()" class="redirect-button">Okay, redirect to login</button>
+  <p *ngIf="isLoading">Loading...</p> <!-- Display loading message -->
+</div>

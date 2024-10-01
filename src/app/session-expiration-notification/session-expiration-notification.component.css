@@ -1,10 +1,21 @@
 .notification {
-  position: fixed;
-  top: 0;
-  right: 0;
-  background-color: rgba(255, 0, 0, 0.8);
-  color: white;
-  padding: 10px;
+  background-color: #f8d7da;
+  padding: 15px;
+  border: 1px solid #f5c6cb;
   border-radius: 5px;
-  z-index: 1000;
+  position: relative;
+}
+
+.redirect-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.redirect-button:hover {
+  background-color: #0056b3;
+  
 }
