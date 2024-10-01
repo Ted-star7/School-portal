@@ -6,9 +6,11 @@ import { Injectable } from '@angular/core';
 export class SessionService {
   constructor() {}
 
-  public saveToken(token: string): void {
+   public saveToken(token: string): void {
     try {
+      const expirationTime = Date.now() + 60 * 60 * 1000; // 60 minutes from now
       sessionStorage.setItem('token', token);
+      sessionStorage.setItem('tokenExpiration', expirationTime.toString());
     } catch (error) {
       console.error('Error saving token in session storage:', error);
     }
@@ -52,21 +54,28 @@ export class SessionService {
     return sessionStorage.getItem('pfpUrl')
   }
 
+  
+  public isLoggedIn(): boolean {
+    const token = this.getToken();
+    const expiration = this.getTokenExpiration();
+    // Check if the token exists and is not expired
+    return !!token && (expiration ? Date.now() < +expiration : true);
+  }
+
+  public getTokenExpiration(): string | null {
+    return sessionStorage.getItem('tokenExpiration');
+  }
+  
   public clearSession(): void {
+    // Clear all session items including expiration
     try {
       sessionStorage.removeItem('token');
       sessionStorage.removeItem('userId');
       sessionStorage.removeItem('userName');
-      sessionStorage.removeItem('pfpUrl')
+      sessionStorage.removeItem('pfpUrl');
+      sessionStorage.removeItem('tokenExpiration');
     } catch (error) {
       console.error('Error clearing session storage:', error);
     }
-  }
-
-  public isLoggedIn(): boolean {
-    // Check if the token exists and is not expired
-    const token = this.getToken();
-    // Implement your token validation logic here if necessary
-    return !!token;
   }
 }

@@ -1,13 +1,17 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { SessionService } from '../Services/session.service';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [RouterModule], 
+  imports: [RouterModule,], 
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
-  // Additional logic can be added here if necessary
+  constructor(private sessionService:SessionService){}
+  logout(){
+  this.sessionService.clearSession()
+  }
 }

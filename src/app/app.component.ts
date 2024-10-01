@@ -4,11 +4,12 @@ import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NgIf } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { SessionExpirationNotificationComponent } from "./session-expiration-notification/session-expiration-notification.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SidebarComponent, NgIf, HttpClientModule],
+  imports: [RouterOutlet, SidebarComponent, NgIf, HttpClientModule, SessionExpirationNotificationComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

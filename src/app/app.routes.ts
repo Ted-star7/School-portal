@@ -11,28 +11,24 @@ import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { TeachersListingComponent } from './teachers-listing/teachers-listing.component';
-import { Component } from '@angular/core';
 import { ClassesComponent } from './classes/classes.component';
 import { ParentsComponent } from './parents/parents.component';
-
+import { AuthGuard } from './auth/auth.guard'; 
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },  // Default route to login
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'resetpassword', component: ResetPasswordComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'students', component: StudentsComponent },
-  { path: 'teachers', component: TeachersComponent },
-  { path: 'attendance', component: AttendanceComponent },
-  { path: 'exams', component: ExamComponent },
-  { path: 'subjects', component: SubjectsComponent },
-  { path: 'attendancechart', component: AttendanceChartComponent },
-  { path: 'topbar', component: TopbarComponent },
-  { path: 'teacherslisting', component: TeachersListingComponent},
-  { path: 'classes', component: ClassesComponent},
-  { path: 'parents', component: ParentsComponent},
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] }, 
+  { path: 'students', component: StudentsComponent, canActivate: [AuthGuard] },
+  { path: 'teachers', component: TeachersComponent, canActivate: [AuthGuard] },
+  { path: 'attendance', component: AttendanceComponent, canActivate: [AuthGuard] },
+  { path: 'exams', component: ExamComponent, canActivate: [AuthGuard] },
+  { path: 'subjects', component: SubjectsComponent, canActivate: [AuthGuard] },
+  { path: 'attendancechart', component: AttendanceChartComponent, canActivate: [AuthGuard] },
+  { path: 'topbar', component: TopbarComponent, canActivate: [AuthGuard] },
+  { path: 'teacherslisting', component: TeachersListingComponent, canActivate: [AuthGuard] },
+  { path: 'classes', component: ClassesComponent, canActivate: [AuthGuard] },
+  { path: 'parents', component: ParentsComponent, canActivate: [AuthGuard] },
 ];
-
-
-

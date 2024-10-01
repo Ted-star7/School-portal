@@ -1,6 +1,8 @@
 <div class="app-wrapper">
   <app-sidebar *ngIf="!hideSidebar"></app-sidebar>
+  
   <div class="content-wrapper">
+    <app-session-expiration-notification></app-session-expiration-notification>
     <router-outlet></router-outlet>
   </div>
 </div>
