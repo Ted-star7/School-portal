@@ -1,76 +1,72 @@
-<div class="registration-container">
+<div class="registration-container"> 
+  <div class="background-images"></div>
   <div class="registration-box">
-    <div class="left-section">
-      <h1>Welcome To Heritage Leadership Academy</h1>
-    </div>
-    <div class="right-section">
-      <h2>Register</h2>
-      <p>Please fill in the details to create your account.</p>
+    <h1>Heritage Leadership Academy</h1>
+    <h2>Create an Account</h2>
+    <p>Please fill in the details to create your account.</p>
 
-      <form (ngSubmit)="onRegister()">
-        <div class="input-group">
-          <label for="fullName">Full Name</label>
+    <form (ngSubmit)="onRegister()">
+      <div class="input-group">
+        <label for="fullName">Full Name</label>
+        <input
+          type="text"
+          id="fullName"
+          name="fullName"
+          [(ngModel)]="fullName"
+          placeholder="Enter your full name"
+          required
+        />
+      </div>
+
+      <div class="input-group">
+        <label for="username">Preferred Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          [(ngModel)]="userName"
+          placeholder="Enter your preferred username"
+          required
+        />
+      </div>
+
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="email"
+          placeholder="Enter your email"
+          required
+        />
+      </div>
+
+      <div class="input-group">
+        <label for="password"></label>
+        <div class="password-container">
           <input
-            type="text"
-            id="fullName"
-            name="fullName"
-            [(ngModel)]="fullName"
-            placeholder="Enter your full name"
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            name="password"
+            [(ngModel)]="password"
+            placeholder="Enter your password"
             required
           />
+          <fa-icon
+            [icon]="showPassword ? 'eye-slash' : 'eye'"
+            (click)="togglePasswordVisibility()"
+            [ngClass]="{'toggle-icon': true}"
+          ></fa-icon>
         </div>
+      </div>
 
-        <div class="input-group">
-          <label for="fullName">Prefered Username</label>
-          <input
-            type="text"
-            id="fullName"
-            name="fullName"
-            [(ngModel)]="fullName"
-            placeholder="Enter your Prefered username"
-            required
-          />
-        </div>
-
-        <div class="input-group">
-          <label for="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            [(ngModel)]="email"
-            placeholder="Enter your email"
-            required
-          />
-        </div>
-
-        <div class="input-group">
-          <label for="password"></label>
-          <div class="password-container">
-            <input
-              [type]="showPassword ? 'text' : 'password'"
-              id="password"
-              name="password"
-              [(ngModel)]="password"
-              placeholder="Enter your password"
-              required
-            />
-            <fa-icon
-              [icon]="showPassword ? 'eye-slash' : 'eye'"
-              (click)="togglePasswordVisibility()"
-              [ngClass]="{'toggle-icon': true}"
-            ></fa-icon>
-          </div>
-        </div>
-
-        <button type="submit" [disabled]="isLoading">
-          <ng-container *ngIf="isLoading; else registerText">Loading...</ng-container>
-          <ng-template #registerText>Register</ng-template>
-        </button>
-        <p *ngIf="successMessage">{{ successMessage }}</p>
-        <p>Already have an account? <a href="/login">Login</a></p>
-
-      </form>
-    </div>
+      <button type="submit" [disabled]="isLoading">
+        <ng-container *ngIf="isLoading; else registerText">Loading...</ng-container>
+        <ng-template #registerText>Register</ng-template>
+      </button>
+      <p *ngIf="successMessage">{{ successMessage }}</p>
+      <p>Already have an account? <a href="/login">Login</a></p>
+    </form>
   </div>
 </div>

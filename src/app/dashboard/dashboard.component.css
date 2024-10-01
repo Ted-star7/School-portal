@@ -110,19 +110,18 @@ h3 {
 /* Style for the Font Awesome user icon */
 .profile-photo .fa-user {
   font-size: 3rem;
-  /* Adjust the size of the icon */
   color: #ccc;
-  /* Set a neutral color */
+  
 }
 
 .profile-photo:hover {
   border-color: #A1BF60;
-  /* Add a hover effect for the border */
+  
 }
 
 .profile-photo .fa-user:hover {
   color: #A1BF60;
-  /* Hover effect for the Font Awesome icon */
+  
 }
 
 .calendar-section {
@@ -248,6 +247,41 @@ h3 {
 .delete-btn:hover {
   background-color: #c82333;
   
+}
+.action-btn {
+  background-color: #f26716;
+  margin-top: 10px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-right: 10px;
+}
+
+.action-btn:hover {
+  background-color: #f26716;
+  transform: translateY(-2px);
+  /* Slight lift on hover */
+}
+
+.action-btn:disabled {
+  background-color: #ccc;
+ 
+  cursor: not-allowed;
+ 
+}
+
+/* Additional styles for the event form */
+.event-form {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  background-color: #fff;
+  /* White background for the form */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 

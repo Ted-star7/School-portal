@@ -220,14 +220,13 @@ export class DashboardComponent implements OnInit {
   goToParentsPage() {
     this.router.navigate(['/parents']);
   }
-
   fetchAdminProfilePicture() {
-    const adminPfp = sessionStorage.getItem('adminPfp');
+    const adminPfp = this.sessionService.getpfpUrl(); // Retrieve from session service
     if (adminPfp) {
       this.adminPfp = adminPfp;
     } else {
       console.error('No profile picture found in session storage.');
-      this.adminPfp = '';
+      this.adminPfp = ''; // Default case
     }
   }
 
