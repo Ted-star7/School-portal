@@ -1,21 +1,42 @@
 .notification {
-  background-color: #f8d7da;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #ffffff;
+  color: #333;
+  border: 1px solid #f26716;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   padding: 15px;
-  border: 1px solid #f5c6cb;
-  border-radius: 5px;
-  position: relative;
+  z-index: 1000;
+  transition: opacity 0.3s ease;
+  opacity: 1;
+}
+
+.notification p {
+  margin: 0 0 10px;
+  
 }
 
 .redirect-button {
-  background-color: #007bff;
-  color: white;
+  background-color: #f26716;
+  color: #ffffff;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   padding: 10px 15px;
   cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+ 
 }
 
 .redirect-button:hover {
-  background-color: #0056b3;
+  background-color: #d95613;
   
+}
+
+.loading-message {
+  color: #666;
+  font-size: 0.9em;
+  margin-top: 5px;
 }

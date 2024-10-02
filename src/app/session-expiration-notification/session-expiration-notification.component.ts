@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core'; 
-import { AuthService } from '../Services/auth.service'; 
-import { Router } from '@angular/router'; 
-import { NgIf } from '@angular/common'; 
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../Services/auth.service';
+import { Router } from '@angular/router';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-session-expiration-notification',
@@ -14,11 +14,11 @@ import { NgIf } from '@angular/common';
       <p *ngIf="isLoading">Loading...</p> <!-- Loading effect -->
     </div>
   `,
-  styleUrls: ['./session-expiration-notification.component.css'], 
+  styleUrls: ['./session-expiration-notification.component.css'],
 })
 export class SessionExpirationNotificationComponent implements OnInit {
   isExpired = false;
-  isLoading = false; 
+  isLoading = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -32,14 +32,12 @@ export class SessionExpirationNotificationComponent implements OnInit {
   }
 
   redirectToLogin(): void {
-    this.isLoading = true; 
-
-    // Hide the notification before redirecting
-    this.isExpired = false;
+    this.isLoading = true;
 
     // Delay for loading effect before redirecting
     setTimeout(() => {
-      this.router.navigate(['/login']); // Redirect to login page
+      // Redirect to login page and hide notification
+      this.router.navigate(['/login']);
     }, 1000); // Adjust delay as needed
   }
 }

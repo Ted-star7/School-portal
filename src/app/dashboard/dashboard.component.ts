@@ -259,7 +259,7 @@ export class DashboardComponent implements OnInit {
   }
 
   goToTeachersListPage() {
-    this.router.navigate(['/teachers']);
+    this.router.navigate(['/teacherslisting']);
   }
 
   goToParentsPage() {
