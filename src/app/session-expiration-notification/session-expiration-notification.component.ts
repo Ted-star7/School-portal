@@ -11,6 +11,7 @@ import { NgIf } from '@angular/common';
     <div *ngIf="isExpired" class="notification">
       <p>Your session has expired.</p>
       <button (click)="redirectToLogin()" class="redirect-button">Okay, redirect to login</button>
+      <p *ngIf="isLoading">Loading...</p> <!-- Loading effect -->
     </div>
   `,
   styleUrls: ['./session-expiration-notification.component.css'], 
@@ -22,15 +23,23 @@ export class SessionExpirationNotificationComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
+    // Subscribe to session expiration event
     this.authService.sessionExpired$.subscribe(() => {
-      this.isExpired = true; // Set isExpired to true when the session expires
+      if (this.authService.isLoggedIn()) {
+        this.isExpired = true; // Show notification only if user is still logged in but session expired
+      }
     });
   }
 
   redirectToLogin(): void {
     this.isLoading = true; 
+
+    // Hide the notification before redirecting
+    this.isExpired = false;
+
+    // Delay for loading effect before redirecting
     setTimeout(() => {
-      this.router.navigate(['/login']); 
-    }, 1000); // Adjust the delay as necessary
+      this.router.navigate(['/login']); // Redirect to login page
+    }, 1000); // Adjust delay as needed
   }
 }

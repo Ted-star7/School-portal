@@ -11,7 +11,9 @@ export class AuthService {
   constructor(private sessionService: SessionService, private ngZone: NgZone) {
     this.checkSessionExpiration();
   }
-
+ isLoggedIn(): boolean {
+    return this.sessionService.isLoggedIn(); // Reuse the logic from SessionService
+  }
   private checkSessionExpiration(): void {
     setInterval(() => {
       if (!this.sessionService.isLoggedIn()) {

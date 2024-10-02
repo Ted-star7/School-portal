@@ -2,7 +2,8 @@
   <h3>Welcome To Heritage Leadership Academy</h3>
   <br />
   <!-- Displaying the logged-in username stored in session storage -->
-  <h4>Hello, {{ userName }}</h4>
+  <h4>{{ getGreeting() }}, {{ userName }}</h4>
+
 
   <div class="header-actions">
     <div class="admin-profile">
@@ -71,9 +72,24 @@
       </div>
     </div>
     <div class="chart-box">
-      <h2>Attendance Overview</h2>
-      <!-- Attendance chart placeholder -->
-    </div>
+  <h2>Attendance Overview</h2>
+  <div style="display: block">
+    <canvas
+      baseChart
+      [datasets]="[
+        {
+          data: attendanceData,
+          label: 'Attendance per Class',
+          backgroundColor: '#42A5F5',
+        }
+      ]"
+      [labels]="attendanceLabels"
+      [options]="attendanceChartOptions"
+      [type]="'bar'"
+    ></canvas>
+  </div>
+</div>
+
   </div>
 </div>
 
