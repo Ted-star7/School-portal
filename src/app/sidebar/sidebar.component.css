@@ -1,4 +1,4 @@
-
+/* Sidebar styling */
 .sidebar {
   width: 260px;
   height: 100vh;
@@ -9,28 +9,36 @@
   left: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   padding-top: 30px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  
+  overflow-y: auto;
+  /* Enables scrolling */
+  padding-left: 20px;
+  /* Aligns content with padding */
 }
 
+/* Logo styling */
 .logo img {
   width: 180px;
   margin-bottom: 40px;
- 
+  align-self: center;
+  /* Centers logo */
 }
 
+/* Main navigation styling */
 nav ul {
   list-style: none;
   padding: 0;
   width: 100%;
+  margin: 0;
 }
 
 nav ul li {
   width: 100%;
 }
 
+/* Main link styling */
 nav ul li a {
   display: flex;
   align-items: center;
@@ -38,17 +46,26 @@ nav ul li a {
   color: #8C2C16;
   text-decoration: none;
   font-size: 16px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: all 0.3s ease;
   border-radius: 5px;
-  margin: 5px 0;
-  
+  margin-bottom: 10px;
+  /* Adds spacing between items */
 }
 
+/* Icons and arrow styling */
 nav ul li a i {
   margin-right: 10px;
   font-size: 18px;
 }
 
+nav ul li a .fas.fa-chevron-down {
+  font-size: 14px;
+  /* Smaller arrow size */
+  color: #8C2C16;
+  /* Same color as text */
+}
+
+/* Hover and active states for main items */
 nav ul li a:hover,
 nav ul li a.active {
   background-color: #90BF2A;
@@ -56,10 +73,44 @@ nav ul li a.active {
   border-left: 4px solid #F26716;
 }
 
+/* Dropdown styling */
+nav ul li ul {
+  list-style: none;
+  /* Remove bullet points */
+  padding-left: 20px;
+  /* Indent dropdown items */
+  margin-top: 5px;
+}
+
+nav ul li ul li a {
+  padding: 10px 20px;
+  background-color: #F5F5F5;
+  /* Different color for dropdown items */
+  font-size: 14px;
+  /* Slightly smaller font */
+  color: #5D4037;
+  /* Different color for dropdown text */
+  border-radius: 4px;
+  /* Rounded corners for dropdown */
+}
+
+nav ul li ul li a:hover {
+  background-color: #E0E0E0;
+  /* Light hover effect */
+  color: #8C2C16;
+  /* Matches the main items on hover */
+}
+
+/* Logout styling */
+.logout {
+  margin-top: auto;
+  width: 100%;
+  padding-bottom: 20px;
+}
+
 .logout a {
   color: #8C2C16;
   font-weight: bold;
- 
 }
 
 .logout a:hover {
@@ -67,9 +118,16 @@ nav ul li a.active {
   color: #F2F2F2;
 }
 
-.logout {
-  margin-top: auto;
-  width: 100%;
-  padding-bottom: 20px;
-  
+/* Scrollbar styling */
+.sidebar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: #8C2C16;
+  border-radius: 1px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background-color: #F2F2F2;
 }

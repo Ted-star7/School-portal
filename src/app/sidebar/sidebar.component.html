@@ -1,7 +1,6 @@
-<div class="sidebar">
+<div class="sidebar"> 
   <div class="logo">
-   <img src="/assets/heritagelogo.jpg" alt="School Logo" />
-
+    <img src="/assets/heritagelogo.jpg" alt="School Logo" />
   </div>
   <nav>
     <ul>
@@ -12,17 +11,56 @@
       </li>
       <li>
         <a routerLink="/students" routerLinkActive="active">
-          <i class="fas fa-user-graduate"></i> Students
+          <i class="fas fa-user-graduate"></i> Students 
         </a>
       </li>
+      
+      <!-- Teachers with dropdown -->
       <li>
-        <a routerLink="/teachers" routerLinkActive="active">
-          <i class="fas fa-chalkboard-teacher"></i> Teacher's Registration
+        <a (click)="toggleDropdown('teachers')">
+          <i class="fas fa-chalkboard-teacher"></i> Teachers <i class="fas fa-chevron-down" style="margin-left:auto;"></i>
         </a>
+        <ul *ngIf="isDropdownOpen('teachers')">
+          <li>
+            <a routerLink="/teacherslisting" routerLinkActive="active">
+              <i class="fas fa-list"></i> All Teachers
+            </a>
+          </li>
+          <li>
+            <a routerLink="/teachers" routerLinkActive="active">
+              <i class="fas fa-plus"></i> Add Teacher
+            </a>
+          </li>
+        </ul>
       </li>
+      
+      <!-- Accounts with dropdown -->
+      <li>
+        <a (click)="toggleDropdown('accounts')">
+          <i class="fas fa-wallet"></i> Accounts <i class="fas fa-chevron-down" style="margin-left:auto;"></i>
+        </a>
+        <ul *ngIf="isDropdownOpen('accounts')">
+          <li>
+            <a routerLink="/term-duration" routerLinkActive="active">
+              <i class="fas fa-calendar-alt"></i> Term Duration
+            </a>
+          </li>
+          <li>
+            <a routerLink="/fees-collection" routerLinkActive="active">
+              <i class="fas fa-money-bill-wave"></i> All Fees Collection
+            </a>
+          </li>
+          <li>
+            <a routerLink="/student-support" routerLinkActive="active">
+              <i class="fas fa-hands-helping"></i> Student Support
+            </a>
+          </li>
+        </ul>
+      </li>
+      
       <li>
         <a routerLink="/classes" routerLinkActive="active">
-          <i class="fas fa-credit-card"></i> Classes
+          <i class="fas fa-credit-card"></i> Manage Classes
         </a>
       </li>
       <li>
@@ -32,7 +70,7 @@
       </li>
       <li>
         <a routerLink="/subjects" routerLinkActive="active">
-          <i class="fas fa-book"></i> Subjects 
+          <i class="fas fa-images"></i> Photo Library 
         </a>
       </li>
       <li>
@@ -48,3 +86,4 @@
     </ul>
   </nav>
 </div>
+
