@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ServicesService } from '../Services/consume.service';
 import { SessionService } from '../Services/session.service';
-// import { Student } from './student.model';
+
 interface Student {
   id: number;
   fullName: string;
@@ -55,6 +55,11 @@ export class StudentsComponent implements OnInit {
             ...student,
             photo: student.pfpUrl || 'assets/logo.jpg' // Use pfpUrl if available
           }));
+
+          // Set the first student as the default selected student
+          if (this.students.length > 0) {
+            this.selectedStudent = this.students[0];
+          }
         },
         error => {
           console.error('Error fetching students', error);

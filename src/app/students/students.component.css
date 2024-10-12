@@ -1,6 +1,8 @@
 .students-container {
   display: flex;
   background-color: #f2f2f2;
+  height: 100vh;
+  /* Set height of the container to full viewport height */
 }
 
 .students-sidebar {
@@ -9,6 +11,10 @@
   padding: 20px;
   border-right: 1px solid #e0e0e0;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  /* Enable vertical scrolling */
+  height: 100vh;
+  /* Sidebar takes up full height */
 }
 
 .search-bar input {
@@ -62,6 +68,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  overflow-y: auto;
 }
 
 .student-info {
@@ -72,6 +79,10 @@
 .student-details-container {
   width: 70%;
   padding: 20px;
+  overflow-y: auto;
+  /* Enable vertical scrolling for the details container */
+  height: 100vh;
+  /* Container takes up full height */
 }
 
 .student-header {
@@ -215,6 +226,7 @@ h3::after {
     opacity: 1;
   }
 }
-label{
+
+label {
   color: #F26716;
 }
