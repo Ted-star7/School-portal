@@ -1,4 +1,4 @@
-<div class="sidebar"> 
+<div class="sidebar">
   <div class="logo">
     <img src="/assets/heritagelogo.jpg" alt="School Logo" />
   </div>
@@ -11,14 +11,15 @@
       </li>
       <li>
         <a routerLink="/students" routerLinkActive="active">
-          <i class="fas fa-user-graduate"></i> Students 
+          <i class="fas fa-user-graduate"></i> Students
         </a>
       </li>
-      
+
       <!-- Teachers with dropdown -->
       <li>
         <a (click)="toggleDropdown('teachers')">
-          <i class="fas fa-chalkboard-teacher"></i> Teachers <i class="fas fa-chevron-down" style="margin-left:auto;"></i>
+          <i class="fas fa-chalkboard-teacher"></i> Teachers
+          <i class="fas fa-chevron-down" style="margin-left: auto"></i>
         </a>
         <ul *ngIf="isDropdownOpen('teachers')">
           <li>
@@ -33,11 +34,12 @@
           </li>
         </ul>
       </li>
-      
+
       <!-- Accounts with dropdown -->
       <li>
         <a (click)="toggleDropdown('accounts')">
-          <i class="fas fa-wallet"></i> Accounts <i class="fas fa-chevron-down" style="margin-left:auto;"></i>
+          <i class="fas fa-wallet"></i> Accounts
+          <i class="fas fa-chevron-down" style="margin-left: auto"></i>
         </a>
         <ul *ngIf="isDropdownOpen('accounts')">
           <li>
@@ -57,7 +59,7 @@
           </li>
         </ul>
       </li>
-      
+
       <li>
         <a routerLink="/classes" routerLinkActive="active">
           <i class="fas fa-credit-card"></i> Manage Classes
@@ -69,8 +71,8 @@
         </a>
       </li>
       <li>
-        <a routerLink="/subjects" routerLinkActive="active">
-          <i class="fas fa-images"></i> Photo Library 
+        <a routerLink="/photolibrary" routerLinkActive="active">
+          <i class="fas fa-images"></i> Photo Library
         </a>
       </li>
       <li>
@@ -86,4 +88,3 @@
     </ul>
   </nav>
 </div>
-

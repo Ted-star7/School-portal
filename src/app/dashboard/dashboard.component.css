@@ -23,6 +23,32 @@ h3 {
   color: #f26716;
   font-weight: 600;
 }
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+    /* Start off-screen to the left */
+    opacity: 0;
+    
+  }
+
+  100% {
+    transform: translateX(0);
+    /* End at its original position */
+    opacity: 1;
+    /* Fully visible */
+  }
+}
+
+h3 {
+  color: #f26716;
+  font-weight: 600;
+  animation: slideInFromLeft 5s ease-in-out;
+  opacity: 1;
+  /* Ensure the h3 starts fully visible after the animation */
+  margin: 20px 0;
+  text-align: center;
+}
 h4{
   color: #1a1a1a;
 }
