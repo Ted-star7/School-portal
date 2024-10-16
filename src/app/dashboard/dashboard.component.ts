@@ -234,7 +234,7 @@ export class DashboardComponent implements OnInit {
   deleteEvent(eventId: string) {
     const token = this.sessionService.getToken();
     if (token) {
-      this.service.deleteRequest(`/api/event/${eventId}`, token).subscribe(
+      this.service.deleteRequest(`/api/open/events/${eventId}`, token).subscribe(
         () => {
           this.fetchEvents();
           this.displaySuccessMessage('Event deleted successfully!');

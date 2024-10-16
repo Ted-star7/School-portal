@@ -36,14 +36,13 @@ h3 {
     transform: translateX(0);
     /* End at its original position */
     opacity: 1;
-    /* Fully visible */
   }
 }
 
 h3 {
   color: #f26716;
   font-weight: 600;
-  animation: slideInFromLeft 5s ease-in-out;
+  animation: slideInFromLeft 3s ease-in-out;
   opacity: 1;
   /* Ensure the h3 starts fully visible after the animation */
   margin: 20px 0;
@@ -303,13 +302,11 @@ h4{
  
 }
 
-/* Additional styles for the event form */
 .event-form {
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 20px;
   background-color: #fff;
-  /* White background for the form */
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 

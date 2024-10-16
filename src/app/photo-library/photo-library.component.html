@@ -1,1 +1,61 @@
-<p>photo-library works!</p>
+<body>
+  <header>
+    <!-- Upload Button and Input Fields -->
+    <div class="upload-section">
+      <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+      <input
+        type="text"
+        [(ngModel)]="shortDescription"
+        placeholder="Enter short description"
+      />
+      <button class="upload-btn" (click)="uploadPhoto()">
+        <i class="fas fa-upload"></i> Upload Picture
+      </button>
+    </div>
+  </header>
+
+  <main class="photo-library">
+    <div class="photo-grid">
+      <!-- Photo Gallery Grid -->
+      <div class="photo" *ngFor="let photo of displayedPhotos">
+        <img [src]="photo.imageUrl" alt="Photo" />
+        <div class="photo-description">
+          <p>{{ photo.shortDescription }}</p>
+          <!-- Delete button for each photo -->
+          <button class="delete-btn" (click)="deletePhoto(photo.id)">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Pagination Controls -->
+  <div class="pagination">
+    <button
+      class="pagination-btn"
+      (click)="prevPage()"
+      [disabled]="currentPage === 1"
+    >
+      Previous
+    </button>
+    <span>{{ currentPage }} of {{ totalPages }}</span>
+    <button
+      class="pagination-btn"
+      (click)="nextPage()"
+      [disabled]="currentPage === totalPages"
+    >
+      Next
+    </button>
+  </div>
+
+  <!-- Modal for full image view -->
+  <div class="modal">
+    <div class="modal-content">
+      <img src="" alt="Full Image" />
+      <button class="close-btn">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  </div>
+</body>

@@ -1,0 +1,211 @@
+/* Primary colors */
+:root {
+  --primary-color-1: #90BF2A;
+  --primary-color-2: #A1BF60;
+  --primary-color-3: #F26716;
+  --primary-color-4: #8C2C16;
+  --primary-color-5: #F2F2F2;
+  --neutral-color-1: #333;
+  --neutral-color-2: #666;
+  --neutral-color-3: #ddd;
+  --neutral-color-4: #fff;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Global styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--primary-color-5);
+  color: var(--neutral-color-1);
+}
+
+header {
+  background-color: var(--primary-color-1);
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.upload-btn {
+  background-color: var(--primary-color-2);
+  color: var(--neutral-color-4);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s ease;
+}
+
+.upload-btn:hover {
+  background-color: var(--primary-color-3);
+}
+
+.photo-library {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  background-color: var(--neutral-color-4);
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 1.5rem;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.photo {
+  background-color: var(--neutral-color-4);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  border: 1px solid var(--neutral-color-3);
+}
+
+.photo img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.photo:hover img {
+  transform: scale(1.05);
+}
+
+.photo:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.photo-description {
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  color: var(--neutral-color-2);
+  background-color: var(--neutral-color-4);
+}
+
+.delete-btn {
+  background-color: var(--primary-color-4);
+  color: var(--neutral-color-4);
+  border: none;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 1;
+  /* Ensure button is on top */
+  transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+  background-color: var(--primary-color-3);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: var(--neutral-color-4);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  max-width: 90%;
+  max-height: 90%;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+  /* Added for positioning the close button */
+}
+
+.modal img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: var(--primary-color-4);
+  color: var(--neutral-color-4);
+  border: none;
+  padding: 0.4rem 0.8rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  z-index: 2;
+  /* Ensure button is on top */
+}
+
+.close-btn:hover {
+  background-color: var(--primary-color-3);
+}
+
+/* Pagination styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  /* Center the pagination controls */
+  align-items: center;
+  /* Align items vertically */
+  margin: 1rem 0;
+  /* Space around the pagination controls */
+}
+
+.pagination-btn {
+  background-color: var(--primary-color-2);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  /* Space between buttons */
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s, transform 0.3s;
+  /* Smooth transitions */
+}
+
+.pagination-btn:hover {
+  background-color: var(--primary-color-3);
+  transform: scale(1.05);
+  /* Slightly scale up on hover */
+}
+
+.pagination-btn:disabled {
+  background-color: #ccc;
+  /* Light gray for disabled buttons */
+  cursor: not-allowed;
+  /* Change cursor to indicate disabled state */
+}
+
+.pagination span {
+  margin: 0 1rem;
+  /* Space around the current page display */
+  font-size: 1rem;
+  color: #333;
+  /* Dark gray for better readability */
+}

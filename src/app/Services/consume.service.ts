@@ -75,7 +75,21 @@ export class ServicesService {
       .delete(`${this.url}${endpoint}`, { headers })
       .pipe(catchError(this.handleError));
   }
+ // Fetch all gallery photos
+  public getGallery(token: string | null = null): Observable<any[]> {
+    const headers = this.createHeaders(token);
+    return this.httpClient
+      .get<any[]>(`${this.url}/api/gallery/all`, { headers })
+      .pipe(catchError(this.handleError));
+  }
 
+  // Delete a photo by ID
+  public deletePhoto(photoId: number, token: string | null = null): Observable<any> {
+    const headers = this.createHeaders(token);
+    return this.httpClient
+      .delete(`${this.url}/api/delete/${photoId}`, { headers })
+      .pipe(catchError(this.handleError));
+  }
   
 // Create headers method
 private createHeaders(token: string | null, isFormData: boolean = false): HttpHeaders {
