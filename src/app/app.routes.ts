@@ -13,6 +13,7 @@ import { TeachersListingComponent } from './teachers-listing/teachers-listing.co
 import { ClassesComponent } from './classes/classes.component';
 import { PhotoLibraryComponent } from './photo-library/photo-library.component';
 import { ParentsComponent } from './parents/parents.component';
+import { StudentSupportComponent } from './student-support/student-support.component';
 import { AuthGuard } from './auth/auth.guard'; 
 
 export const routes: Routes = [
@@ -31,4 +32,5 @@ export const routes: Routes = [
   { path: 'photolibrary', component: PhotoLibraryComponent, canActivate: [AuthGuard] },
   { path: 'classes', component: ClassesComponent, canActivate: [AuthGuard] },
   { path: 'parents', component: ParentsComponent, canActivate: [AuthGuard] },
+  { path: 'studentsupport', component: StudentSupportComponent, canActivate: [AuthGuard] }
 ];

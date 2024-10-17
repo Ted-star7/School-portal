@@ -17,11 +17,13 @@ export class PhotoLibraryComponent implements OnInit {
   token: string | null = null;
   selectedFile: File | null = null;
   shortDescription: string = '';
+  searchshortDescription: string = ''; // Input for search
   currentPage: number = 1; // Current page number
   itemsPerPage: number = 12; // Number of items per page
   totalPages: number = 0; // Total number of pages
   selectedImage: string | null = null; // Selected image for the modal
-  service = inject(ServicesService); 
+  successMessage: string = ''; // Success message after photo upload
+  service = inject(ServicesService);
   sessionService = inject(SessionService);
 
   ngOnInit(): void {
@@ -65,9 +67,15 @@ export class PhotoLibraryComponent implements OnInit {
       const formData = new FormData();
       formData.append('image', this.selectedFile); // Append the image file
       formData.append('shortDescription', this.shortDescription); // Append the short description
+
       this.service.postFormData('/api/gallery', formData, this.token).subscribe({
         next: (response) => {
           console.log('Photo uploaded successfully:', response);
+          this.successMessage = 'Photo has been added successfully!';
+          setTimeout(() => {
+           this.successMessage = '';
+            }, 5000);
+          this.resetForm(); // Reset form fields
           this.loadGallery(); // Refresh the gallery after successful upload
         },
         error: (error) => {
@@ -77,6 +85,20 @@ export class PhotoLibraryComponent implements OnInit {
     } else {
       console.error('Please select a file, enter a description, and ensure the token is valid.');
     }
+  }
+
+  // Reset file input and short description after upload
+  resetForm(): void {
+    this.selectedFile = null;
+    this.shortDescription = '';
+    (document.getElementById('file-input') as HTMLInputElement).value = ''; // Reset file input
+  }
+
+  // Search photos by shortDescription
+  searchPhotos(): void {
+    this.displayedPhotos = this.galleryPhotos.filter(photo =>
+      photo.shortDescription.toLowerCase().includes(this.searchshortDescription.toLowerCase())
+    );
   }
 
   // Delete a photo

@@ -25,11 +25,40 @@ body {
   color: var(--neutral-color-1);
 }
 
+/* Header Styling */
 header {
   background-color: var(--primary-color-1);
-  padding: 1rem;
-  text-align: center;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
   box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.upload-section,
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.upload-section input[type="file"] {
+  padding: 0.5rem;
+  background-color: var(--neutral-color-3);
+  border: 1px solid var(--neutral-color-2);
+  border-radius: 0.25rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.upload-section input[type="text"] {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--neutral-color-2);
+  border-radius: 0.25rem;
+  font-size: 0.9rem;
+  width: 250px;
 }
 
 .upload-btn {
@@ -48,6 +77,50 @@ header {
   background-color: var(--primary-color-3);
 }
 
+.search-bar input[type="text"] {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--neutral-color-2);
+  border-radius: 0.25rem;
+  font-size: 0.9rem;
+  width: 250px;
+}
+
+.search-bar button {
+  background-color: var(--primary-color-2);
+  color: var(--neutral-color-4);
+  border: none;
+  padding: 0.7rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s ease;
+}
+
+.search-bar button:hover {
+  background-color: var(--primary-color-3);
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .upload-section,
+  .search-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .upload-section input[type="file"],
+  .upload-section input[type="text"],
+  .search-bar input[type="text"] {
+    width: 100%;
+  }
+}
+
+/* Photo Library Section */
 .photo-library {
   display: flex;
   justify-content: center;
@@ -108,7 +181,6 @@ header {
   bottom: 10px;
   right: 10px;
   z-index: 1;
-  /* Ensure button is on top */
   transition: background-color 0.3s ease;
 }
 
@@ -116,6 +188,7 @@ header {
   background-color: var(--primary-color-3);
 }
 
+/* Modal for Full Image View */
 .modal {
   display: none;
   position: fixed;
@@ -136,7 +209,6 @@ header {
   max-height: 90%;
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
   position: relative;
-  /* Added for positioning the close button */
 }
 
 .modal img {
@@ -157,22 +229,18 @@ header {
   cursor: pointer;
   border-radius: 0.25rem;
   z-index: 2;
-  /* Ensure button is on top */
 }
 
 .close-btn:hover {
   background-color: var(--primary-color-3);
 }
 
-/* Pagination styles */
+/* Pagination Styles */
 .pagination {
   display: flex;
   justify-content: center;
-  /* Center the pagination controls */
   align-items: center;
-  /* Align items vertically */
   margin: 1rem 0;
-  /* Space around the pagination controls */
 }
 
 .pagination-btn {
@@ -181,31 +249,24 @@ header {
   border: none;
   padding: 0.5rem 1rem;
   margin: 0 0.5rem;
-  /* Space between buttons */
   font-size: 1rem;
   cursor: pointer;
   border-radius: 0.5rem;
   transition: background-color 0.3s, transform 0.3s;
-  /* Smooth transitions */
 }
 
 .pagination-btn:hover {
   background-color: var(--primary-color-3);
   transform: scale(1.05);
-  /* Slightly scale up on hover */
 }
 
 .pagination-btn:disabled {
   background-color: #ccc;
-  /* Light gray for disabled buttons */
   cursor: not-allowed;
-  /* Change cursor to indicate disabled state */
 }
 
 .pagination span {
   margin: 0 1rem;
-  /* Space around the current page display */
   font-size: 1rem;
   color: #333;
-  /* Dark gray for better readability */
 }

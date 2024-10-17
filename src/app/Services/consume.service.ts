@@ -87,7 +87,7 @@ export class ServicesService {
   public deletePhoto(photoId: number, token: string | null = null): Observable<any> {
     const headers = this.createHeaders(token);
     return this.httpClient
-      .delete(`${this.url}/api/delete/${photoId}`, { headers })
+      .delete(`${this.url}/api/gallery/${photoId}`, { headers })
       .pipe(catchError(this.handleError));
   }
   

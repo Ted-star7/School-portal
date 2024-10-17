@@ -2,7 +2,12 @@
   <header>
     <!-- Upload Button and Input Fields -->
     <div class="upload-section">
-      <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+      <input
+        id="file-input"
+        type="file"
+        (change)="onFileSelected($event)"
+        accept="image/*"
+      />
       <input
         type="text"
         [(ngModel)]="shortDescription"
@@ -11,6 +16,17 @@
       <button class="upload-btn" (click)="uploadPhoto()">
         <i class="fas fa-upload"></i> Upload Picture
       </button>
+      <p *ngIf="successMessage">{{ successMessage }}</p>
+      <!-- Success message -->
+    </div>
+
+    <div class="search-bar">
+      <input
+        type="text"
+        [(ngModel)]="searchshortDescription"
+        placeholder="Search by ShortDescription..."
+      />
+      <button (click)="searchPhotos()">Search</button>
     </div>
   </header>
 
@@ -47,15 +63,5 @@
     >
       Next
     </button>
-  </div>
-
-  <!-- Modal for full image view -->
-  <div class="modal">
-    <div class="modal-content">
-      <img src="" alt="Full Image" />
-      <button class="close-btn">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
   </div>
 </body>

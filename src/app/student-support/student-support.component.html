@@ -1,0 +1,85 @@
+<body>
+    <div class="container">
+        <h2>Student Support Fund Management</h2>
+        
+        <!-- Section for Adding New Batch -->
+        <div class="form-section">
+            <h3>Add New Batch</h3>
+            <div class="form-group">
+                <div class="input-group">
+                    <label for="term">Term *</label>
+                    <select id="term">
+                        <option value="1">Term 1</option>
+                        <option value="2">Term 2</option>
+                        <option value="3">Term 3</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="batchAmount">Batch Amount *</label>
+                    <input type="text" id="batchAmount" placeholder="Amount">
+                </div>
+                <div class="input-group">
+                    <label for="batchDate">Date Received *</label>
+                    <input type="date" id="batchDate">
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="add-batch-btn">Add Batch</button>
+            </div>
+        </div>
+
+        <!-- Section for Displaying Total Funds -->
+        <div class="fund-summary">
+            <h3>Fund Summary</h3>
+            <div class="summary-group">
+                <div class="summary-item">
+                    <label>Total Funded:</label>
+                    <span id="totalFunded">KES 0.00</span>
+                </div>
+                <div class="summary-item">
+                    <label>Total Spent:</label>
+                    <span id="totalSpent">KES 0.00</span>
+                </div>
+                <div class="summary-item">
+                    <label>Remaining Balance:</label>
+                    <span id="remainingBalance">KES 0.00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section for Allocating Funds to Students -->
+        <div class="form-section">
+            <h3>Allocate Funds to Students</h3>
+            <div class="form-group">
+                <div class="input-group">
+                    <label for="studentName">Student Name *</label>
+                    <input type="text" id="studentName" placeholder="Enter student's name">
+                </div>
+                <div class="input-group">
+                    <label for="admissionNumber">Admission Number *</label>
+                    <input type="text" id="admissionNumber" placeholder="Enter admission number">
+                </div>
+                <div class="input-group">
+                    <label for="expenseType">Expense Type *</label>
+                    <select id="expenseType">
+                        <option value="uniform">Uniform</option>
+                        <option value="stationery">Stationery</option>
+                        <option value="tuition">Tuition</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="amountSpent">Amount Allocated *</label>
+                    <input type="text" id="amountSpent" placeholder="Enter amount spent">
+                </div>
+                <div class="input-group">
+                    <label for="dateAllocated">Date Allocated *</label>
+                    <input type="date" id="dateAllocated">
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="allocate-btn">Allocate Funds</button>
+            </div>
+        </div>
+    </div>
+</body>

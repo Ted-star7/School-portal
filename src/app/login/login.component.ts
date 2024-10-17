@@ -56,7 +56,7 @@ export class LoginComponent {
       this.isLoading = false;
       console.error('Login error:', error);
       
-      if (error.status === 401) { // Assuming 401 is the status for unauthorized access
+      if (error.status === 401) { 
         this.successMessage = 'Wrong password or email. Please try again.';
       } else {
         this.successMessage = 'Login failed. Please try again.';

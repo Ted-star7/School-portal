@@ -1,0 +1,115 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f9f9f9;
+  padding: 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+h2,
+h3 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.form-section {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.input-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.input-group input,
+.input-group select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #333;
+  transition: border-color 0.3s ease;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+  border-color: #2d89ef;
+}
+
+.form-actions {
+  margin-top: 20px;
+}
+
+.add-batch-btn,
+.allocate-btn {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-batch-btn:hover,
+.allocate-btn:hover {
+  background-color: #45a049;
+}
+
+.fund-summary {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f1f1f1;
+  border-radius: 10px;
+}
+
+.summary-group {
+  display: flex;
+  gap: 40px;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+}
+
+.summary-item label {
+  font-weight: bold;
+  color: #333;
+}
+
+.summary-item span {
+  font-size: 20px;
+  color: #2d89ef;
+  margin-top: 5px;
+}
