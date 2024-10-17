@@ -1,0 +1,62 @@
+<div class="timetable-container">
+  <h2>Timetable for {{ year }} Term: {{ term }}</h2>
+
+  <!-- Display success or error messages -->
+  <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+  <!-- Timetable form -->
+  <form #timetableForm="ngForm" (ngSubmit)="onSubmit(timetableForm)">
+    <div class="form-group">
+      <label for="term">Term</label>
+      <input type="text" id="term" name="term" class="form-control" [(ngModel)]="term" required />
+    </div>
+
+    <div class="form-group">
+      <label for="year">Year</label>
+      <input type="number" id="year" name="year" class="form-control" [(ngModel)]="year" required />
+    </div>
+
+    <div class="form-group">
+      <label for="startDate">Start Date</label>
+      <input type="date" id="startDate" name="startDate" class="form-control" [(ngModel)]="startDate" required />
+    </div>
+
+    <div class="form-group">
+      <label for="endDate">End Date</label>
+      <input type="date" id="endDate" name="endDate" class="form-control" [(ngModel)]="endDate" required />
+    </div>
+
+    <!-- Timetable table -->
+    <div class="timetable-table">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let time of getTimes()">
+            <td>{{ time }}</td>
+            <ng-container *ngFor="let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']">
+              <td *ngIf="!isConstant(time)">
+                <input type="text" [(ngModel)]="timetable[day][time]" name="{{ day.toLowerCase() }}-{{ time }}" class="form-control" />
+              </td>
+              <td *ngIf="isConstant(time)" class="constant-break">
+                {{ timetable[day][time] }}
+              </td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-primary">Save Timetable</button>
+  </form>
+</div>
