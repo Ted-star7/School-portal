@@ -1,0 +1,86 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #8C2C16;
+  /* Darker shade for the header */
+}
+
+label {
+  display: block;
+  margin: 10px 0 5px;
+  color: #A1BF60;
+  /* Lighter shade for labels */
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="number"]:focus {
+  border-color: #90BF2A;
+  /* Highlight border on focus */
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #F26716;
+  /* Button background color */
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #8C2C16;
+  /* Darker shade on hover */
+}
+
+/* Additional styling for the total field */
+input#total {
+  background-color: #e9f7e9;
+  /* Light green background for total */
+  color: #333;
+  /* Dark text for readability */
+}
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  transition: border-color 0.3s;
+}
+
+select:focus {
+  border-color: #90BF2A;
+  /* Highlight border on focus */
+}

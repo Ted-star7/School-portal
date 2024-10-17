@@ -15,7 +15,10 @@ import { PhotoLibraryComponent } from './photo-library/photo-library.component';
 import { ParentsComponent } from './parents/parents.component';
 import { StudentSupportComponent } from './student-support/student-support.component';
 import { TimetableComponent } from './timetable/timetable.component';
+import { TermDurationComponent } from './term-duration/term-duration.component'
+import { FeesCollectionComponent } from './fees-collection/fees-collection.component';
 import { AuthGuard } from './auth/auth.guard'; 
+
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },  // Default route to login
@@ -34,5 +37,7 @@ export const routes: Routes = [
   { path: 'classes', component: ClassesComponent, canActivate: [AuthGuard] },
   { path: 'parents', component: ParentsComponent, canActivate: [AuthGuard] },
   { path: 'studentsupport', component: StudentSupportComponent, canActivate: [AuthGuard] },
-  { path: 'timetable', component: TimetableComponent, canActivate: [AuthGuard] }
+  { path: 'timetable', component: TimetableComponent, canActivate: [AuthGuard] },
+  { path: 'termduration', component: TermDurationComponent, canActivate:[AuthGuard]},
+  { path: 'feescollection', component: FeesCollectionComponent, canActivate:[AuthGuard]}
 ];
