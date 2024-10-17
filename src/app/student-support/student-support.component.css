@@ -61,7 +61,7 @@ h3 {
 
 .input-group input:focus,
 .input-group select:focus {
-  border-color: #2d89ef;
+  border-color: #F26716;
 }
 
 .form-actions {
@@ -110,6 +110,6 @@ h3 {
 
 .summary-item span {
   font-size: 20px;
-  color: #2d89ef;
+  color: #F26716;
   margin-top: 5px;
 }
