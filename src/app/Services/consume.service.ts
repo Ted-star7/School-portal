@@ -8,7 +8,7 @@ import { Student } from '../students/student.model';
   providedIn: 'root',
 })
 export class ServicesService {
-  private url: string = 'https://schoolapp-pkeb.onrender.com';
+  private url: string = 'https://heritageleadershipacademy.onrender.com';
 
   constructor(private httpClient: HttpClient) {}
 
